@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EDITOR</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      data-name="vs/editor/editor.main"
+      href="https://unpkg.com/monaco-editor@^0.21.2/min/vs/editor/editor.main.css"
+    />
+    <link rel="stylesheet" href="assets/css/editor.css" />
+  </head>
+  <body>
+    <textarea id="htmlcode-ta" style="display: none">
+&lt;nav&gt;
+  &lt;ul&gt;
+    &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;&#34;&gt;First&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;&#34;&gt;Second&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&#34;&#34;&gt;Third&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</textarea
+    >
+    <textarea id="csscode-ta" style="display: none">body {
+  -webkit-font-smoothing: antialiased;
+  background: rgb(33, 33, 33)
+}
+
+nav {
+  position: relative;
+  padding-bottom: 12px;
+}
+nav .line {
+  height: 2px;
+  position: absolute;
+  bottom: 0;
+  margin: 10px 0 0 0;
+  background: #ff1847;
+}
+nav ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+}
+nav ul li {
+  margin: 0 40px 0 0;
+  opacity: 0.4;
+  transition: all 0.4s ease;
+}
+nav ul li:hover {
+  opacity: 0.7;
+}
+nav ul li.active {
+  opacity: 1;
+}
+nav ul li:last-child {
+  margin-right: 0;
+}
+nav ul li a {
+  text-decoration: none;
+  color: #fff;
+  text-transform: uppercase;
+  display: block;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  font-size: 14px;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}</textarea>
+    <textarea id="jscode-ta" style="display: none">var nav = $(&#34;nav&#34;);
+var line = $(&#34;&lt;div /&gt;&#34;).addClass(&#34;line&#34;);
+
+line.appendTo(nav);
+
+var active = nav.find(&#34;.active&#34;);
+var pos = 0;
+var wid = 0;
+
+setTimeout(() =&gt; {
+  if (active.length) {
+    pos = active.position().left;
+    wid = active.width();
+    console.log(&#34;wid&#34;, wid);
+    line.css({
+      left: pos,
+      width: wid,
+    });
+  }
+}, 0);
+nav.find(&#34;ul li a&#34;).click(function (e) {
+  e.preventDefault();
+  if (!$(this).parent().hasClass(&#34;active&#34;) &amp;&amp; !nav.hasClass(&#34;animate&#34;)) {
+    nav.addClass(&#34;animate&#34;);
+
+    var _this = $(this);
+
+    nav.find(&#34;ul li&#34;).removeClass(&#34;active&#34;);
+
+    var position = _this.parent().position();
+    var width = _this.parent().width();
+
+    if (position.left &gt;= pos) {
+      line.animate(
+        {
+          width: position.left - pos + width,
+        },
+        300,
+        function () {
+          line.animate(
+            {
+              width: width,
+              left: position.left,
+            },
+            150,
+            function () {
+              nav.removeClass(&#34;animate&#34;);
+            }
+          );
+          _this.parent().addClass(&#34;active&#34;);
+        }
+      );
+    } else {
+      line.animate(
+        {
+          left: position.left,
+          width: pos - position.left + wid,
+        },
+        300,
+        function () {
+          line.animate(
+            {
+              width: width,
+            },
+            150,
+            function () {
+              nav.removeClass(&#34;animate&#34;);
+            }
+          );
+          _this.parent().addClass(&#34;active&#34;);
+        }
+      );
+    }
+
+    pos = position.left;
+    wid = width;
+  }
+});</textarea>
+    <div class="editor-home">
+      <div class="editor-home_iframe">
+        <iframe
+          id="live-preview"
+          src="iframes/doc-1711526845646-iframe.html"
+          width="100%"
+          height="100%"
+          allow="accelerometer *; camera *; encrypted-media *; display-capture *; geolocation *; gyroscope *; microphone *; midi *; clipboard-read *; clipboard-write *; web-share *; serial *; xr-spatial-tracking *"
+          allowfullscreen="true"
+          allowpaymentrequest="true"
+          allowtransparency="true"
+          sandbox="allow-forms allow-modals allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation allow-downloads allow-presentation"
+          class="result-iframe iframe-visual-update"
+          name="codeShow"
+          loading="lazy"
+        ></iframe>
+      </div>
+      <div class="editor-home_code">
+        <div class="editor-home_tabs">
+          <div class="home_tabs__item active">HTML</div>
+          <div class="home_tabs__item">CSS</div>
+          <div class="home_tabs__item">JS</div>
+        </div>
+        <div class="editor-home_contents">
+          <div class="home_content__item active" id="htmlcode"></div>
+          <div class="home_content__item" id="csscode"></div>
+          <div class="home_content__item" id="jscode"></div>
+        </div>
+      </div>
+    </div>
+    <script src="assets/js/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/sass.sync.min.js"></script>
+    <script src="https://unpkg.com/monaco-editor@^0.21.2/min/vs/loader.js"></script>
+    <script src="assets/js/editor.js"></script>
+  </body>
+</html>

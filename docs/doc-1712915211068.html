@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EDITOR</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      data-name="vs/editor/editor.main"
+      href="https://unpkg.com/monaco-editor@^0.21.2/min/vs/editor/editor.main.css"
+    />
+    <link rel="stylesheet" href="assets/css/editor.css" />
+  </head>
+  <body>
+    <textarea id="htmlcode-ta" style="display: none">
+&lt;ul class=&#34;list&#34;&gt;
+  &lt;li class=&#34;hide&#34;&gt;&lt;/li&gt;
+  &lt;li class=&#34;prev&#34;&gt;&lt;/li&gt;
+  &lt;li class=&#34;act&#34;&gt;&lt;/li&gt;
+  &lt;li class=&#34;next&#34;&gt;&lt;/li&gt;
+  &lt;li class=&#34;next new-next&#34;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;swipe&#34;&gt;&lt;/div&gt;</textarea
+    >
+    <textarea id="csscode-ta" style="display: none">body {
+  overflow-x: hidden;
+  background: #fed5c8;
+}
+
+.list {
+  height: 200px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.list li {
+  list-style-type: none;
+
+  width: 200px;
+  height: 200px;
+  opacity: 0.25;
+  position: absolute;
+  left: 50%;
+  margin-left: -100px;
+  border-radius: 2px;
+  background: #9c89b8;
+  transition: transform 1s, opacity 1s;
+}
+
+.list .act {
+  opacity: 1;
+}
+
+.list .prev,
+.list .next {
+  cursor: pointer;
+}
+
+.list .prev {
+  transform: translateX(-220px) scale(0.85);
+}
+
+.list .next {
+  transform: translateX(220px) scale(0.85);
+}
+
+.list .hide {
+  transform: translateX(-420px) scale(0.85);
+}
+
+.list .new-next {
+  transform: translateX(420px) scale(0.85);
+}
+
+.list .hide,
+.list .new-next {
+  opacity: 0;
+  transition: opacity 0.5s, transform 0.5s;
+}
+
+.swipe {
+  width: 270px;
+  height: 200px;
+  position: absolute;
+  background-color: green;
+  border-radius: 2px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+}</textarea>
+    <textarea id="jscode-ta" style="display: none">const $ = (selector) =&gt; {
+  return document.querySelector(selector);
+};
+
+function next() {
+  if ($(&#34;.hide&#34;)) {
+    $(&#34;.hide&#34;).remove();
+  }
+
+  /* Step */
+
+  if ($(&#34;.prev&#34;)) {
+    $(&#34;.prev&#34;).classList.add(&#34;hide&#34;);
+    $(&#34;.prev&#34;).classList.remove(&#34;prev&#34;);
+  }
+
+  $(&#34;.act&#34;).classList.add(&#34;prev&#34;);
+  $(&#34;.act&#34;).classList.remove(&#34;act&#34;);
+
+  $(&#34;.next&#34;).classList.add(&#34;act&#34;);
+  $(&#34;.next&#34;).classList.remove(&#34;next&#34;);
+
+  /* New Next */
+
+  $(&#34;.new-next&#34;).classList.remove(&#34;new-next&#34;);
+
+  const addedEl = document.createElement(&#34;li&#34;);
+
+  $(&#34;.list&#34;).appendChild(addedEl);
+  addedEl.classList.add(&#34;next&#34;, &#34;new-next&#34;);
+}
+
+function prev() {
+  $(&#34;.new-next&#34;).remove();
+
+  /* Step */
+
+  $(&#34;.next&#34;).classList.add(&#34;new-next&#34;);
+
+  $(&#34;.act&#34;).classList.add(&#34;next&#34;);
+  $(&#34;.act&#34;).classList.remove(&#34;act&#34;);
+
+  $(&#34;.prev&#34;).classList.add(&#34;act&#34;);
+  $(&#34;.prev&#34;).classList.remove(&#34;prev&#34;);
+
+  /* New Prev */
+
+  $(&#34;.hide&#34;).classList.add(&#34;prev&#34;);
+  $(&#34;.hide&#34;).classList.remove(&#34;hide&#34;);
+
+  const addedEl = document.createElement(&#34;li&#34;);
+
+  $(&#34;.list&#34;).insertBefore(addedEl, $(&#34;.list&#34;).firstChild);
+  addedEl.classList.add(&#34;hide&#34;);
+}
+
+slide = (element) =&gt; {
+  /* Next slide */
+
+  if (element.classList.contains(&#34;next&#34;)) {
+    next();
+
+    /* Previous slide */
+  } else if (element.classList.contains(&#34;prev&#34;)) {
+    prev();
+  }
+};
+
+const slider = $(&#34;.list&#34;),
+  swipe = new Hammer($(&#34;.swipe&#34;));
+
+slider.onclick = (event) =&gt; {
+  slide(event.target);
+};
+
+swipe.on(&#34;swipeleft&#34;, (ev) =&gt; {
+  next();
+});
+
+swipe.on(&#34;swiperight&#34;, (ev) =&gt; {
+  prev();
+});</textarea>
+    <div class="editor-home">
+      <div class="editor-home_iframe">
+        <iframe
+          id="live-preview"
+          src="iframes/doc-1712915211068-iframe.html"
+          width="100%"
+          height="100%"
+          allow="accelerometer *; camera *; encrypted-media *; display-capture *; geolocation *; gyroscope *; microphone *; midi *; clipboard-read *; clipboard-write *; web-share *; serial *; xr-spatial-tracking *"
+          allowfullscreen="true"
+          allowpaymentrequest="true"
+          allowtransparency="true"
+          sandbox="allow-forms allow-modals allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation allow-downloads allow-presentation"
+          class="result-iframe iframe-visual-update"
+          name="codeShow"
+          loading="lazy"
+        ></iframe>
+      </div>
+      <div class="editor-home_code">
+        <div class="editor-home_tabs">
+          <div class="home_tabs__item active">HTML</div>
+          <div class="home_tabs__item">CSS</div>
+          <div class="home_tabs__item">JS</div>
+        </div>
+        <div class="editor-home_contents">
+          <div class="home_content__item active" id="htmlcode"></div>
+          <div class="home_content__item" id="csscode"></div>
+          <div class="home_content__item" id="jscode"></div>
+        </div>
+      </div>
+    </div>
+    <script src="assets/js/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/sass.sync.min.js"></script>
+    <script src="https://unpkg.com/monaco-editor@^0.21.2/min/vs/loader.js"></script>
+    <script src="assets/js/editor.js"></script>
+  </body>
+</html>

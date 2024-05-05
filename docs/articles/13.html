@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>JS错误监控篇</title>
+    <meta charset="utf-8">
+    <meta name="description" content="This is a page">
+    <meta name="keywords" content="page, sample">
+    <meta name="author" content="None">
+    <link rel="icon" sizes="any" mask href="../assets/images/ico4.svg" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <link rel="stylesheet" href="../assets/css/articles.css">
+</head>
+<body>
+  <!--<div class="article__wrapper_left">
+    <div class="article__wrapper_left-mulu">目录</div>
+    <ul class="articles__list"><li class="">
+          <a href="/articles/14.html">
+            前端异常监控解决方案研究
+          </a>
+        </li><li class="">
+          <a href="/articles/15.html">
+            原型模式
+          </a>
+        </li><li class="">
+          <a href="/articles/16.html">
+            单例模式
+          </a>
+        </li><li class="">
+          <a href="/articles/17.html">
+            CSS will-change
+          </a>
+        </li><li class="">
+          <a href="/articles/18.html">
+            外观模式
+          </a>
+        </li><li class="">
+          <a href="/articles/19.html">
+            适配器模式
+          </a>
+        </li><li class="">
+          <a href="/articles/20.html">
+            装饰者模式
+          </a>
+        </li><li class="">
+          <a href="/articles/21.html">
+            桥接模式
+          </a>
+        </li><li class="">
+          <a href="/articles/22.html">
+            组合模式
+          </a>
+        </li><li class="">
+          <a href="/articles/23.html">
+            享元模式
+          </a>
+        </li></ul>
+  </div>-->
+  <div class="article__wrapper_sidebar">
+    <a href="/articles/"><svg t="1714001835347" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4298" width="48" height="48"><path d="M147.904 304.128l301.866667-179.541333a128 128 0 0 1 131.712 0.512l295.466666 178.88A128 128 0 0 1 938.666667 413.482667V810.666667a128 128 0 0 1-128 128H213.333333a128 128 0 0 1-128-128V414.144a128 128 0 0 1 62.570667-110.016z m43.626667 73.344A42.666667 42.666667 0 0 0 170.666667 414.144V810.666667a42.666667 42.666667 0 0 0 42.666666 42.666666h597.333334a42.666667 42.666667 0 0 0 42.666666-42.666666V413.482667a42.666667 42.666667 0 0 0-20.565333-36.501334l-295.466667-178.88a42.666667 42.666667 0 0 0-43.925333-0.170666l-301.866667 179.541333z" fill="currentColor" p-id="4299"></path><path d="M405.333333 469.333333h213.333334a42.666667 42.666667 0 1 1 0 85.333334H405.333333a42.666667 42.666667 0 1 1 0-85.333334z m0 85.333334a42.666667 42.666667 0 1 0 0-85.333334h213.333334a42.666667 42.666667 0 1 0 0 85.333334H405.333333z" fill="currentColor" p-id="4300"></path></svg></a>
+    <a href="/tools/"><svg t="1714002003458" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6911" width="48" height="48"><path d="M817.87 556.31h-63.58v-66.24A42.27 42.27 0 0 0 712 447.8h-84.81a42.27 42.27 0 0 0-42.27 42.27v66.24H436.57v-66.24a42.27 42.27 0 0 0-42.27-42.27h-84.83a42.27 42.27 0 0 0-42.27 42.27v66.24h-61.83A22.39 22.39 0 0 0 183 578.7a22.39 22.39 0 0 0 22.39 22.39h61.81v65.55a42.27 42.27 0 0 0 42.27 42.27h84.83a42.27 42.27 0 0 0 42.27-42.27v-65.55h148.36v65.55a42.27 42.27 0 0 0 42.27 42.27H712a42.27 42.27 0 0 0 42.27-42.27v-65.55h63.58a22.39 22.39 0 0 0 22.39-22.39 22.39 22.39 0 0 0-22.37-22.39z m-438.64 95.26h-54.69V505.14h54.69z m317.72 0h-54.69V505.14H697z" p-id="6912" fill="currentColor"></path><path d="M823 202.58h-90.81v-63.09a71.88 71.88 0 0 0-71.88-71.88H363.19a71.88 71.88 0 0 0-71.88 71.88v63.08h-90.12A137.17 137.17 0 0 0 64 339.75v479a137.17 137.17 0 0 0 137.19 137.14H823a137.17 137.17 0 0 0 137.19-137.17v-479A137.17 137.17 0 0 0 823 202.58z m-474.36-54.1A23.52 23.52 0 0 1 372.17 125h279.16a23.52 23.52 0 0 1 23.52 23.52v54.1h-326.2z m554.23 673.31a76.76 76.76 0 0 1-76.76 76.76h-628a76.76 76.76 0 0 1-76.76-76.76V336.67a76.76 76.76 0 0 1 76.76-76.76h628a76.76 76.76 0 0 1 76.76 76.76z" p-id="6913" fill="currentColor"></path></svg></a>
+  </div>
+  <div class="article__wrapper">
+    <div class="article__wrapper__main">
+      <div class="article__wrapper_header">
+        <h1>JS错误监控篇</h1>
+        <span class="articles__home_time">2023/08/29 · YinHao</span>
+      </div>
+      <p><strong>监控流程：监控并收集错误 -&gt; 存储并上报错误 -&gt; 分析并聚合错误 -&gt; 发送错误报警-&gt; 定位并解决 JS 错误</strong></p>
+<h2>一、监控并收集 Javascript 错误</h2>
+<p>众所周知，我们是有办法去监听前端 Js 错误的，他们分别 <code>window.onerror、window.onunhandledrejection、console.error</code> 方法。</p>
+<p>通过这些方法能够为我们记录下线上的运行时错误，以及详细的堆栈信息。我将 <code>window.onerror(捕获异常)</code>，<code>console.error(自定义异常)</code> 方法收集到的错误信息进行分析统计后的效果如下：</p>
+<p><img src="../assets/images/articles/13/01.png" alt=""></p>
+<h3>（1）重写 window.onerror 方法</h3>
+<pre><code class="language-js">// 重写 onerror 进行jsError的监听
+window.onerror = function (errorMsg, url, lineNumber, columnNumber, errorObj) {
+  var errorStack = errorObj ? errorObj.stack : null;
+  siftAndMakeUpMessage(
+    &quot;on_error&quot;,
+    errorMsg,
+    url,
+    lineNumber,
+    columnNumber,
+    errorStack
+  );
+};
+</code></pre>
+<p><code>window.onerror</code> 方法以及它的参数我就不一一介绍了，我相信大家也已经耳熟能详了；我们记录下错误发生时的行、列号，以及错误堆栈。</p>
+<h3>（2）重写  window.onunhandledrejection 方法</h3>
+<pre><code class="language-js">window.onunhandledrejection = function (e) {
+  var errorMsg = &quot;&quot;;
+  var errorStack = &quot;&quot;;
+  if (typeof e.reason === &quot;object&quot;) {
+    errorMsg = e.reason.message;
+    errorStack = e.reason.stack;
+  } else {
+    errorMsg = e.reason;
+    errorStack = &quot;&quot;;
+  }
+  // 分类解析
+  siftAndMakeUpMessage(
+    &quot;on_error&quot;,
+    errorMsg,
+    WEB_LOCATION,
+    0,
+    0,
+    &quot;UncaughtInPromiseError: &quot; + errorStack
+  );
+};
+</code></pre>
+<p><code>window.onunhandledrejection</code> 能够捕获到 <code>Promise</code> 未处理的 <code>rejection</code> <code>异常，rejection</code> 异常并不会阻断页面运行，容易被很多小伙伴所遗忘，所以我们监控了此类型的错误。</p>
+<h3>（3）重写  console.error 方法</h3>
+<pre><code class="language-js">// 重写console.error, 可以捕获更全面的报错信息
+var oldError = console.error;
+console.error = function (tempErrorMsg) {
+  var errorMsg = (arguments[0] &amp;&amp; arguments[0].message) || tempErrorMsg;
+  var lineNumber = 0;
+  var columnNumber = 0;
+  var errorObj = arguments[0] &amp;&amp; arguments[0].stack;
+  if (!errorObj) {
+    if (typeof errorMsg == &quot;object&quot;) {
+      try {
+        errorMsg = JSON.stringify(errorMsg);
+      } catch (e) {
+        errorMsg = &quot;错误无法解析&quot;;
+      }
+    }
+    siftAndMakeUpMessage(
+      &quot;console_error&quot;,
+      errorMsg,
+      WEB_LOCATION,
+      lineNumber,
+      columnNumber,
+      &quot;CustomizeError: &quot; + errorMsg
+    );
+  } else {
+    // 如果报错中包含错误堆栈，可以认为是JS报错，而非自定义报错
+    siftAndMakeUpMessage(
+      &quot;on_error&quot;,
+      errorMsg,
+      WEB_LOCATION,
+      lineNumber,
+      columnNumber,
+      errorObj
+    );
+  }
+  return oldError.apply(console, arguments);
+};
+</code></pre>
+<p><code>console.error</code> 是用来打印警告日志，所以我将其归类为自定义异常。一般像前端框架、引入第三方的插件都会用 <code>console.error</code> 来打印较为严重的警告信息，而我在工作中也会将后台抛出的错误信息（非后台异常）用 <code>console.error</code> 打印出来，上报到监控系统里。这样对排查异常也是有很大作用的（这一点会在行为记录查询中有体现）。</p>
+<h2>二、存储并上报错误</h2>
+<p>Javascript 错误产生后，应该存入浏览器的缓存中，然后定时上传，如果实时上传，将会对服务器造成压力。通过接口将 Js 错误信息上传到服务器，由后台 server 对数据进行清洗分类，然后再进行持久化存储。因为我用的是 mysql 来存储日志信息，所以需要以 JS 错误为一个 model，明确定义 Js 错误的每个字段，定义如下：</p>
+<pre><code class="language-js">// 设置日志对象类的通用属性
+function setCommonProperty() {
+  this.wmVersion = WM_VERSION; // 探针版本号
+  this.happenTime = new Date().getTime(); // 日志发生时间
+  this.webMonitorId = WEB_MONITOR_ID; // 用于区分应用的唯一标识（一个项目对应一个）
+  this.simpleUrl = window.location.href.split(&quot;?&quot;)[0].replace(&quot;#&quot;, &quot;&quot;); // 页面的url
+  this.completeUrl = utils.b64EncodeUnicode(
+    encodeURIComponent(window.location.href)
+  ); // 页面的完整url
+  this.customerKey = utils.getCustomerKey(); // 用于区分用户，所对应唯一的标识，清理本地数据后失效，
+  // 用户自定义信息， 由开发者主动传入， 便于对线上问题进行准确定位
+  var wmUserInfo = lsg.wmUserInfo ? JSON.parse(lsg.wmUserInfo) : {};
+  this.userId = wmUserInfo.userId;
+  this.firstUserParam = utils.b64EncodeUnicode(wmUserInfo.firstUserParam || &quot;&quot;);
+  this.secondUserParam = utils.b64EncodeUnicode(
+    wmUserInfo.secondUserParam || &quot;&quot;
+  );
+}
+// JS错误日志，继承于日志基类MonitorBaseInfo
+function JavaScriptErrorInfo(uploadType, infoType, errorMsg, errorStack) {
+  setCommonProperty.apply(this);
+  this.uploadType = uploadType;
+  this.infoType = infoType;
+  this.pageKey = utils.getPageKey(); // 用于区分页面，所对应唯一的标识，每个新页面对应一个值
+  this.deviceName = DEVICE_INFO.deviceName;
+  this.os =
+    DEVICE_INFO.os + (DEVICE_INFO.osVersion ? &quot; &quot; + DEVICE_INFO.osVersion : &quot;&quot;);
+  this.browserName = DEVICE_INFO.browserName;
+  this.browserVersion = DEVICE_INFO.browserVersion;
+  // TODO 位置信息, 待处理
+  this.monitorIp = utils.getCookie(&quot;webfunny_ip&quot;); // 用户的IP地址
+  this.country = &quot;china&quot;; // 用户所在国家
+  this.province = &quot;&quot;; // 用户所在省份
+  this.city = &quot;&quot;; // 用户所在城市
+  this.errorMessage = utils.b64EncodeUnicode(errorMsg);
+  this.errorStack = utils.b64EncodeUnicode(errorStack);
+  this.browserInfo = &quot;&quot;;
+}
+</code></pre>
+<p>Js 错误信息需要包含系统版本号、应用版本号、平台信息、页面 Url、错误信息、错误堆栈、发生时间等等，这样才能帮助我们准确定位，至于数据库的字段如何定义，我就不赘述了，可以访问我的 git 项目查看。</p>
+<h2>三、分析并聚合错误</h2>
+<p>如果每天都去盯着前端的报错数据，真的很耗费精力，而且很难看出是今天发生的，还是一直存在的报错。</p>
+<p>其实前端项目每天都会有些报错，比如：<code>script error</code> 。我们既不能控制，也不会影响我们的业务，但它会一直存在。</p>
+<p>只要每天的错误量没有波动太大，报错数据比较平稳，就可以认为线上应用是健康的。所以我选择跟一周前的数据进行比较，如果出现大幅上升，那么就需要对这个项目进行关注了，而不是每天查看具体的报错数据。</p>
+<p>本文上部的健康状况看板图片就是为了表达这种想法，截图上正是前端发了严重的异常，而出现的曲线图。</p>
+<p>那我们来看看如何对这些错误进行聚合，且看下 Webfunny 错误聚合的效果：</p>
+<p><img src="../assets/images/articles/13/02.png" alt=""></p>
+<p>首先，我们对捕获的异常类型进行了分类（<code>TypeError、ReferenceError、UncaughtInPromiseError</code>），这样错误类型可以一目了然。</p>
+<p>同时我们对发生错误的操作系统（<code>Android、ios、Pc</code>）进行了分类统计，比如截图中的第一个错误，就只会在苹果手机上发生，排查范围也就缩小了很多。</p>
+<p>另外，我们把错误影响的人数也统计出来，就可以知道这个错误影响了多少用户，从而确定修复的优先级。</p>
+<h2>四、<strong>发送错误报警</strong></h2>
+<p>这一步属于监控的附加功能，主要包括邮箱、钉钉、短信等消息通知，和本次讲得知识点无关，我就不细说了。</p>
+<h2>五、如何定位并解决 JS 错误</h2>
+<p>针对某一个错误，我们需要分析它发生的平台，影响的人数，系统版本，网络环境等等，同时也需要分析最为重要的一步，就是代码的位置。</p>
+<p><img src="../assets/images/articles/13/03.png" alt=""></p>
+<p>如图所示</p>
+<p><strong>首先</strong>，我们分析了错误发生的具体时间、发生次数、影响人数、IP 地址、浏览器版本、操作系统等环境因素</p>
+<p><strong>其次</strong>，我们还需统计这个报错发生的时间曲线，如果是大量报错，我们可以很容易定位到错误发生的起始点，针对那个时间点，对报错的原因进行定位</p>
+<p><img src="../assets/images/articles/13/04.png" alt=""></p>
+<p><strong>还有一个重要的点</strong>，就是对代码代码堆栈的分析。我们默认会根据错误提示的行、列号截取错误位置附近的一段代码，正常情况下，我们已经可以通过这段代码来定位出出错的具体位置了。</p>
+<p>但是有些小伙伴说，我就是看不出来怎么办，没关系，我们还提供了利用 Js 的 SourceMap 文件反向定位源码的功能，让你准确定位到 Js 源码的位置。</p>
+<p>PS：由于 SourceMap 文件反向定位源码的功能较为复杂，我将放到下一个知识分享中进行讲解。</p>
+<p><strong>最后</strong>，我们将 Js 错误结合到用户的行为记录中，这样我们就能够知道用户在发生错误的前后都做了什么，更进一步的了解错误发生原因，错误详情页提供了查看行为轨迹的按钮，我们来看看结果。</p>
+<p><img src="../assets/images/articles/13/05.png" alt=""></p>
+ 
+    </div>
+  </div>
+  <div class="article__wrapper_footer">
+    <a class="article__wrapper_footer-left " href="/articles/12.html"><svg t="1713708729970" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8437" width="48" height="48"><path d="M409.272947 512.57741l403.237243 403.237243a63.349415 63.349415 0 1 1-89.622481 89.622482L274.839224 557.324726a63.349415 63.349415 0 0 1 0-89.494632L722.951633 19.717685a63.349415 63.349415 0 1 1 89.494633 89.622482L409.336872 512.57741z" p-id="8438" fill="currentColor"></path></svg></a>
+    <a class="article__wrapper_footer-right " href="/articles/14.html"><svg t="1713708697355" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8093" width="48" height="48"><path d="M855.123 517.004c0 8.245-3.167 15.51-9.503 21.823L402.999 981.47c-6.336 6.336-13.625 9.477-21.869 9.477s-15.51-3.142-21.845-9.477L311.8 933.96c-6.336-6.336-9.502-13.6-9.502-21.845 0-8.222 3.167-15.51 9.502-21.845l373.29-373.29-373.293-373.267c-6.336-6.336-9.502-13.6-9.502-21.845s3.167-15.533 9.503-21.869l47.484-47.484c6.336-6.336 13.6-9.502 21.845-9.502s15.533 3.167 21.869 9.503l442.621 442.622c6.334 6.334 9.503 13.625 9.503 21.869z" fill="currentColor" p-id="8094"></path></svg></a>
+  </div>
+  <a class="article__wrapper_index" href="/articles/"><svg t="1713708857338" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9656" width="48" height="48"><path d="M549.61981 133.022476l319.683047 203.605334A70.851048 70.851048 0 0 1 902.095238 396.361143v434.883047A70.89981 70.89981 0 0 1 831.146667 902.095238h-282.819048l0.024381-218.112h-71.826286v218.087619L192.853333 902.095238A70.89981 70.89981 0 0 1 121.904762 831.24419V390.241524c0-24.527238 12.678095-47.299048 33.54819-60.220953l318.659048-197.485714a70.972952 70.972952 0 0 1 75.50781 0.487619zM828.952381 828.952381V397.214476L511.488 195.047619 195.047619 391.119238V828.952381h211.309714v-216.551619h212.187429v216.527238L828.952381 828.952381z" p-id="9657" fill="#707070"></path></svg></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+  <script src="../assets/js/articles-detail.js"></script>
+  <script>
+    hljs.highlightAll();
+  </script>
+</body>
+</html>
+    

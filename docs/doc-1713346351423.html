@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EDITOR</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      data-name="vs/editor/editor.main"
+      href="https://unpkg.com/monaco-editor@^0.21.2/min/vs/editor/editor.main.css"
+    />
+    <link rel="stylesheet" href="assets/css/editor.css" />
+  </head>
+  <body>
+    <textarea id="htmlcode-ta" style="display: none">
+&lt;div class=&#34;music&#34;&gt;
+  &lt;div class=&#34;bar&#34;&gt;&lt;/div&gt;
+  &lt;div class=&#34;bar&#34;&gt;&lt;/div&gt;
+  &lt;div class=&#34;bar&#34;&gt;&lt;/div&gt;
+  &lt;div class=&#34;bar&#34;&gt;&lt;/div&gt;
+  &lt;div class=&#34;bar&#34;&gt;&lt;/div&gt;
+  &lt;div class=&#34;bar&#34;&gt;&lt;/div&gt;
+  &lt;div class=&#34;bar&#34;&gt;&lt;/div&gt;
+  &lt;div class=&#34;bar&#34;&gt;&lt;/div&gt;
+  &lt;div class=&#34;bar&#34;&gt;&lt;/div&gt;
+  &lt;div class=&#34;bar&#34;&gt;&lt;/div&gt;
+&lt;/div&gt;</textarea
+    >
+    <textarea id="csscode-ta" style="display: none">* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
+}
+
+.music {
+  width: 300px;
+  height: 200px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.music .bar {
+  width: 12px;
+  border-radius: 10px;
+  background: #fff;
+  animation: loader 1.5s ease-in-out infinite;
+}
+
+@keyframes loader {
+  0%,
+  100% {
+    height: 2px;
+  }
+
+  50% {
+    height: 80px;
+  }
+}
+
+.music .bar:nth-child(1) {
+  background: #0300a0;
+  animation-delay: 1s;
+}
+
+.music .bar:nth-child(2) {
+  background: #4e00df;
+  animation-delay: 0.8s;
+}
+
+.music .bar:nth-child(3) {
+  background: #1827ff;
+  animation-delay: 0.6s;
+}
+
+.music .bar:nth-child(4) {
+  background: #495bff;
+  animation-delay: 0.4s;
+}
+
+.music .bar:nth-child(5) {
+  background: #00ffdd;
+  animation-delay: 0.2s;
+}
+
+.music .bar:nth-child(6) {
+  background: #00ffdd;
+  animation-delay: 0.2s;
+}
+
+.music .bar:nth-child(7) {
+  background: #495bff;
+  animation-delay: 0.4s;
+}
+
+.music .bar:nth-child(8) {
+  background: #1827ff;
+  animation-delay: 0.6s;
+}
+
+.music .bar:nth-child(9) {
+  background: #1827ff;
+  animation-delay: 0.8s;
+}
+
+.music .bar:nth-child(10) {
+  background: #0300a0;
+  animation-delay: 1s;
+}</textarea>
+    <textarea id="jscode-ta" style="display: none"></textarea>
+    <div class="editor-home">
+      <div class="editor-home_iframe">
+        <iframe
+          id="live-preview"
+          src="iframes/doc-1713346351423-iframe.html"
+          width="100%"
+          height="100%"
+          allow="accelerometer *; camera *; encrypted-media *; display-capture *; geolocation *; gyroscope *; microphone *; midi *; clipboard-read *; clipboard-write *; web-share *; serial *; xr-spatial-tracking *"
+          allowfullscreen="true"
+          allowpaymentrequest="true"
+          allowtransparency="true"
+          sandbox="allow-forms allow-modals allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation allow-downloads allow-presentation"
+          class="result-iframe iframe-visual-update"
+          name="codeShow"
+          loading="lazy"
+        ></iframe>
+      </div>
+      <div class="editor-home_code">
+        <div class="editor-home_tabs">
+          <div class="home_tabs__item active">HTML</div>
+          <div class="home_tabs__item">CSS</div>
+          <div class="home_tabs__item">JS</div>
+        </div>
+        <div class="editor-home_contents">
+          <div class="home_content__item active" id="htmlcode"></div>
+          <div class="home_content__item" id="csscode"></div>
+          <div class="home_content__item" id="jscode"></div>
+        </div>
+      </div>
+    </div>
+    <script src="assets/js/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/sass.sync.min.js"></script>
+    <script src="https://unpkg.com/monaco-editor@^0.21.2/min/vs/loader.js"></script>
+    <script src="assets/js/editor.js"></script>
+  </body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>IFRAME</title>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+      />
+      <script src="https://unpkg.com/pagedjs/dist/paged.legacy.polyfill.js"></script>
+      <style>
+        * {
+          padding: 0;
+          margin: 0;
+          font-family: Montserrat;
+        }
+        html,
+        body {
+          height: 100%;
+        }
+        body {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        ::-webkit-scrollbar {
+          width: 8px;
+          height: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+          border-radius: 0;
+          background: rgba(255, 255, 255, 0.4);
+        }
+        ::-webkit-scrollbar-track {
+          box-shadow: none;
+          border-radius: 0;
+          background: transparent;
+        }
+        #carousel-wrapper, .waving, .folder, .glass-container, .g-flex, .theme-app {
+          transform: scale(null)
+        }
+      </style>
+      <style id="live-preview-style">@keyframes left_cirlce_spin {
+  0%,
+  50% {
+    transform: rotate(-45deg); }
+  100% {
+    transform: rotate(135deg); } }
+
+@keyframes right_cirlce_spin {
+  0% {
+    transform: rotate(45deg); }
+  50%,
+  100% {
+    transform: rotate(225deg); } }
+
+.progress {
+  overflow: hidden;
+  width: 100px;
+  height: 100px; }
+
+.progress .wrapper-circle {
+  overflow: hidden;
+  width: 50%;
+  height: 100%; }
+
+.left {
+  float: left; }
+
+.right {
+  float: right; }
+
+.progress {
+  margin: 20px; }
+
+.progress .circle {
+  border-radius: 50%;
+  width: 90px;
+  height: 90px; }
+
+.progress .left .circle {
+  float: left;
+  border: 5px solid red;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  animation: left_cirlce_spin 4s linear infinite; }
+
+.progress .right .circle {
+  float: right;
+  border: 5px solid red;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  animation: right_cirlce_spin 4s linear infinite; }
+</style>
+    </head>
+    <body>
+      <div class="progress">
+  <div class="wrapper-circle left">
+    <div class="circle"></div>
+  </div>
+  <div class="wrapper-circle right">
+    <div class="circle"></div>
+  </div>
+</div>
+
+      <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.js"></script>
+      <script src="https://hammerjs.github.io/dist/hammer.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js"></script>
+      <script id="script__preview"></script>
+    </body>
+  </html>
+  

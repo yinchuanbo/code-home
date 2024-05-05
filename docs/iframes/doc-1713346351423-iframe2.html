@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>IFRAME</title>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+      />
+      <script src="https://unpkg.com/pagedjs/dist/paged.legacy.polyfill.js"></script>
+      <style>
+        * {
+          padding: 0;
+          margin: 0;
+          font-family: Montserrat;
+        }
+        html,
+        body {
+          height: 100%;
+        }
+        body {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        ::-webkit-scrollbar {
+          width: 8px;
+          height: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+          border-radius: 0;
+          background: rgba(255, 255, 255, 0.4);
+        }
+        ::-webkit-scrollbar-track {
+          box-shadow: none;
+          border-radius: 0;
+          background: transparent;
+        }
+        #carousel-wrapper, .waving, .folder, .glass-container, .g-flex, .theme-app {
+          transform: scale(null)
+        }
+      </style>
+      <style id="live-preview-style">* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+body {
+  background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%); }
+
+.music {
+  width: 300px;
+  height: 200px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between; }
+
+.music .bar {
+  width: 12px;
+  border-radius: 10px;
+  background: #fff;
+  animation: loader 1.5s ease-in-out infinite; }
+
+@keyframes loader {
+  0%,
+  100% {
+    height: 2px; }
+  50% {
+    height: 80px; } }
+
+.music .bar:nth-child(1) {
+  background: #0300a0;
+  animation-delay: 1s; }
+
+.music .bar:nth-child(2) {
+  background: #4e00df;
+  animation-delay: 0.8s; }
+
+.music .bar:nth-child(3) {
+  background: #1827ff;
+  animation-delay: 0.6s; }
+
+.music .bar:nth-child(4) {
+  background: #495bff;
+  animation-delay: 0.4s; }
+
+.music .bar:nth-child(5) {
+  background: #00ffdd;
+  animation-delay: 0.2s; }
+
+.music .bar:nth-child(6) {
+  background: #00ffdd;
+  animation-delay: 0.2s; }
+
+.music .bar:nth-child(7) {
+  background: #495bff;
+  animation-delay: 0.4s; }
+
+.music .bar:nth-child(8) {
+  background: #1827ff;
+  animation-delay: 0.6s; }
+
+.music .bar:nth-child(9) {
+  background: #1827ff;
+  animation-delay: 0.8s; }
+
+.music .bar:nth-child(10) {
+  background: #0300a0;
+  animation-delay: 1s; }
+</style>
+    </head>
+    <body>
+      <div class="music">
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+</div>
+
+      <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.js"></script>
+      <script src="https://hammerjs.github.io/dist/hammer.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js"></script>
+      <script id="script__preview"></script>
+    </body>
+  </html>
+  

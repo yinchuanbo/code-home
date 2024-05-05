@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>IFRAME</title>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+      />
+      <script src="https://unpkg.com/pagedjs/dist/paged.legacy.polyfill.js"></script>
+      <style>
+        * {
+          padding: 0;
+          margin: 0;
+          font-family: Montserrat;
+        }
+        html,
+        body {
+          height: 100%;
+        }
+        body {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        ::-webkit-scrollbar {
+          width: 8px;
+          height: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+          border-radius: 0;
+          background: rgba(255, 255, 255, 0.4);
+        }
+        ::-webkit-scrollbar-track {
+          box-shadow: none;
+          border-radius: 0;
+          background: transparent;
+        }
+        #carousel-wrapper, .waving, .folder, .glass-container, .g-flex, .theme-app {
+          transform: scale(null)
+        }
+      </style>
+      <style id="live-preview-style">body {
+  -webkit-font-smoothing: antialiased;
+  background: #212121; }
+
+nav {
+  position: relative;
+  padding-bottom: 12px; }
+
+nav .line {
+  height: 2px;
+  position: absolute;
+  bottom: 0;
+  margin: 10px 0 0 0;
+  background: #ff1847; }
+
+nav ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex; }
+
+nav ul li {
+  margin: 0 40px 0 0;
+  opacity: 0.4;
+  transition: all 0.4s ease; }
+
+nav ul li:hover {
+  opacity: 0.7; }
+
+nav ul li.active {
+  opacity: 1; }
+
+nav ul li:last-child {
+  margin-right: 0; }
+
+nav ul li a {
+  text-decoration: none;
+  color: #fff;
+  text-transform: uppercase;
+  display: block;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  font-size: 14px; }
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; }
+</style>
+    </head>
+    <body>
+      <nav>
+  <ul>
+    <li class="active"><a href="">First</a></li>
+    <li><a href="">Second</a></li>
+    <li><a href="">Third</a></li>
+  </ul>
+</nav>
+
+      <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.js"></script>
+      <script src="https://hammerjs.github.io/dist/hammer.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js"></script>
+      <script id="script__preview">var nav = $("nav");
+var line = $("<div />").addClass("line");
+
+line.appendTo(nav);
+
+var active = nav.find(".active");
+var pos = 0;
+var wid = 0;
+
+setTimeout(() => {
+  if (active.length) {
+    pos = active.position().left;
+    wid = active.width();
+    console.log("wid", wid);
+    line.css({
+      left: pos,
+      width: wid,
+    });
+  }
+}, 0);
+nav.find("ul li a").click(function (e) {
+  e.preventDefault();
+  if (!$(this).parent().hasClass("active") && !nav.hasClass("animate")) {
+    nav.addClass("animate");
+
+    var _this = $(this);
+
+    nav.find("ul li").removeClass("active");
+
+    var position = _this.parent().position();
+    var width = _this.parent().width();
+
+    if (position.left >= pos) {
+      line.animate(
+        {
+          width: position.left - pos + width,
+        },
+        300,
+        function () {
+          line.animate(
+            {
+              width: width,
+              left: position.left,
+            },
+            150,
+            function () {
+              nav.removeClass("animate");
+            }
+          );
+          _this.parent().addClass("active");
+        }
+      );
+    } else {
+      line.animate(
+        {
+          left: position.left,
+          width: pos - position.left + wid,
+        },
+        300,
+        function () {
+          line.animate(
+            {
+              width: width,
+            },
+            150,
+            function () {
+              nav.removeClass("animate");
+            }
+          );
+          _this.parent().addClass("active");
+        }
+      );
+    }
+
+    pos = position.left;
+    wid = width;
+  }
+});
+</script>
+    </body>
+  </html>
+  
