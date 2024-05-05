@@ -190,7 +190,7 @@ for (let i = filesList.length - 1; i >= 0; i--) {
           border-radius: 0;
           background: transparent;
         }
-        #carousel-wrapper, .waving, .folder, .glass-container, .g-flex, .theme-app {
+        #carousel-wrapper, .waving, .folder, .glass-container, .g-flex, .theme-app, .faqs__translator {
           transform: scale(${iframe})
         }
       </style>
