@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EDITOR</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      data-name="vs/editor/editor.main"
+      href="https://unpkg.com/monaco-editor@^0.21.2/min/vs/editor/editor.main.css"
+    />
+    <link rel="stylesheet" href="assets/css/editor.css" />
+  </head>
+  <body>
+    <textarea id="htmlcode-ta" style="display: none">
+&lt;div class=&#34;wrapper&#34;&gt;
+  &lt;div class=&#34;msg&#34;&gt;
+    &lt;span class=&#34;box&#34;&gt;Custom Web Component&lt;/span&gt;
+    RANGE SLIDER
+  &lt;/div&gt;
+  &lt;custom-slider min=&#34;0&#34; max=&#34;100&#34; value=&#34;50&#34;&gt;&lt;/custom-slider&gt;
+&lt;/div&gt;</textarea
+    >
+    <textarea id="csscode-ta" style="display: none">.wrapper {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #043643;
+  flex-direction: column;
+  font-family: &#34;Segoe UI&#34;, Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.msg {
+  color: #fff;
+  margin-bottom: 6.5rem;
+  text-align: center;
+  font-size: 2rem;
+  letter-spacing: 5px;
+}
+
+.box {
+  display: block;
+  background-color: #31d3c6;
+  color: #043643;
+  font-size: 0.8rem;
+  width: 100%;
+  line-height: 2rem;
+  height: 2rem;
+  letter-spacing: 2px;
+}
+
+custom-slider {
+  transform: scale(2);
+}</textarea>
+    <textarea id="jscode-ta" style="display: none">let stylesheetText = `
+#slider-container {
+    --value : 0 ;
+    --slider-track-color : #B0EFEF45 ;
+    --slider-thumb-color : #fff ;
+    --slider-fill-color  : #31D3C6 ;
+    --slider-fill2-color : #00A2BB ;
+
+    width : 100% ;
+    height: 1rem ;
+    display: flex ;
+    align-items: center ;
+    justify-content: center ;
+    padding: 0 ;
+    margin: 0 ;
+
+    animation: color-cycle 1s infinite alternate linear;
+}
+
+@keyframes color-cycle {
+    0% {
+        --slider-fill-color  : #31D3C6 ;
+    }
+    100% {
+        --slider-fill-color : #00A2BB ;
+    }
+}
+
+#slider {
+    -webkit-appearance: none;
+    appearance: none;
+
+    height: 1rem ;
+    width: 100% ;
+    margin : 0 ;
+    padding: 0 ;
+
+    background-color: #00000000 ;
+    outline: none ;
+    z-index: 99 ;
+}
+
+#slider-track {
+    position: absolute ;
+    top: calc(50% - 0.25rem);
+    left: 0 ;
+    width: 100% ;
+    height: 0.5rem ;
+    border-radius: 0.25rem ;
+    background-color: var(--slider-track-color) ;
+    overflow: hidden ;
+}
+
+#slider-track::before {
+    position: absolute ;
+    content: &#34;&#34; ;
+    left: calc(-100% + 1.5rem) ;
+    top : 0 ;
+    width : calc(100% - 1rem) ;
+    height: 100% ;
+    background-color: var(--slider-fill-color) ;
+    transition: background-color 300ms ease-out ;
+    transform-origin: 100% 0%;
+    transform: translateX(calc( var(--value) * 100% )) scaleX(1.2);
+}
+
+#slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width : 1rem ;
+    height: 1rem ;
+    border-radius: 50% ;
+    background-color: var(--slider-thumb-color) ;
+    cursor: pointer ;
+    z-index: 99 ;
+    border: 2px solid var(--slider-fill-color) ;
+    transition: border-color 300ms ease-out ;
+}
+
+#value {
+    position: absolute ;
+    bottom: calc(100% + 0.5rem) ;
+    left: calc( var(--value) * calc(100% - 1rem) - 0.8rem) ;
+    min-width: 3ch ;
+    border-radius: 4px ;
+    pointer-events: none ;
+
+    padding: 0.5rem ;
+    display: flex ;
+    align-items: center ;
+    justify-content: center ;
+
+    color: #FFF ;
+    background-color: var(--slider-fill-color);
+    opacity: 0 ;
+
+    transition: left 300ms ease-out , opacity 300ms 300ms ease-out , background-color 300ms ease-out ;
+}
+
+#value::before {
+    position: absolute ;
+    content: &#34;&#34; ;
+    top: 100% ;
+    left: 50% ;
+    width: 1rem ;
+    height: 1rem ;
+    border-radius: 2px ;
+    background-color: inherit ;
+    transform: translate(-50%,-80%) rotate(45deg);
+    z-index: -1 ;
+}
+
+#slider-container:hover  #value {
+    opacity: 1 ;
+} 
+`;
+
+class customSlider extends HTMLElement {
+  constructor() {
+    super();
+    this.value = parseFloat(this.getAttribute(&#34;value&#34;)) || 0;
+    this.min = parseFloat(this.getAttribute(&#34;min&#34;)) || 0;
+    this.max = parseFloat(this.getAttribute(&#34;max&#34;)) || 100;
+    this.step = parseFloat(this.getAttribute(&#34;step&#34;)) || 1;
+
+    this.style.minWidth = &#34;12rem&#34;;
+    this.style.minHeight = &#34;1rem&#34;;
+    this.style.position = &#34;relative&#34;;
+
+    // Slider Element
+    this.root = this.attachShadow({ mode: &#34;open&#34; });
+
+    // Functionality
+    this.dragging = false;
+
+    this.create();
+    this.update();
+  }
+
+  create() {
+    let slider = document.createElement(&#34;input&#34;);
+    let sliderContainer = document.createElement(&#34;div&#34;);
+    let sliderTrack = document.createElement(&#34;div&#34;);
+    let value = document.createElement(&#34;div&#34;);
+
+    // let style = document.createElement(&#34;link&#34;);
+    // style.rel = &#34;stylesheet&#34; ;
+    // style.href = &#34;/src/custom-slider-style.css&#34; ;
+
+    let style = document.createElement(&#34;style&#34;);
+    style.innerHTML = stylesheetText;
+
+    // set properties
+    slider.type = &#34;range&#34;;
+    slider.id = &#34;slider&#34;;
+    slider.min = this.min;
+    slider.max = this.max;
+    slider.step = this.step;
+    slider.value = this.value;
+
+    // add ids
+    sliderContainer.id = &#34;slider-container&#34;;
+    sliderTrack.id = &#34;slider-track&#34;;
+    value.id = &#34;value&#34;;
+
+    // add event listeners
+    slider.addEventListener(&#34;input&#34;, this.update.bind(this));
+
+    // Appened Elements
+    sliderContainer.appendChild(slider);
+    sliderContainer.appendChild(value);
+    sliderContainer.appendChild(sliderTrack);
+    this.root.appendChild(style);
+    this.root.appendChild(sliderContainer);
+  }
+
+  update() {
+    let track = this.root.getElementById(&#34;slider-container&#34;);
+    let slider = this.root.getElementById(&#34;slider&#34;);
+    let value = this.root.getElementById(&#34;value&#34;);
+    let valuePercentage = slider.value / (this.max - this.min);
+    value.innerText = slider.value;
+    track.style.setProperty(&#34;--value&#34;, valuePercentage);
+  }
+}
+
+customElements.define(&#34;custom-slider&#34;, customSlider);</textarea>
+    <div class="editor-home">
+      <div class="editor-home_iframe">
+        <iframe
+          id="live-preview"
+          src="iframes/doc-1715002778657-iframe.html"
+          width="100%"
+          height="100%"
+          allow="accelerometer *; camera *; encrypted-media *; display-capture *; geolocation *; gyroscope *; microphone *; midi *; clipboard-read *; clipboard-write *; web-share *; serial *; xr-spatial-tracking *"
+          allowfullscreen="true"
+          allowpaymentrequest="true"
+          allowtransparency="true"
+          sandbox="allow-forms allow-modals allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation allow-downloads allow-presentation"
+          class="result-iframe iframe-visual-update"
+          name="codeShow"
+          loading="lazy"
+        ></iframe>
+      </div>
+      <div class="editor-home_code">
+        <div class="editor-home_tabs">
+          <div class="home_tabs__item active">HTML</div>
+          <div class="home_tabs__item">CSS</div>
+          <div class="home_tabs__item">JS</div>
+        </div>
+        <div class="editor-home_contents">
+          <div class="home_content__item active" id="htmlcode"></div>
+          <div class="home_content__item" id="csscode"></div>
+          <div class="home_content__item" id="jscode"></div>
+        </div>
+      </div>
+    </div>
+    <script src="assets/js/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/sass.sync.min.js"></script>
+    <script src="https://unpkg.com/monaco-editor@^0.21.2/min/vs/loader.js"></script>
+    <script src="assets/js/editor.js"></script>
+  </body>
+</html>

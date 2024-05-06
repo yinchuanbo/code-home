@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EDITOR</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      data-name="vs/editor/editor.main"
+      href="https://unpkg.com/monaco-editor@^0.21.2/min/vs/editor/editor.main.css"
+    />
+    <link rel="stylesheet" href="assets/css/editor.css" />
+  </head>
+  <body>
+    <textarea id="htmlcode-ta" style="display: none">
+&lt;link rel=&#34;stylesheet&#34; href=&#34;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css&#34;&gt;
+&lt;!-- Image Slider Container --&gt;
+&lt;div class=&#34;image-slider-container&#34;&gt;
+  &lt;!-- Upper Image --&gt;
+  &lt;div class=&#34;image background-image&#34;&gt;&lt;/div&gt;
+  &lt;!-- Lower Image --&gt;
+  &lt;div class=&#34;image foreground-image&#34;&gt;&lt;/div&gt;
+
+  &lt;!-- Range Input --&gt;
+  &lt;input
+    id=&#34;range-slider&#34;
+    class=&#34;range-slider&#34;
+    name=&#34;slider&#34;
+    type=&#34;range&#34;
+    min=&#34;1&#34;
+    max=&#34;100&#34;
+    value=&#34;50&#34;
+  /&gt;
+
+  &lt;!-- Slider Control --&gt;
+  &lt;div class=&#34;slider-control&#34;&gt;
+    &lt;span class=&#34;slider-control-btn left&#34;&gt;&lt;/span&gt;
+    &lt;span class=&#34;slider-control-btn right&#34;&gt;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</textarea
+    >
+    <textarea id="csscode-ta" style="display: none">// Variables
+$background-color: #333;
+$image-url: &#34;https://cdn.pixabay.com/photo/2014/04/17/23/26/environmental-protection-326923_1280.jpg&#34;;
+
+// Mixin
+@mixin center() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Reset spacings
+*::before,
+*,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+// General settings
+body {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background: $background-color;
+  perspective: 200px;
+  box-shadow: inset 0 0 200px;
+  animation: focusToSlider 500ms ease-out reverse;
+}
+
+// Image Slider Container
+.image-slider-container {
+  position: relative;
+  width: 500px;
+  height: 300px;
+  border: 5px solid #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  transform: scale(1) rotate(0);
+  transition: transform 300ms ease;
+
+  transform-style: preserve-3d;
+
+  .image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-size: cover;
+    background-position: center;
+
+    &amp;:nth-child(1) {
+      background: url($image-url);
+      filter: grayscale(100%) blur(2.5px);
+    }
+
+    &amp;:nth-child(2) {
+      background: url($image-url);
+      filter: saturate(1.3);
+      width: 50%;
+    }
+  }
+
+  // Range Input
+  .range-slider {
+    position: absolute;
+    @include center;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background: rgba(#f2f2f2, 0.2);
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    z-index: 2;
+    transition: all 200ms linear;
+
+    &amp;:hover {
+      background: rgba(#f2f2f2, 0.1);
+    }
+
+    &amp;::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 6px;
+      height: 800px;
+      background: white;
+      cursor: move;
+      transition: all 300ms ease;
+    }
+  }
+}
+
+// Slider Control
+.slider-control {
+  z-index: 0;
+  position: relative;
+  display: block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: white;
+  top: 50%;
+  left: 50%;
+  transform: translate(-60%, -50%);
+  cursor: grab; // Changed cursor to &#34;grab&#34; for better user experience
+
+  &amp;::after,
+  &amp;::before {
+    font-family: &#34;Font Awesome 5 Free&#34;;
+    font-weight: 900;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  &amp;::after {
+    content: &#34;\f054&#34;; // Right arrow icon
+    right: 3px;
+  }
+
+  &amp;::before {
+    content: &#34;\f053&#34;; // Left arrow icon
+    left: 3px;
+  }
+}
+
+@keyframes focusToSlider {
+  from {
+    box-shadow: inset 0 0 200px;
+  }
+
+  to {
+    box-shadow: inset 0 0 0 0;
+  }
+}</textarea>
+    <textarea id="jscode-ta" style="display: none">// set vars
+const imageSliderContainer = document.querySelector(&#34;.image-slider-container&#34;);
+const slider = document.getElementById(&#34;range-slider&#34;);
+const image = document.getElementsByClassName(&#34;image&#34;)[1];
+const buttonRange = document.getElementsByClassName(&#34;slider-control&#34;)[0];
+
+// Move slider and buttonRange at change of value
+slider.addEventListener(&#34;input&#34;, (e) =&gt; {
+  const sliderPos = e.target.value;
+
+  image.style.width = sliderPos + &#34;%&#34;;
+  buttonRange.style.left = sliderPos + &#34;%&#34;;
+});
+
+imageSliderContainer.addEventListener(&#34;mousemove&#34;, (e) =&gt; {
+  const reduceMovement = (n) =&gt; n / 25;
+
+  imageSliderContainer.animate(
+    {
+      transform: `scale(1.03) rotateX(${reduceMovement(
+        e.movementY
+      )}deg) rotateY(${reduceMovement(e.movementX)}deg)`,
+    },
+    { duration: 1200 }
+  );
+});
+
+imageSliderContainer.addEventListener(&#34;mouseout&#34;, (e) =&gt; {
+  imageSliderContainer.animate(
+    { transform: `scale(1) rotateX(0deg) rotateY(0deg)` },
+    { duration: 250, fill: &#34;forwards&#34; }
+  );
+});</textarea>
+    <div class="editor-home">
+      <div class="editor-home_iframe">
+        <iframe
+          id="live-preview"
+          src="iframes/doc-1715001985007-iframe.html"
+          width="100%"
+          height="100%"
+          allow="accelerometer *; camera *; encrypted-media *; display-capture *; geolocation *; gyroscope *; microphone *; midi *; clipboard-read *; clipboard-write *; web-share *; serial *; xr-spatial-tracking *"
+          allowfullscreen="true"
+          allowpaymentrequest="true"
+          allowtransparency="true"
+          sandbox="allow-forms allow-modals allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation allow-downloads allow-presentation"
+          class="result-iframe iframe-visual-update"
+          name="codeShow"
+          loading="lazy"
+        ></iframe>
+      </div>
+      <div class="editor-home_code">
+        <div class="editor-home_tabs">
+          <div class="home_tabs__item active">HTML</div>
+          <div class="home_tabs__item">CSS</div>
+          <div class="home_tabs__item">JS</div>
+        </div>
+        <div class="editor-home_contents">
+          <div class="home_content__item active" id="htmlcode"></div>
+          <div class="home_content__item" id="csscode"></div>
+          <div class="home_content__item" id="jscode"></div>
+        </div>
+      </div>
+    </div>
+    <script src="assets/js/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/sass.sync.min.js"></script>
+    <script src="https://unpkg.com/monaco-editor@^0.21.2/min/vs/loader.js"></script>
+    <script src="assets/js/editor.js"></script>
+  </body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>IFRAME</title>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+      />
+      <script src="https://unpkg.com/pagedjs/dist/paged.legacy.polyfill.js"></script>
+      <style>
+        * {
+          padding: 0;
+          margin: 0;
+          font-family: Montserrat;
+        }
+        html,
+        body {
+          height: 100%;
+        }
+        body {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        ::-webkit-scrollbar {
+          width: 8px;
+          height: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+          border-radius: 0;
+          background: rgba(255, 255, 255, 0.4);
+        }
+        ::-webkit-scrollbar-track {
+          box-shadow: none;
+          border-radius: 0;
+          background: transparent;
+        }
+        #carousel-wrapper, .waving, .folder, .glass-container, .g-flex, .theme-app, .faqs__translator {
+          transform: scale(null)
+        }
+      </style>
+      <style id="live-preview-style">.nav {
+  position: relative;
+  padding: 1em; }
+
+.nav__pointer {
+  z-index: 1;
+  position: absolute;
+  top: 0.6em;
+  left: 1em;
+  background-color: #bada55;
+  height: 1.8em;
+  transition: transform 0.25s ease-in-out;
+  border-radius: 0.3em;
+  will-change: transform;
+  backface-visibility: hidden; }
+
+.nav__list {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); }
+
+/* Decoration styles */
+body,
+html {
+  height: 100vh;
+  min-height: 320px;
+  box-sizing: border-box; }
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit; }
+
+body {
+  font-family: Arial, sans-serif;
+  padding: 1em;
+  margin: 0;
+  background: #e1e1e1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; }
+
+nav {
+  text-align: center;
+  width: 420px;
+  margin: 0 auto;
+  background: #f5f5f5;
+  display: block; }
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0; }
+
+a {
+  text-decoration: none;
+  font-weight: 600;
+  user-select: none; }
+
+a,
+a:visited {
+  color: #1d1d1d; }
+</style>
+    </head>
+    <body>
+      <nav class="nav" id="js-nav">
+  <div id="js-pointer" class="nav__pointer"></div>
+  <ul class="nav__list">
+    <li><a href="javascript:;">Overview</a></li>
+    <li><a href="javascript:;">Goals</a></li>
+    <li><a href="javascript:;">Inspiration</a></li>
+    <li><a href="javascript:;">Profile</a></li>
+  </ul>
+</nav>
+
+      <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.js"></script>
+      <script src="https://hammerjs.github.io/dist/hammer.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js"></script>
+      <script id="script__preview">var CONTAINER_PADDING_HALF = "0.5em";
+
+var nav = document.getElementById("js-nav");
+var pointer = document.getElementById("js-pointer");
+var links = nav.getElementsByTagName("a");
+
+pointer.style.width =
+  "calc(100% /" + links.length + " - " + CONTAINER_PADDING_HALF + ")";
+
+for (var i = 0; i < links.length; i++) {
+  var current = links[i];
+  current.dataset.order = i * 100 + "%";
+  current.addEventListener("click", movePointer);
+}
+
+function movePointer(e) {
+  var order = e.currentTarget.dataset.order;
+  pointer.style.transform = "translate3d(" + order + ",0,0)";
+}
+</script>
+    </body>
+  </html>
+  

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>IFRAME</title>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+      />
+      <script src="https://unpkg.com/pagedjs/dist/paged.legacy.polyfill.js"></script>
+      <style>
+        * {
+          padding: 0;
+          margin: 0;
+          font-family: Montserrat;
+        }
+        html,
+        body {
+          height: 100%;
+        }
+        body {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        ::-webkit-scrollbar {
+          width: 8px;
+          height: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+          border-radius: 0;
+          background: rgba(255, 255, 255, 0.4);
+        }
+        ::-webkit-scrollbar-track {
+          box-shadow: none;
+          border-radius: 0;
+          background: transparent;
+        }
+      </style>
+      <style id="live-preview-style"></style>
+    </head>
+    <body>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.css">
+<link rel="stylesheet" href="https://tyleryasaka.github.io/semantic-ui-range/range.css">
+<div class="ui container">
+  <br>
+  <h1>Semantic UI Range</h1>
+
+  <h3>
+    <a href="https://github.com/tyleryasaka/semantic-ui-range">https://github.com/tyleryasaka/semantic-ui-range</a>
+  </h3>
+
+  <div class="ui segment">
+    <div class="ui range" id="range-1"></div>
+  </div>
+
+  <h2>Place value in an input</h2>
+  <div class="ui segment">
+    <div class="ui range" id="range-2"></div>
+    <br>
+    <div class="ui input">
+      <input type="text" id="input-2">
+    </div>
+  </div>
+
+  <h2>Or use a custom callback</h2>
+  <div class="ui segment">
+    <div class="ui range" id="range-3"></div>
+    <br>
+    <p>
+      Value: <span id="display-3"></span>
+    </p>
+  </div>
+
+  <h2>Set custom step</h2>
+  <p>(Here the step is 2)
+  <div class="ui segment">
+    <div class="ui range" id="range-4"></div>
+    <br>
+    <div class="ui input">
+      <input type="text" id="input-4">
+    </div>
+  </div>
+
+  <h2>Disabled range</h2>
+  <div class="ui segment">
+    <div class="ui disabled range" id="range-5"></div>
+  </div>
+
+  <h2>Color</h2>
+  <div class="ui segment">
+    <p>
+      <div class="ui red range" id="range-red"></div>
+    </p>
+    <p>
+      <div class="ui orange range" id="range-orange"></div>
+    </p>
+    <p>
+      <div class="ui yellow range" id="range-yellow"></div>
+    </p>
+    <p>
+      <div class="ui olive range" id="range-olive"></div>
+    </p>
+    <p>
+      <div class="ui green range" id="range-green"></div>
+    </p>
+    <p>
+      <div class="ui teal range" id="range-teal"></div>
+    </p>
+    <p>
+      <div class="ui blue range" id="range-blue"></div>
+    </p>
+    <p>
+      <div class="ui violet range" id="range-violet"></div>
+    </p>
+    <p>
+      <div class="ui purple range" id="range-purple"></div>
+    </p>
+    <p>
+      <div class="ui pink range" id="range-pink"></div>
+    </p>
+    <p>
+      <div class="ui brown range" id="range-brown"></div>
+    </p>
+    <p>
+      <div class="ui grey range" id="range-grey"></div>
+    </p>
+    <p>
+      <div class="ui black range" id="range-black"></div>
+    </p>
+  </div>
+
+  <h2>Inverted Color</h2>
+
+  <div class="ui inverted segment">
+
+    <p>
+      <div class="ui inverted red range" id="range-red-inverted"></div>
+    </p>
+    <p>
+      <div class="ui inverted orange range" id="range-orange-inverted"></div>
+    </p>
+    <p>
+      <div class="ui inverted yellow range" id="range-yellow-inverted"></div>
+    </p>
+    <p>
+      <div class="ui inverted olive range" id="range-olive-inverted"></div>
+    </p>
+    <p>
+      <div class="ui inverted green range" id="range-green-inverted"></div>
+    </p>
+    <p>
+      <div class="ui inverted teal range" id="range-teal-inverted"></div>
+    </p>
+    <p>
+      <div class="ui inverted blue range" id="range-blue-inverted"></div>
+    </p>
+    <p>
+      <div class="ui inverted violet range" id="range-violet-inverted"></div>
+    </p>
+    <p>
+      <div class="ui inverted purple range" id="range-purple-inverted"></div>
+    </p>
+    <p>
+      <div class="ui inverted pink range" id="range-pink-inverted"></div>
+    </p>
+    <p>
+      <div class="ui inverted brown range" id="range-brown-inverted"></div>
+    </p>
+    <p>
+      <div class="ui inverted grey range" id="range-grey-inverted"></div>
+    </p>
+    <p>
+      <div class="ui inverted black range" id="range-black-inverted"></div>
+    </p>
+
+  </div>
+
+</div>
+<script src="https://tyleryasaka.github.io/semantic-ui-range/range.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js"></script>
+
+      <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.js"></script>
+      <script src="https://hammerjs.github.io/dist/hammer.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js"></script>
+      <script id="script__preview">$(document).ready(function () {
+  // Semantic UI Range
+  $("#range-1").range({
+    min: 0,
+    max: 10,
+    start: 5,
+  });
+
+  // Place value in an input
+  $("#range-2").range({
+    min: 0,
+    max: 10,
+    start: 5,
+    input: "#input-2",
+  });
+
+  // Or use a custom callback
+  $("#range-3").range({
+    min: 0,
+    max: 10,
+    start: 5,
+    onChange: function (value) {
+      $("#display-3").html(value);
+    },
+  });
+
+  // Set custom step
+  $("#range-4").range({
+    min: 0,
+    max: 10,
+    start: 4,
+    step: 2,
+    input: "#input-4",
+  });
+
+  // Disabeld range
+  $("#range-5").range({
+    min: 0,
+    max: 10,
+    start: 5,
+  });
+
+  // Color
+  $("#range-red").range({
+    min: 0,
+    max: 10,
+    start: 5,
+  });
+
+  $("#range-orange").range({
+    min: 0,
+    max: 10,
+    start: 5,
+  });
+
+  $("#range-yellow").range({
+    min: 0,
+    max: 10,
+    start: 5,
+  });
+
+  $("#range-olive").range({
+    min: 0,
+    max: 10,
+    start: 5,
+  });
+
+  $("#range-green").range({
+    min: 0,
+    max: 10,
+    start: 5,
+  });
+
+  $("#range-teal").range({
+    min: 0,
+    max: 10,
+    start: 5,
+  });
+
+  $("#range-blue").range({
+    min: 0,
+    max: 10,
+    start: 5,
+  });
+
+  $("#range-violet").range({
+    min: 0,
+    max: 10,
+    start: 5,
+  });
+
+  $("#range-purple").range({
+    min: 0,
+    max: 10,
+    start: 5,
+  });
+
+  $("#range-pink").range({
+    min: 0,
+    max: 10,
+    start: 5,
+  });
+
+  $("#range-brown").range({
+    min: 0,
+    max: 10,
+    start: 5,
+  });
+
+  $("#range-grey").range({
+    min: 0,
+    max: 10,
+    start: 5,
+  });
+
+  $("#range-black").range({
+    min: 0,
+    max: 10,
+    start: 5,
+  });
+
+  // Inverted Color
+  $("#range-red-inverted").range({
+    min: 0,
+    max: 10,
+    start: 5,
+  });
+
+  $("#range-orange-inverted").range({
+    min: 0,
+    max: 10,
+    start: 5,
+  });
+
+  $("#range-yellow-inverted").range({
+    min: 0,
+    max: 10,
+    start: 5,
+  });
+
+  $("#range-olive-inverted").range({
+    min: 0,
+    max: 10,
+    start: 5,
+  });
+
+  $("#range-green-inverted").range({
+    min: 0,
+    max: 10,
+    start: 5,
+  });
+
+  $("#range-teal-inverted").range({
+    min: 0,
+    max: 10,
+    start: 5,
+  });
+
+  $("#range-blue-inverted").range({
+    min: 0,
+    max: 10,
+    start: 5,
+  });
+
+  $("#range-violet-inverted").range({
+    min: 0,
+    max: 10,
+    start: 5,
+  });
+
+  $("#range-purple-inverted").range({
+    min: 0,
+    max: 10,
+    start: 5,
+  });
+
+  $("#range-pink-inverted").range({
+    min: 0,
+    max: 10,
+    start: 5,
+  });
+
+  $("#range-brown-inverted").range({
+    min: 0,
+    max: 10,
+    start: 5,
+  });
+
+  $("#range-grey-inverted").range({
+    min: 0,
+    max: 10,
+    start: 5,
+  });
+
+  $("#range-black-inverted").range({
+    min: 0,
+    max: 10,
+    start: 5,
+  });
+});
+</script>
+    </body>
+  </html>
+  

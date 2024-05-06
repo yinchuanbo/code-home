@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>IFRAME</title>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+      />
+      <script src="https://unpkg.com/pagedjs/dist/paged.legacy.polyfill.js"></script>
+      <style>
+        * {
+          padding: 0;
+          margin: 0;
+          font-family: Montserrat;
+        }
+        html,
+        body {
+          height: 100%;
+        }
+        body {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        ::-webkit-scrollbar {
+          width: 8px;
+          height: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+          border-radius: 0;
+          background: rgba(255, 255, 255, 0.4);
+        }
+        ::-webkit-scrollbar-track {
+          box-shadow: none;
+          border-radius: 0;
+          background: transparent;
+        }
+        #carousel-wrapper, .waving, .folder, .glass-container, .g-flex, .theme-app, .faqs__translator {
+          transform: scale(null)
+        }
+      </style>
+      <style id="live-preview-style">.Range {
+  height: 200px; }
+
+/**
+ * Restyle the range slider
+ */
+.noUi-target {
+  width: 6px; }
+
+.noUi-base {
+  margin-left: 22px;
+  background: #e4dfd3; }
+
+.noUi-pips-vertical {
+  top: 0;
+  left: calc(100% + 16px);
+  height: 100%;
+  padding: 0 10px; }
+
+.noUi-origin {
+  background: #fe9996; }
+
+.noUi-handle {
+  left: -2px;
+  top: 0;
+  height: 20px;
+  width: 20px;
+  border: none;
+  border-radius: 50%;
+  background: #fe9996;
+  transform: translateX(-100%) translateY(-50%);
+  box-shadow: none; }
+  .noUi-handle::before {
+    display: none; }
+  .noUi-handle::after {
+    position: absolute;
+    top: 50%;
+    right: 2px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 7px 0 7px 5px;
+    border-color: transparent transparent transparent #fe9996;
+    background: transparent;
+    transform: translateX(100%) translateY(-50%);
+    content: ""; }
+
+.noUi-value {
+  display: none; }
+
+.noUi-marker,
+.noUi-marker-large {
+  width: 10px;
+  height: 2px;
+  margin-top: -1px;
+  background: #e4dfd3;
+  transform-origin: left;
+  transition: 0.2s transform ease; }
+
+/**
+ * Modifiers to highlight the markers
+ */
+.noUi-marker--is-inRange,
+.noUi-marker--is-current {
+  background: #fe9996; }
+
+.noUi-marker--is-current {
+  transform: scaleX(2); }
+
+/**
+ * Resets and presentational style
+ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box; }
+
+html,
+body {
+  height: 100%; }
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+
+/**
+ * Default style from noUiSlider, but removed all unused styles
+ */
+.noUi-base {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1; }
+
+.noUi-target,
+.noUi-target * {
+  touch-action: none;
+  user-select: none;
+  box-sizing: border-box; }
+
+.noUi-target {
+  position: relative;
+  direction: ltr; }
+
+.noUi-origin {
+  position: absolute;
+  right: 0;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+.noUi-handle {
+  position: relative;
+  z-index: 1; }
+
+.noUi-state-tap .noUi-origin {
+  transition: left 0.3s, top 0.3s; }
+
+.noUi-state-drag * {
+  cursor: inherit !important; }
+
+.noUi-pips,
+.noUi-marker {
+  position: absolute; }
+</style>
+    </head>
+    <body>
+      <div class="Range" data-js="range-slider"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/8.5.1/nouislider.min.js"></script>
+
+      <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.js"></script>
+      <script src="https://hammerjs.github.io/dist/hammer.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js"></script>
+      <script id="script__preview">/**
+ * Inspired by Flat Sliders from Ana Tudor
+ * https://www.smashingmagazine.com/2016/04/inspiring-ui-demos-logins-menus-toggles-and-more/#pure-css-flat-sliders
+ * https://codepen.io/thebabydino/pen/RNEEZP
+ */
+
+const rangeSlider = document.querySelector('[data-js="range-slider"]');
+const minRange = 0;
+const maxRange = 100;
+
+noUiSlider.create(rangeSlider, {
+  range: {
+    min: [minRange],
+    max: [maxRange],
+  },
+  start: 0,
+  orientation: "vertical",
+  direction: "rtl",
+  pips: {
+    mode: "range",
+    density: 3,
+  },
+});
+
+function mapRange(value, low1, high1, low2, high2) {
+  return low2 + ((high2 - low2) * (value - low1)) / (high1 - low1);
+}
+
+/**
+ * Set the state of the markers
+ */
+function setMarkers() {
+  const pips = document.querySelectorAll(".noUi-marker");
+  const currentValue = rangeSlider.noUiSlider.get();
+  const mappedValue = Math.round(
+    mapRange(currentValue, minRange, maxRange, 0, pips.length - 1)
+  );
+
+  for (let i = 0; i < pips.length; i++) {
+    pips[i].classList.remove("noUi-marker--is-current");
+    pips[i].classList.remove("noUi-marker--is-inRange");
+  }
+
+  for (let i = 0; i < mappedValue; i++) {
+    pips[i].classList.add("noUi-marker--is-inRange");
+  }
+
+  pips[mappedValue].classList.add("noUi-marker--is-current");
+}
+
+rangeSlider.noUiSlider.on("slide", setMarkers);
+setMarkers();
+</script>
+    </body>
+  </html>
+  
