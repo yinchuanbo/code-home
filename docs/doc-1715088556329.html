@@ -19,114 +19,73 @@
   </head>
   <body>
     <textarea id="htmlcode-ta" style="display: none">
-&lt;nav class=&#34;nav&#34; id=&#34;js-nav&#34;&gt;
-  &lt;div id=&#34;js-pointer&#34; class=&#34;nav__pointer&#34;&gt;&lt;/div&gt;
-  &lt;ul class=&#34;nav__list&#34;&gt;
-    &lt;li&gt;&lt;a href=&#34;javascript:;&#34;&gt;Overview&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;javascript:;&#34;&gt;Goals&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;javascript:;&#34;&gt;Inspiration&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=&#34;javascript:;&#34;&gt;Profile&lt;/a&gt;&lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/nav&gt;</textarea
+&lt;canvas id=&#34;canvas&#34; width=&#34;400&#34; height=&#34;400&#34;&gt;&lt;/canvas&gt;
+
+&lt;div class=&#34;canvas-mouse&#34;&gt;
+  x: &lt;span id=&#34;x&#34;&gt;0&lt;/span&gt;
+  &lt;br /&gt;
+  y: &lt;span id=&#34;y&#34;&gt;0&lt;/span&gt;
+&lt;/div&gt;</textarea
     >
-    <textarea id="csscode-ta" style="display: none">.nav {
-  position: relative;
-  padding: 1em;
+    <textarea id="csscode-ta" style="display: none">canvas {
+  background-color: #e8e8e8;
 }
 
-.nav__pointer {
-  z-index: 1;
+.canvas-mouse {
   position: absolute;
-  top: 0.6em;
-  left: 1em;
-  background-color: #bada55;
-  height: 1.8em;
-  transition: transform 0.25s ease-in-out;
-  border-radius: 0.3em;
-  will-change: transform;
-  backface-visibility: hidden;
-}
-
-.nav__list {
-  position: relative;
-  z-index: 2;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-}
-
-/* Decoration styles */
-
-body,
-html {
-  height: 100vh;
-  min-height: 320px;
-  box-sizing: border-box;
-}
-
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  padding: 1em;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-nav {
-  text-align: center;
-  width: 420px;
-  margin: 0 auto;
-  background: #e8e8e8;
-  display: block;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-a {
-  text-decoration: none;
-  font-weight: 600;
-  user-select: none;
-}
-
-a,
-a:visited {
-  color: #1d1d1d;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }</textarea>
-    <textarea id="jscode-ta" style="display: none">var CONTAINER_PADDING_HALF = &#34;0.5em&#34;;
+    <textarea id="jscode-ta" style="display: none">let utils = {};
 
-var nav = document.getElementById(&#34;js-nav&#34;);
-var pointer = document.getElementById(&#34;js-pointer&#34;);
-var links = nav.getElementsByTagName(&#34;a&#34;);
+utils.captureMouse = function (element) {
+  var mouse = { x: 0, y: 0 };
+  element.addEventListener(
+    &#34;mousemove&#34;,
+    function (event) {
+      var x, y;
+      if (event.pageX || event.pageY) {
+        x = event.pageX;
+        y = event.pageY;
+      } else {
+        x =
+          event.clientX +
+          document.body.scrollLeft +
+          document.documentElement.scrollLeft;
+        y =
+          event.clientY +
+          document.body.scrollTop +
+          document.documentElement.scrollTop;
+      }
+      x -= element.offsetLeft;
+      y -= element.offsetTop;
+      mouse.x = x;
+      mouse.y = y;
+    },
+    false
+  );
+  return mouse;
+};
 
-pointer.style.width =
-  &#34;calc(100% /&#34; + links.length + &#34; - &#34; + CONTAINER_PADDING_HALF + &#34;)&#34;;
+var canvas = document.querySelector(&#34;#canvas&#34;);
 
-for (var i = 0; i &lt; links.length; i++) {
-  var current = links[i];
-  current.dataset.order = i * 100 + &#34;%&#34;;
-  current.addEventListener(&#34;click&#34;, movePointer);
-}
+var mouse = utils.captureMouse(canvas);
 
-function movePointer(e) {
-  var order = e.currentTarget.dataset.order;
-  pointer.style.transform = &#34;translate3d(&#34; + order + &#34;,0,0)&#34;;
-}</textarea>
+canvas.addEventListener(
+  &#34;mousedown&#34;,
+  function () {
+    console.log(&#34;x: &#34; + mouse.x + &#34;, y: &#34; + mouse.y);
+    document.getElementById(&#34;x&#34;).textContent = mouse.x;
+    document.getElementById(&#34;y&#34;).textContent = mouse.y;
+  },
+  false
+);</textarea>
     <div class="editor-home">
       <div class="editor-home_iframe">
         <iframe
           id="live-preview"
-          src="iframes/doc-1715004123397-iframe.html"
+          src="iframes/doc-1715088556329-iframe.html"
           width="100%"
           height="100%"
           allow="accelerometer *; camera *; encrypted-media *; display-capture *; geolocation *; gyroscope *; microphone *; midi *; clipboard-read *; clipboard-write *; web-share *; serial *; xr-spatial-tracking *"
