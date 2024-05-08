@@ -18,7 +18,7 @@ body {
 }
 
 /* body {
-  background-color: #f2f2f2;
+  background-color: #e8e8e8;
 } */
 
 ul,
@@ -28,28 +28,24 @@ li {
 
 .home__list {
   display: grid;
-  grid-template-columns: repeat(2, 45%);
+  grid-template-columns: repeat(1, 50%);
   place-content: center;
   grid-gap: 30px;
-  /* padding: 40px 0; */
-  padding-top: 130px;
+  padding-top: 100px;
   padding-bottom: 50px;
 }
 
 .home__list li {
-  /* border: 1px solid #e8e8e8; */
-  background-color: #fff;
-  /* box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
-    rgba(17, 17, 26, 0.1) 0px 0px 8px; */
-  /* box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; */
+  /* border: 5px double #ff0000; */
   transition: 0.5s;
   box-sizing: content-box;
-  /* box-shadow: 0 1px 2px rgba(170, 185, 228, 0.15),
-    0 1px 8px rgba(32, 33, 36, 0.08); */
-  /* border-radius: 10px; */
   overflow: hidden;
-  /* box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
-    rgb(209, 213, 219) 0px 0px 0px 1px inset; */
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
 
 .li__mask {
@@ -94,11 +90,13 @@ iframe {
   padding-right: 20px;
   font-family: myfont;
   font-weight: 400;
-  display: none;
+  /* display: none; */
+  background-color: #fff;
 }
 
 /* .home__list li:hover {
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
+  box-shadow: 0px 6px 22px 0px rgba(0, 0, 0, 0.2);
+  border-color: #000;
   transition: 0.5s;
 } */
 
@@ -110,7 +108,7 @@ iframe {
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
-  top: 35px;
+  top: 20px;
   display: flex;
   z-index: 99;
   height: 60px;
@@ -121,7 +119,15 @@ iframe {
     0 1px 8px rgba(32, 33, 36, 0.08);
   border-radius: 100px;
   padding: 0 20px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  transition: 0.5s;
 }
+
+/* .home__header:hover {
+  box-shadow: 0px 6px 22px 0px rgba(0, 0, 0, 0.2);
+  transition: 0.5s;
+} */
 
 .home__header_item {
   display: flex;
