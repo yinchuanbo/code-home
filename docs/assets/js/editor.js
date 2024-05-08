@@ -46,7 +46,7 @@ function vsCodeObj(value = "", language = "") {
     automaticLayout: true,
     theme: "vs-dark",
     fontSize: 17,
-    fontFamily: "SF Mono, hack",
+    fontFamily: "hack, Fira Code, SF Mono",
     scrollbar: {
       vertical: "hidden",
       horizontal: "hidden",

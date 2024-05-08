@@ -267,30 +267,32 @@ links.forEach((link, index) =&gt; {
   });
 });</textarea>
     <div class="editor-home">
-      <div class="editor-home_iframe">
-        <iframe
-          id="live-preview"
-          src="iframes/doc-1715004283291-iframe.html"
-          width="100%"
-          height="100%"
-          allow="accelerometer *; camera *; encrypted-media *; display-capture *; geolocation *; gyroscope *; microphone *; midi *; clipboard-read *; clipboard-write *; web-share *; serial *; xr-spatial-tracking *"
-          allowfullscreen="true"
-          allowpaymentrequest="true"
-          allowtransparency="true"
-          sandbox="allow-forms allow-modals allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation allow-downloads allow-presentation"
-          class="result-iframe iframe-visual-update"
-          name="codeShow"
-          loading="lazy"
-        ></iframe>
-      </div>
+      <!-- <div class="editor-home_iframe"></div> -->
       <div class="editor-home_code">
         <div class="editor-home_tabs">
-          <div class="home_tabs__item active">HTML</div>
+          <div class="home_tabs__item active">PREVIEW</div>
+          <div class="home_tabs__item">HTML</div>
           <div class="home_tabs__item">CSS</div>
           <div class="home_tabs__item">JS</div>
         </div>
         <div class="editor-home_contents">
-          <div class="home_content__item active" id="htmlcode"></div>
+          <div class="home_content__item active" id="preview">
+            <iframe
+              id="live-preview"
+              src="iframes/doc-1715004283291-iframe.html"
+              width="100%"
+              height="100%"
+              allow="accelerometer *; camera *; encrypted-media *; display-capture *; geolocation *; gyroscope *; microphone *; midi *; clipboard-read *; clipboard-write *; web-share *; serial *; xr-spatial-tracking *"
+              allowfullscreen="true"
+              allowpaymentrequest="true"
+              allowtransparency="true"
+              sandbox="allow-forms allow-modals allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation allow-downloads allow-presentation"
+              class="result-iframe iframe-visual-update"
+              name="codeShow"
+              loading="lazy"
+            ></iframe>
+          </div>
+          <div class="home_content__item" id="htmlcode"></div>
           <div class="home_content__item" id="csscode"></div>
           <div class="home_content__item" id="jscode"></div>
         </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>转义符</title>
+    <title>8个小而美的前端库</title>
     <meta charset="utf-8">
     <meta name="description" content="This is a page">
     <meta name="keywords" content="page, sample">
@@ -14,10 +14,6 @@
   <!--<div class="article__wrapper_left">
     <div class="article__wrapper_left-mulu">目录</div>
     <ul class="articles__list"><li class="">
-          <a href="/articles/76.html">
-            8个小而美的前端库
-          </a>
-        </li><li class="">
           <a href="/articles/77.html">
             20个JS工具函数助力高效开发
           </a>
@@ -53,6 +49,10 @@
           <a href="/articles/85.html">
             前端数字格式化展示方法
           </a>
+        </li><li class="">
+          <a href="/articles/86.html">
+            普通的文本输入框实现敏感词文字高亮
+          </a>
         </li></ul>
   </div>-->
   <div class="article__wrapper_sidebar">
@@ -62,102 +62,45 @@
   <div class="article__wrapper">
     <div class="article__wrapper__main">
       <div class="article__wrapper_header">
-        <h1>转义符</h1>
-        <span class="articles__home_time">2023/10/18 · YinHao</span>
+        <h1>8个小而美的前端库</h1>
+        <span class="articles__home_time">2024/04/30 · YinHao</span>
       </div>
-      <h2>JavaScript 中的字符串转义序列</h2>
-<table>
-<thead>
-<tr>
-<th>转义符</th>
-<th style="text-align:center">含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>\b</code></td>
-<td style="text-align:center">退格符</td>
-</tr>
-<tr>
-<td><code>\t</code></td>
-<td style="text-align:center">水平制表符</td>
-</tr>
-<tr>
-<td><code>\v</code></td>
-<td style="text-align:center">垂直制表符</td>
-</tr>
-<tr>
-<td><code>\n</code></td>
-<td style="text-align:center">换行符</td>
-</tr>
-<tr>
-<td><code>\r</code></td>
-<td style="text-align:center">回车符</td>
-</tr>
-<tr>
-<td><code>\f</code></td>
-<td style="text-align:center">换页符</td>
-</tr>
-<tr>
-<td><code>\\</code></td>
-<td style="text-align:center">反斜线字符</td>
-</tr>
-<tr>
-<td><code>\'</code></td>
-<td style="text-align:center">单引号</td>
-</tr>
-<tr>
-<td><code>\&quot;</code></td>
-<td style="text-align:center">双引号</td>
-</tr>
-</tbody>
-</table>
-<p>除了定义转义符之外，当反斜线字符 <code>\</code> 位于一行的末尾时，也用于表示 <strong>连续</strong> 的字符串声明，这在声明大段文本块时很有用。</p>
-<pre><code class="language-js">var aTextBlock =
-  &quot;\
-sfhsvfghsdvfghsvdghfvgshdfvghsf\
- \
-123456789\
- \
-+-*/&quot;;
-console.log(aTextBlock); // 'sfhsvfghsdvfghsvdghfvgshdfvghsf 123456789 +-*/'
+      <h2><a href="https://www.npmjs.com/package/radash">radash</a></h2>
+<p>实用的工具库，相比与 lodash，更加面向现代，提供更多新功能（tryit，retry 等函数），源码可读性高，如果不想安装它，大部分函数可以直接复制到本地使用。</p>
+<p><img src="../assets/images/articles/164/01.awebp" alt=""></p>
+<h2><a href="https://github.com/xnimorz/use-debounce">use-debounce</a></h2>
+<p>React Hook Debouce 库，让你不再为使用防抖烦恼。库的特点：体积小 &lt; 1 Kb、与 underscore / lodash impl 兼容 - 一次学习，随处使用、服务器渲染友好。</p>
+<p><img src="../assets/images/articles/164/02.awebp" alt=""></p>
+<h2><a href="https://github.com/hustcc/timeago.js">timeago.js</a></h2>
+<p>格式化日期时间库，比如：“3 hours ago”，支持多语言，仅 2Kb 大小。同时提供了 React 版本 timeago-react。</p>
+<pre><code class="language-js">timeage.format(1544666010224, &quot;zh_CN&quot;); // 输出 “5 年前”
+timeage.format(Date.now() - 1000, &quot;zh_CN&quot;); // 输出 “刚刚”
+timeage.format(Date.now() - 1000 * 60 * 5, &quot;zh_CN&quot;); // 输出 “5 分钟前”
 </code></pre>
-<p><strong>比较容易被忽视的是：空字符串与其他字符串一样也可以用作对象成员名</strong></p>
-<pre><code class="language-js">const obj = {
-  &quot; &quot;: 100,
-};
-console.log(obj[&quot; &quot;]); // 100
+<h2><a href="https://github.com/streamich/react-use">react-use</a></h2>
+<p>实用 Hook 大合集 - 内容丰富，从跟踪电池状态和地理位置，到设置收藏夹、防抖和播放视频，无所不包。</p>
+<p><img src="../assets/images/articles/164/03.awebp" alt=""></p>
+<h2><a href="https://github.com/iamkun/dayjs">dayjs</a></h2>
+<p>Day.js 是一个简约的 JavaScript 库，仅 2 Kb 大小。它可以使用基本兼容 Moment.js，为你提供日期的解析、处理和显示，支持多语言能力。</p>
+<p><img src="../assets/images/articles/164/04.awebp" alt=""></p>
+<h2><a href="https://www.npmjs.com/package/filesize">filesize</a></h2>
+<p>filesize.js 提供了一种简单方法，便于从数字（浮点数或整数）或字符串转换成可读性高的文件大小。</p>
+<pre><code class="language-js">import {filesize} from &quot;filesize&quot;;
+filesize(265318, {standard: &quot;jedec&quot;}); // &quot;259.1 KB&quot;
+driver.js：driver.js 是一款用原生 js 实现的页面引导库，上手非常简单，体积在 gzip 压缩下仅仅 5kb。
 </code></pre>
-<h2>数值字面量</h2>
-<ul>
-<li>
-<p>如果以 <code>0x</code> 或 <code>0X</code> 开始，则表明是一个 <strong>十六进制</strong> 数值。</p>
-</li>
-<li>
-<p>如果以 <code>0o</code> 或 <code>0O</code> 开始，则表明是一个 <strong>八进制</strong> 数值。</p>
-</li>
-<li>
-<p>如果以 <code>0b</code> 或 <code>0B</code> 开始，则表明是一个 <strong>二进制</strong> 数值。</p>
-</li>
-<li>
-<p>其他情况下，表明是一个十进制整数或浮点数。</p>
-</li>
-</ul>
-<pre><code class="language-SH">1234; # 十进制整数
-0x1234; # 十六进制整数
-0o1234; # 八进制整数
-0b1101; # 二进制整数
--0X1234; # 负值的十六进制整数
-+100; # 正值的十进制整数
-</code></pre>
-<p>当一个字面量被识别为十六进制数值时，该字面量由 <code>0~9</code> 和 <code>A~F</code> 字符构成，</p>
-<p>当被识别为八进制数值时，该字面量由 <code>0~7</code> 字符构成，</p>
+<h2><a href="https://www.npmjs.com/package/driver.js">driver.js</a></h2>
+<p>driver.js 是一款用原生 js 实现的页面引导库，上手非常简单，体积在 gzip 压缩下仅仅 5kb。</p>
+<p><img src="../assets/images/articles/164/05.awebp" alt=""></p>
+<h2><a href="https://drag-and-drop.formkit.com/">@formkit/drag-and-drop</a></h2>
+<p>FormKit DnD 是一个小型库，它简单、灵活、与框架无关，压缩后只有 4Kb 左右，设计理念为数据优先。</p>
+<p><img src="../assets/images/articles/164/06.awebp" alt=""></p>
  
     </div>
   </div>
   <div class="article__wrapper_footer">
-    <a class="article__wrapper_footer-left " href="/articles/74.html"><svg t="1713708729970" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8437" width="48" height="48"><path d="M409.272947 512.57741l403.237243 403.237243a63.349415 63.349415 0 1 1-89.622481 89.622482L274.839224 557.324726a63.349415 63.349415 0 0 1 0-89.494632L722.951633 19.717685a63.349415 63.349415 0 1 1 89.494633 89.622482L409.336872 512.57741z" p-id="8438" fill="currentColor"></path></svg></a>
-    <a class="article__wrapper_footer-right " href="/articles/76.html"><svg t="1713708697355" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8093" width="48" height="48"><path d="M855.123 517.004c0 8.245-3.167 15.51-9.503 21.823L402.999 981.47c-6.336 6.336-13.625 9.477-21.869 9.477s-15.51-3.142-21.845-9.477L311.8 933.96c-6.336-6.336-9.502-13.6-9.502-21.845 0-8.222 3.167-15.51 9.502-21.845l373.29-373.29-373.293-373.267c-6.336-6.336-9.502-13.6-9.502-21.845s3.167-15.533 9.503-21.869l47.484-47.484c6.336-6.336 13.6-9.502 21.845-9.502s15.533 3.167 21.869 9.503l442.621 442.622c6.334 6.334 9.503 13.625 9.503 21.869z" fill="currentColor" p-id="8094"></path></svg></a>
+    <a class="article__wrapper_footer-left " href="/articles/75.html"><svg t="1713708729970" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8437" width="48" height="48"><path d="M409.272947 512.57741l403.237243 403.237243a63.349415 63.349415 0 1 1-89.622481 89.622482L274.839224 557.324726a63.349415 63.349415 0 0 1 0-89.494632L722.951633 19.717685a63.349415 63.349415 0 1 1 89.494633 89.622482L409.336872 512.57741z" p-id="8438" fill="currentColor"></path></svg></a>
+    <a class="article__wrapper_footer-right " href="/articles/77.html"><svg t="1713708697355" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8093" width="48" height="48"><path d="M855.123 517.004c0 8.245-3.167 15.51-9.503 21.823L402.999 981.47c-6.336 6.336-13.625 9.477-21.869 9.477s-15.51-3.142-21.845-9.477L311.8 933.96c-6.336-6.336-9.502-13.6-9.502-21.845 0-8.222 3.167-15.51 9.502-21.845l373.29-373.29-373.293-373.267c-6.336-6.336-9.502-13.6-9.502-21.845s3.167-15.533 9.503-21.869l47.484-47.484c6.336-6.336 13.6-9.502 21.845-9.502s15.533 3.167 21.869 9.503l442.621 442.622c6.334 6.334 9.503 13.625 9.503 21.869z" fill="currentColor" p-id="8094"></path></svg></a>
   </div>
   <a class="article__wrapper_index" href="/articles/"><svg t="1713708857338" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9656" width="48" height="48"><path d="M549.61981 133.022476l319.683047 203.605334A70.851048 70.851048 0 0 1 902.095238 396.361143v434.883047A70.89981 70.89981 0 0 1 831.146667 902.095238h-282.819048l0.024381-218.112h-71.826286v218.087619L192.853333 902.095238A70.89981 70.89981 0 0 1 121.904762 831.24419V390.241524c0-24.527238 12.678095-47.299048 33.54819-60.220953l318.659048-197.485714a70.972952 70.972952 0 0 1 75.50781 0.487619zM828.952381 828.952381V397.214476L511.488 195.047619 195.047619 391.119238V828.952381h211.309714v-216.551619h212.187429v216.527238L828.952381 828.952381z" p-id="9657" fill="#707070"></path></svg></div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
