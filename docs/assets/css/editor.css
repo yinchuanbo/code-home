@@ -61,7 +61,7 @@ body {
 }
 
 .home_tabs__item.active {
-  background-color: #743636;
+  background-color: #ff0000;
   /* border-top-right-radius: 10px;
   border-top-left-radius: 10px; */
 }

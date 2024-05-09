@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>IFRAME</title>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+      />
+      <script src="https://unpkg.com/pagedjs/dist/paged.legacy.polyfill.js"></script>
+      <style>
+        * {
+          padding: 0;
+          margin: 0;
+          font-family: Montserrat;
+        }
+        html,
+        body {
+          height: 100%;
+        }
+        body {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        ::-webkit-scrollbar {
+          width: 8px;
+          height: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+          border-radius: 0;
+          background: rgba(255, 255, 255, 0.4);
+        }
+        ::-webkit-scrollbar-track {
+          box-shadow: none;
+          border-radius: 0;
+          background: transparent;
+        }
+        #carousel-wrapper, .waving, .folder, .glass-container, .g-flex, .theme-app, .faqs__translator {
+          transform: scale(null)
+        }
+      </style>
+      <style id="live-preview-style">@charset "UTF-8";
+/* 外层容器 */
+.swiper {
+  width: 1072px;
+  height: 420px; }
+
+/* 轮播项 */
+.swiper .swiper-slide {
+  width: 700px;
+  height: 100%;
+  font-size: 32px;
+  font-weight: 500;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.swiper .swiper-slide-1 {
+  background-color: #425066; }
+
+.swiper .swiper-slide-2 {
+  background-color: #8d4bbb; }
+
+.swiper .swiper-slide-3 {
+  background-color: #9d2933; }
+
+.swiper .swiper-slide-4 {
+  background-color: #003371; }
+
+.swiper .swiper-slide-5 {
+  background-color: #4c8dae; }
+</style>
+    </head>
+    <body>
+      <div class="swiper">
+  <!-- Additional required wrapper -->
+  <div class="swiper-wrapper">
+    <!-- Slides -->
+    <div class="swiper-slide swiper-slide-1">1</div>
+    <div class="swiper-slide swiper-slide-2">2</div>
+    <div class="swiper-slide swiper-slide-3">3</div>
+    <div class="swiper-slide swiper-slide-4">4</div>
+    <div class="swiper-slide swiper-slide-5">5</div>
+  </div>
+  <!-- <div class="swiper-pagination"></div>
+  <div class="swiper-button-prev"></div>
+  <div class="swiper-button-next"></div>
+  <div class="swiper-scrollbar"></div> -->
+</div>
+
+      <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.js"></script>
+      <script src="https://hammerjs.github.io/dist/hammer.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js"></script>
+      <script id="script__preview">const swiper = new Swiper(".swiper", {
+  effect: "coverflow",
+  loop: true,
+  grabCursor: true,
+  centeredSlides: true,
+  slidesPerView: "auto",
+//   autoplay: {
+//     delay: 3000,
+//   },
+  coverflowEffect: {
+    rotate: 0,
+    stretch: 420,
+    depth: 200,
+    modifier: 1,
+    slideShadows: false,
+  },
+  //   pagination: {
+  //     el: ".swiper-pagination",
+  //   },
+  //   navigation: {
+  //     nextEl: ".swiper-button-prev",
+  //     prevEl: ".swiper-button-next",
+  //   },
+});
+swiper.on("click", function (event) {
+  // 获取被点击的幻灯片索引
+  const clickedSlideIndex = event.clickedIndex;
+  // 切换到被点击的幻灯片
+  swiper.slideTo(clickedSlideIndex);
+});
+// 监听改变事件
+swiper.on("slideChange", (e) => {
+  console.log(e.realIndex);
+});
+</script>
+    </body>
+  </html>
+  
