@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>IFRAME</title>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+      />
+      <script src="https://unpkg.com/pagedjs/dist/paged.legacy.polyfill.js"></script>
+      <style>
+        * {
+          padding: 0;
+          margin: 0;
+          font-family: Montserrat;
+        }
+        html,
+        body {
+          height: 100%;
+        }
+        body {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        ::-webkit-scrollbar {
+          width: 8px;
+          height: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+          border-radius: 0;
+          background: rgba(255, 255, 255, 0.4);
+        }
+        ::-webkit-scrollbar-track {
+          box-shadow: none;
+          border-radius: 0;
+          background: transparent;
+        }
+      </style>
+      <style id="live-preview-style">:root {
+  --white-100: hsl(206, 5%, 100%);
+  --white-200: hsl(206, 5%, 90%);
+  --white-300: hsl(206, 5%, 80%);
+  --white-400: hsl(206, 5%, 65%);
+  --white-500: hsl(206, 5%, 45%);
+  --black-100: hsl(210, 20%, 10%);
+  --black-200: hsl(210, 20%, 8%);
+  --black-300: hsl(210, 20%, 6%);
+  --black-400: hsl(210, 20%, 4%);
+  --black-500: hsl(210, 20%, 1%); }
+
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  list-style: none;
+  list-style-type: none;
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility; }
+
+html {
+  font-size: 100%;
+  box-sizing: inherit;
+  scroll-behavior: smooth;
+  height: -webkit-fill-available; }
+
+body {
+  font-family: "Rubik", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--black-500);
+  /* background-color: var(--white-100); */ }
+
+main {
+  overflow: hidden; }
+
+a,
+button {
+  cursor: pointer;
+  user-select: none;
+  border: none;
+  outline: none;
+  background: none; }
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges; }
+
+.section {
+  margin: 0 auto;
+  padding-block: 5rem; }
+
+.container {
+  max-width: 75rem;
+  height: auto;
+  margin-inline: auto;
+  padding-inline: 1.25rem; }
+
+.swiper-button-next::after, .swiper-button-prev::after {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 1rem;
+  width: 2rem;
+  height: 2rem;
+  opacity: 0.75;
+  border-radius: 50%;
+  color: var(--white-100);
+  background: var(--black-300); }
+</style>
+    </head>
+    <body>
+      <section class="section slider-section">
+  <div class="container slider-column">
+    <div class="swiper swiper-slider">
+      <div class="swiper-wrapper">
+        <img class="swiper-slide" src="https://source.unsplash.com/1920x1280/?animal" alt="Swiper">
+        <img class="swiper-slide" src="https://source.unsplash.com/1920x1280/?nature" alt="Swiper">
+        <img class="swiper-slide" src="https://source.unsplash.com/1920x1280/?people" alt="Swiper">
+        <img class="swiper-slide" src="https://source.unsplash.com/1920x1280/?flower" alt="Swiper">
+        <img class="swiper-slide" src="https://source.unsplash.com/1920x1280/?travel" alt="Swiper">
+        <img class="swiper-slide" src="https://source.unsplash.com/1920x1280/?fruits" alt="Swiper">
+      </div>
+      <span class="swiper-pagination"></span>
+      <span class="swiper-button-prev"></span>
+      <span class="swiper-button-next"></span>
+    </div>
+  </div>
+</section>
+</main>
+
+      <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.js"></script>
+      <script src="https://hammerjs.github.io/dist/hammer.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js"></script>
+      <script id="script__preview">const swiper = new Swiper(".swiper-slider", {
+  // Optional parameters
+  centeredSlides: true,
+  slidesPerView: 1,
+  grabCursor: true,
+  freeMode: false,
+  loop: true,
+  mousewheel: false,
+  keyboard: {
+    enabled: true,
+  },
+
+  // Enabled autoplay mode
+  autoplay: {
+    delay: 3000,
+    disableOnInteraction: false,
+  },
+
+  // If we need pagination
+  pagination: {
+    el: ".swiper-pagination",
+    dynamicBullets: false,
+    clickable: true,
+  },
+
+  // If we need navigation
+  navigation: {
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
+
+  // Responsive breakpoints
+  breakpoints: {
+    640: {
+      slidesPerView: 1.25,
+      spaceBetween: 20,
+    },
+    1024: {
+      slidesPerView: 2,
+      spaceBetween: 20,
+    },
+  },
+});
+</script>
+    </body>
+  </html>
+  

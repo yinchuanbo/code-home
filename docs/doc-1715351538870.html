@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EDITOR</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      data-name="vs/editor/editor.main"
+      href="https://unpkg.com/monaco-editor@^0.21.2/min/vs/editor/editor.main.css"
+    />
+    <link rel="stylesheet" href="assets/css/editor.css" />
+  </head>
+  <body>
+    <textarea id="htmlcode-ta" style="display: none">
+&lt;div class=&#34;gallery-container&#34;&gt;
+  &lt;div class=&#34;swiper-container gallery-main&#34;&gt;
+    &lt;div class=&#34;swiper-wrapper&#34;&gt;
+      &lt;div class=&#34;swiper-slide&#34;&gt;
+        &lt;div class=&#34;gallery-title&#34;&gt;Vertical&lt;br /&gt;Swiper&lt;/div&gt;
+        &lt;img src=&#34;https://picsum.photos/seed/slide1/600/300&#34; alt=&#34;Slide 01&#34; /&gt;
+      &lt;/div&gt;
+      &lt;div class=&#34;swiper-slide&#34;&gt;
+        &lt;div class=&#34;gallery-title&#34;&gt;Slide 02&lt;/div&gt;
+        &lt;img src=&#34;https://picsum.photos/seed/slide2/600/300&#34; alt=&#34;Slide 02&#34; /&gt;
+      &lt;/div&gt;
+      &lt;div class=&#34;swiper-slide&#34;&gt;
+        &lt;div class=&#34;gallery-title&#34;&gt;Slide 03&lt;/div&gt;
+        &lt;img src=&#34;https://picsum.photos/seed/slide3/600/300&#34; alt=&#34;Slide 03&#34; /&gt;
+      &lt;/div&gt;
+      &lt;div class=&#34;swiper-slide&#34;&gt;
+        &lt;div class=&#34;gallery-title&#34;&gt;Slide 04&lt;/div&gt;
+        &lt;img src=&#34;https://picsum.photos/seed/slide4/600/300&#34; alt=&#34;Slide 04&#34; /&gt;
+      &lt;/div&gt;
+      &lt;div class=&#34;swiper-slide&#34;&gt;
+        &lt;div class=&#34;gallery-title&#34;&gt;Slide 04&lt;/div&gt;
+        &lt;img src=&#34;https://picsum.photos/seed/slide5/600/300&#34; alt=&#34;Slide 05&#34; /&gt;
+      &lt;/div&gt;
+      &lt;div class=&#34;swiper-slide&#34;&gt;
+        &lt;div class=&#34;gallery-title&#34;&gt;Slide 06&lt;/div&gt;
+        &lt;img src=&#34;https://picsum.photos/seed/slide6/600/300&#34; alt=&#34;Slide 06&#34; /&gt;
+      &lt;/div&gt;
+      &lt;div class=&#34;swiper-slide&#34;&gt;
+        &lt;div class=&#34;gallery-title&#34;&gt;Slide 07&lt;/div&gt;
+        &lt;img src=&#34;https://picsum.photos/seed/slide7/600/300&#34; alt=&#34;Slide 07&#34; /&gt;
+      &lt;/div&gt;
+      &lt;div class=&#34;swiper-slide&#34;&gt;
+        &lt;div class=&#34;gallery-title&#34;&gt;Slide 08&lt;/div&gt;
+        &lt;img src=&#34;https://picsum.photos/seed/slide8/600/300&#34; alt=&#34;Slide 08&#34; /&gt;
+      &lt;/div&gt;
+      &lt;div class=&#34;swiper-slide&#34;&gt;
+        &lt;div class=&#34;gallery-title&#34;&gt;Slide 09&lt;/div&gt;
+        &lt;img src=&#34;https://picsum.photos/seed/slide9/600/300&#34; alt=&#34;Slide 09&#34; /&gt;
+      &lt;/div&gt;
+      &lt;div class=&#34;swiper-slide&#34;&gt;
+        &lt;div class=&#34;gallery-title&#34;&gt;Slide 10&lt;/div&gt;
+        &lt;img src=&#34;https://picsum.photos/seed/slide10/600/300&#34; alt=&#34;Slide 10&#34; /&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;swiper-button-prev&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;swiper-button-next&#34;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&#34;swiper-container gallery-thumbs&#34;&gt;
+    &lt;div class=&#34;swiper-wrapper&#34;&gt;
+      &lt;div class=&#34;swiper-slide&#34;&gt;
+        &lt;img src=&#34;https://picsum.photos/seed/slide1/115/100&#34; alt=&#34;Slide 01&#34; /&gt;
+      &lt;/div&gt;
+      &lt;div class=&#34;swiper-slide&#34;&gt;
+        &lt;img src=&#34;https://picsum.photos/seed/slide2/115/100&#34; alt=&#34;Slide 02&#34; /&gt;
+      &lt;/div&gt;
+      &lt;div class=&#34;swiper-slide&#34;&gt;
+        &lt;img src=&#34;https://picsum.photos/seed/slide3/115/100&#34; alt=&#34;Slide 03&#34; /&gt;
+      &lt;/div&gt;
+      &lt;div class=&#34;swiper-slide&#34;&gt;
+        &lt;img src=&#34;https://picsum.photos/seed/slide4/115/100&#34; alt=&#34;Slide 04&#34; /&gt;
+      &lt;/div&gt;
+      &lt;div class=&#34;swiper-slide&#34;&gt;
+        &lt;img src=&#34;https://picsum.photos/seed/slide5/115/100&#34; alt=&#34;Slide 05&#34; /&gt;
+      &lt;/div&gt;
+      &lt;div class=&#34;swiper-slide&#34;&gt;
+        &lt;img src=&#34;https://picsum.photos/seed/slide6/115/100&#34; alt=&#34;Slide 06&#34; /&gt;
+      &lt;/div&gt;
+      &lt;div class=&#34;swiper-slide&#34;&gt;
+        &lt;img src=&#34;https://picsum.photos/seed/slide7/115/100&#34; alt=&#34;Slide 07&#34; /&gt;
+      &lt;/div&gt;
+      &lt;div class=&#34;swiper-slide&#34;&gt;
+        &lt;img src=&#34;https://picsum.photos/seed/slide8/115/100&#34; alt=&#34;Slide 08&#34; /&gt;
+      &lt;/div&gt;
+      &lt;div class=&#34;swiper-slide&#34;&gt;
+        &lt;img src=&#34;https://picsum.photos/seed/slide9/115/100&#34; alt=&#34;Slide 09&#34; /&gt;
+      &lt;/div&gt;
+      &lt;div class=&#34;swiper-slide&#34;&gt;
+        &lt;img src=&#34;https://picsum.photos/seed/slide10/115/100&#34; alt=&#34;Slide 10&#34; /&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</textarea
+    >
+    <textarea id="csscode-ta" style="display: none">.gallery-container {
+  position: relative;
+  width: 730px;
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.gallery-main {
+  width: 600px;
+  height: 300px;
+  box-shadow: 0 50px 75px 50px rgba(#1e1e1e, 0.18);
+  border: 1px solid #e9e9e9;
+
+  .swiper-button {
+    &amp;-prev,
+    &amp;-next {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      top: auto;
+      left: auto;
+      height: 75px;
+      width: 40px;
+      color: #e9e9e9;
+      background: #1e1e1e;
+
+      &amp;::after {
+        font-size: 12px;
+      }
+    }
+
+    &amp;-prev {
+      right: 40px;
+      border-right: 1px solid #e9e9e9;
+    }
+  }
+}
+
+.gallery-title {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-family: &#34;Epilogue&#34;, sans-serif;
+  font-size: 50px;
+  font-weight: 700;
+  text-align: right;
+  text-transform: uppercase;
+  text-shadow: 0 0 20px rgba(#000, 0.3);
+  color: #ffffff;
+
+  .swiper-slide-active &amp; {
+    animation: slide-in 0.3s ease-in both;
+  }
+}
+
+.gallery-thumbs {
+  order: -1;
+  width: 100px;
+  height: 300px;
+  margin-right: 15px;
+  padding-left: 15px;
+
+  .swiper-slide {
+    img {
+      transition: 0.3s;
+    }
+
+    &amp;-active {
+      opacity: 0.9;
+    }
+
+    &amp;-thumb-active {
+      opacity: 1;
+
+      img {
+        margin-left: -15px;
+      }
+    }
+  }
+}
+
+/**
+ * Optionnal
+ */
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    right: -50%;
+  }
+}</textarea>
+    <textarea id="jscode-ta" style="display: none">var galleryThumbs = new Swiper(&#34;.gallery-thumbs&#34;, {
+  centeredSlides: true,
+  centeredSlidesBounds: true,
+  slidesPerView: 3,
+  watchOverflow: true,
+  watchSlidesVisibility: true,
+  watchSlidesProgress: true,
+  direction: &#34;vertical&#34;,
+});
+
+var galleryMain = new Swiper(&#34;.gallery-main&#34;, {
+  watchOverflow: true,
+  watchSlidesVisibility: true,
+  watchSlidesProgress: true,
+  preventInteractionOnTransition: true,
+  navigation: {
+    nextEl: &#34;.swiper-button-next&#34;,
+    prevEl: &#34;.swiper-button-prev&#34;,
+  },
+  effect: &#34;fade&#34;,
+  fadeEffect: {
+    crossFade: true,
+  },
+  thumbs: {
+    swiper: galleryThumbs,
+  },
+});
+
+galleryMain.on(&#34;slideChangeTransitionStart&#34;, function () {
+  galleryThumbs.slideTo(galleryMain.activeIndex);
+});
+
+galleryThumbs.on(&#34;transitionStart&#34;, function () {
+  galleryMain.slideTo(galleryThumbs.activeIndex);
+});</textarea>
+    <div class="editor-home">
+      <!-- <div class="editor-home_iframe"></div> -->
+      <div class="editor-home_code">
+        <div class="editor-home_tabs">
+          <div class="home_tabs__item active">PREVIEW</div>
+          <div class="home_tabs__item">HTML</div>
+          <div class="home_tabs__item">CSS</div>
+          <div class="home_tabs__item">JS</div>
+        </div>
+        <div class="editor-home_contents">
+          <div class="home_content__item active" id="preview">
+            <iframe
+              id="live-preview"
+              src="iframes/doc-1715351538870-iframe.html"
+              width="100%"
+              height="100%"
+              allow="accelerometer *; camera *; encrypted-media *; display-capture *; geolocation *; gyroscope *; microphone *; midi *; clipboard-read *; clipboard-write *; web-share *; serial *; xr-spatial-tracking *"
+              allowfullscreen="true"
+              allowpaymentrequest="true"
+              allowtransparency="true"
+              sandbox="allow-forms allow-modals allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation allow-downloads allow-presentation"
+              class="result-iframe iframe-visual-update"
+              name="codeShow"
+              loading="lazy"
+            ></iframe>
+          </div>
+          <div class="home_content__item" id="htmlcode"></div>
+          <div class="home_content__item" id="csscode"></div>
+          <div class="home_content__item" id="jscode"></div>
+        </div>
+      </div>
+    </div>
+    <script src="assets/js/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/sass.sync.min.js"></script>
+    <script src="https://unpkg.com/monaco-editor@^0.21.2/min/vs/loader.js"></script>
+    <script src="assets/js/editor.js"></script>
+  </body>
+</html>

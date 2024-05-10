@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>IFRAME</title>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+      />
+      <script src="https://unpkg.com/pagedjs/dist/paged.legacy.polyfill.js"></script>
+      <style>
+        * {
+          padding: 0;
+          margin: 0;
+          font-family: Montserrat;
+        }
+        html,
+        body {
+          height: 100%;
+        }
+        body {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        ::-webkit-scrollbar {
+          width: 8px;
+          height: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+          border-radius: 0;
+          background: rgba(255, 255, 255, 0.4);
+        }
+        ::-webkit-scrollbar-track {
+          box-shadow: none;
+          border-radius: 0;
+          background: transparent;
+        }
+        #carousel-wrapper, .waving, .folder, .glass-container, .g-flex, .theme-app, .faqs__translator {
+          transform: scale(null)
+        }
+      </style>
+      <style id="live-preview-style">body {
+  background-color: #ffc650;
+  text-align: center; }
+
+form {
+  background-color: #ffc650;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 550px;
+  height: 270px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap; }
+
+/* radio */
+fieldset {
+  width: 100%;
+  text-align: center; }
+
+input[type="radio"] {
+  display: none; }
+  input[type="radio"] + label {
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    user-select: none;
+    padding-left: 20px;
+    padding-right: 20px; }
+    input[type="radio"] + label::before {
+      transition: all 250ms cubic-bezier(0.4, 0.25, 0.3, 1);
+      content: "";
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: white;
+      border: 0px solid white;
+      font-size: 0;
+      position: absolute;
+      bottom: 275%;
+      left: 50%;
+      transform: translate(-50%, 50%); }
+    input[type="radio"] + label::after {
+      transition: all 250ms cubic-bezier(0.4, 0.25, 0.3, 1);
+      content: "";
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background-color: white;
+      position: absolute;
+      bottom: 275%;
+      left: 50%;
+      transform: translate(-50%, 50%); }
+  input[type="radio"]:checked + label::before {
+    background-color: transparent;
+    width: 40px;
+    height: 40px;
+    border-width: 2px; }
+  input[type="radio"]:checked + label::after {
+    width: 30px;
+    height: 30px; }
+
+/* input */
+section.input-container label {
+  position: relative;
+  display: block; }
+  section.input-container label input {
+    display: block;
+    padding: 20px;
+    width: 300px;
+    margin-bottom: 10px;
+    outline: none;
+    transition: all 0.2s ease-in-out;
+    background-color: white;
+    font-weight: bold;
+    color: #ff7975; }
+    section.input-container label input::placeholder {
+      transition: all 0.2s ease-in-out;
+      color: #d3d3d3;
+      font-weight: bold; }
+    section.input-container label input:focus, section.input-container label input.populated {
+      padding-top: 28px;
+      padding-bottom: 12px; }
+      section.input-container label input:focus::placeholder, section.input-container label input.populated::placeholder {
+        color: transparent; }
+      section.input-container label input:focus + span, section.input-container label input.populated + span {
+        opacity: 1;
+        top: 10px; }
+  section.input-container label span {
+    font-size: 0.8rem;
+    color: #a9a9a9;
+    position: absolute;
+    top: 0px;
+    left: 20px;
+    opacity: 0;
+    transition: all 0.2s ease-in-out; }
+</style>
+    </head>
+    <body>
+      <form>
+  <section class="input-container">
+    <label>
+      <input type="text" placeholder="input–1" name="product_name" />
+      <span>input–1</span>
+    </label>
+  </section>
+
+  <fieldset>
+    <input type="radio" name="radio1" id="radio-1" value="radio-1" />
+    <label for="radio-1">radio–1</label>
+
+    <input
+      type="radio"
+      name="radio1"
+      id="radio-2"
+      value="radio-2"
+      checked="checked"
+    />
+    <label for="radio-2">radio–2</label>
+
+    <input type="radio" name="radio1" id="radio-3" value="radio-3" />
+    <label for="radio-3">radio–3</label>
+  </fieldset>
+</form>
+
+      <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.js"></script>
+      <script src="https://hammerjs.github.io/dist/hammer.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js"></script>
+      <script id="script__preview"></script>
+    </body>
+  </html>
+  
