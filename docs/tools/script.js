@@ -261,8 +261,8 @@ const doc = new Mergely("#compare", {
   theme: 'dark'
 });
 doc.once("updated", () => {
-  doc.lhs("the quick red fox\njumped over the hairy dog");
-  doc.rhs("the quick brown fox\njumped over the lazy dog");
+  // doc.lhs("the quick red fox\njumped over the hairy dog");
+  // doc.rhs("the quick brown fox\njumped over the lazy dog");
   doc.once("updated", () => {
     doc.scrollToDiff("next");
   });

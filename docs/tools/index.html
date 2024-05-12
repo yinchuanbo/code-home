@@ -10,6 +10,18 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link rel="icon" href="../assets/images/code.svg" sizes="32x32" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      data-name="vs/editor/editor.main"
+      href="https://unpkg.com/monaco-editor@^0.21.2/min/vs/editor/editor.main.css"
+    />
     <link rel="stylesheet" href="../tools/mergely.css" />
     <link rel="stylesheet" href="../tools/style.css" />
     <!-- <link rel="icon" sizes="any" mask href="../assets/images/ico5.svg" /> -->
@@ -19,20 +31,23 @@
   <body>
     <div class="container">
       <div class="container-tabs">
-        <div class="tabs-item active">文本比较</div>
-        <div class="tabs-item">CSS压缩</div>
-        <div class="tabs-item">HTML压缩</div>
-        <div class="tabs-item">JS编译压缩</div>
-        <div class="tabs-item">SCSS编译压缩</div>
-        <div class="tabs-item">JSON格式化</div>
-        <div class="tabs-item">Base64编解码</div>
-        <div class="tabs-item">图片转Base64</div>
+        <div class="tabs-item active">Text Diff</div>
+        <div class="tabs-item">Css Compress</div>
+        <div class="tabs-item">Html Compress</div>
+        <div class="tabs-item">Js Compress</div>
+        <div class="tabs-item">Scss Compress</div>
+        <div class="tabs-item">Json Format</div>
+        <div class="tabs-item">Base64 Convert</div>
+        <div class="tabs-item">Image To Base64</div>
       </div>
       <div class="container-contents">
         <div class="contents-item active" id="compare"></div>
         <div class="contents-item">
           <div class="contents-item__left">
-            <textarea id="css-compress" placeholder="请输入CSS代码"></textarea>
+            <textarea
+              id="css-compress"
+              placeholder="Please enter CSS"
+            ></textarea>
           </div>
           <div class="contents-item__right" id="css-compress-output"></div>
         </div>
@@ -40,14 +55,14 @@
           <div class="contents-item__left">
             <textarea
               id="html-compress"
-              placeholder="请输入HTML代码"
+              placeholder="Please enter HTML"
             ></textarea>
           </div>
           <div class="contents-item__right" id="html-compress-output"></div>
         </div>
         <div class="contents-item">
           <div class="contents-item__left">
-            <textarea id="js-compress" placeholder="请输入JS代码"></textarea>
+            <textarea id="js-compress" placeholder="Please enter JS"></textarea>
           </div>
           <div class="contents-item__right" id="js-compress-output"></div>
         </div>
@@ -55,7 +70,7 @@
           <div class="contents-item__left">
             <textarea
               id="scss-compress"
-              placeholder="请输入SCSS代码"
+              placeholder="Please enter SCSS"
             ></textarea>
           </div>
           <div class="contents-item__right" id="scss-compress-output"></div>
@@ -64,7 +79,7 @@
           <div class="contents-item__left">
             <textarea
               id="json-compress"
-              placeholder="请输入JSON代码"
+              placeholder="Please enter JSON"
             ></textarea>
           </div>
           <div class="contents-item__right" id="json-compress-output"></div>
@@ -73,8 +88,8 @@
           <div class="contents-item__left" id="base64-bm">
             <textarea id="base64-bm-input"></textarea>
             <div>
-              <button class="base64Btn" id="bmBtn">编码</button>
-              <button class="base64Btn" id="jmBtn">解码</button>
+              <button class="base64Btn" id="bmBtn">Encode</button>
+              <button class="base64Btn" id="jmBtn">Decode</button>
             </div>
             <textarea id="base64-bm-output"></textarea>
           </div>
@@ -87,7 +102,7 @@
         <div class="contents-item uploadImg">
           <label class="imgInput__label">
             <input type="file" name="" id="imgInput" style="display: none" />
-            <p>请点击上传图片</p>
+            <p>Please click to upload the image</p>
           </label>
           <textarea id="imgInput__output" readonly></textarea>
         </div>
