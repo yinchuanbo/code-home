@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>IFRAME</title>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+      />
+      <script src="https://unpkg.com/pagedjs/dist/paged.legacy.polyfill.js"></script>
+      <style>
+        * {
+          padding: 0;
+          margin: 0;
+          font-family: Montserrat;
+        }
+        html,
+        body {
+          height: 100%;
+        }
+        body {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        ::-webkit-scrollbar {
+          width: 8px;
+          height: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+          border-radius: 0;
+          background: rgba(255, 255, 255, 0.4);
+        }
+        ::-webkit-scrollbar-track {
+          box-shadow: none;
+          border-radius: 0;
+          background: transparent;
+        }
+      </style>
+      <style id="live-preview-style">body {
+  padding: 0;
+  font-weight: 100;
+  scroll-behavior: smooth;
+  background-image: url("data:image/svg+xml;utf8,<svg style='opacity:.75' width='1200' height='256' viewBox='0 0 1200 256' xmlns='http://www.w3.org/2000/svg'><defs><filter id='noise'><feTurbulence type='fractalNoise' baseFrequency='.4'></feTurbulence></filter></defs><rect height='256' width='1200' filter='url(%23noise)' opacity='0.3'/></svg>");
+  color: #fff;
+  overflow: hidden; }
+
+/* FAQ container */
+.dl-faq {
+  position: relative;
+  max-width: 36rem;
+  margin: 2rem auto 3rem; }
+
+.dl-faq > dt {
+  font-size: 1.2rem;
+  font-weight: 100;
+  padding: 1rem;
+  /* Fix for IE9 & 10 */
+  border-top: 1px solid rgba(255, 255, 255, 0.2); }
+
+dt > button {
+  color: inherit;
+  background-color: inherit; }
+
+.dl-faq > dt:first-child .pab-btn,
+.dl-faq > dt:first-child {
+  border-top: 0; }
+
+.dl-faq.pab_container > dt {
+  /* added via JS */
+  padding: 0; }
+
+.dl-faq > dd {
+  margin: 0 auto;
+  padding: 0 1.5em;
+  font-weight: 100; }
+
+.dl-faq > dd > div {
+  padding: 0 0 2rem; }
+
+.dl-faq div > p {
+  margin: 0 0 1rem; }
+
+.dl-faq div > :last-child {
+  margin: 0; }
+
+/* The acivating buttons added via JS */
+.pab-btn {
+  position: relative;
+  cursor: pointer;
+  transition: color 0.3s ease-in;
+  /* Using absolute positioning for SVG so reserve some space */
+  padding: 1rem 2.5rem 1rem 0.5rem;
+  border: 0 solid transparent;
+  border-top: 1px solid rgba(0, 0, 0, 0.75);
+  /* inherit doesn't work in IE */
+  font-size: inherit;
+  text-align: left;
+  width: 100%; }
+
+.pab-btn:hover,
+.pab-btn:focus,
+.pab-btn:active {
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.25); }
+
+.pab-btn:focus {
+  outline: 0 solid; }
+
+.pab-btn::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+  margin-top: -2px;
+  margin-bottom: -2px; }
+
+/* Underline text on button hover (Tesco requirement) */
+.pab-btn > span {
+  position: relative;
+  /* Removes button drepression in IE */
+  pointer-events: none;
+  /* Required by Safari */
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s; }
+
+.pab-btn:hover > span,
+.pab-btn:focus > span {
+  border-bottom-color: rgba(255, 255, 255, 0.5); }
+
+.pab-btn:active > span {
+  border-bottom-color: transparent; }
+
+/* SVG plus */
+.pab-svg-plus {
+  /* Tesco requirement
+  border: 2px solid currentColor; */
+  border-radius: 100%;
+  display: block;
+  position: absolute;
+  top: calc(50% - 0.75em);
+  right: 4px;
+  width: 1.5em;
+  height: 1.5em;
+  margin: 0;
+  pointer-events: none;
+  stroke-width: 4;
+  stroke-linecap: square;
+  stroke: currentColor;
+  -webkit-transition: transform 0.7s ease-out, box-shadow 0.3s ease-out;
+  transition: transform 0.7s ease-out, box-shadow 0.3s ease-out; }
+
+.pab-btn:hover .pab-svg-plus,
+.pab-btn:focus .pab-svg-plus {
+  /* Same colour as text but with .4 alpha */
+  /* Tesco requirement
+  box-shadow: 0 0 0 4px rgba(0, 83, 159, 0.4);*/ }
+
+.pab-btn:active .pab-svg-plus {
+  /* Tesco requirement
+  box-shadow: 0 0 0 4px rgba(0, 83, 159, 0);*/ }
+
+[aria-expanded="true"] > .pab-svg-plus {
+  transform: rotateZ(360deg); }
+
+.use-plus {
+  /* used to animate plus into minus */
+  -webkit-transition: stroke 0.5s ease-out, opacity 0.7s ease-out;
+  transition: stroke 0.5s ease-out, opacity 0.7s ease-out; }
+
+[aria-expanded="true"] .use-plus {
+  opacity: 0; }
+
+.isSafari .pab-btn .pab-svg-plus {
+  box-shadow: none; }
+
+/* Open / close animation - The inaccurate CSS max-height is resolved via JS adding an inline style */
+[data-pab] + [aria-hidden] {
+  overflow: hidden;
+  opacity: 1;
+  max-height: 50rem;
+  visibility: visible;
+  transition: visibility 0s ease 0s, max-height 0.65s ease-out 0s, opacity 0.65s ease-in 0s; }
+
+[data-pab] + [aria-hidden="true"] {
+  max-height: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition-delay: 0.66s, 0s, 0s; }
+
+/* Overide the max-height set as an inline style by the JS */
+[data-pab] + [style][aria-hidden="true"] {
+  max-height: 0 !important; }
+</style>
+    </head>
+    <body>
+      <dl class="dl-faq pab_container">
+  <dt data-pab="faq_1" data-pab-expand>
+    <span>Is the content fully hidden?</span>
+  </dt>
+
+  <dd id="faq_1">
+    <div>
+      <p>Yes.</p>
+      <p>
+        This content is hidden both visually and aurally, and doesn't appear in
+        the keychain until the button is activated (expanded = true).
+      </p>
+    </div>
+  </dd>
+
+  <!-- adding data-pab-expand will force section open by default -->
+  <dt data-pab="faq_2">
+    <span>May an answer be displayed by default?</span>
+  </dt>
+
+  <dd id="faq_2">
+    <div>
+      <p>Apparently yes.</p>
+      <p>
+        This content is available by default until the button deactivates it
+        (expanded = false) which removes it visually, aurally and from the
+        keychain.
+      </p>
+      <p>
+        Add the attribute <code>data-pab-expand</code> to the <code>dt</code> to
+        open it by default.
+      </p>
+    </div>
+  </dd>
+
+  <dt data-pab="faq_3">
+    <span
+      >Can an answer be opened by
+      <abbr title="Universal Resource Location">URL</abbr> reference?</span
+    >
+  </dt>
+
+  <dd id="faq_3">
+    <div>
+      <p>Yes.</p>
+      <p>
+        Any question may be expanded on page load by referencing its
+        <code>id</code> in the URL.
+      </p>
+      <p>
+        For example this content could be automatically opened by adding
+        "#faq_3" to the URL in the address bar like so:<br /><a
+          target="_blank"
+          title="[new window]"
+          href="https://codepen.io/2kool2/pen/ZOkojB#faq_3"
+          >https://codepen.io/2kool2/pen/ZOkojB#faq_3</a
+        >
+      </p>
+      <p>
+        The focus caret is moved to the activation button when referenced in
+        this manner.
+      </p>
+    </div>
+  </dd>
+
+  <dt id="q_4" data-pab="faq_4">
+    <span>Can an anchor scroll to a question and then open the answer?</span>
+  </dt>
+
+  <dd id="faq_4">
+    <div>
+      <p>
+        Yes, though it only opens on first click. After which it simply scrolls
+        the question to the top of the viewport.
+      </p>
+      <p>
+        Add an unique <code>id</code> value to the question <code>dt</code> then
+        reference the <code>id</code> in the anchors <code>href</code>.
+      </p>
+    </div>
+  </dd>
+
+  <dt data-pab="faq_5">
+    <span>Will it work with the font size scaled-up 200%?</span>
+  </dt>
+
+  <dd id="faq_5">
+    <div>
+      <p>Yes.</p>
+      <p>
+        The height of a hidden block is calculated when the activaton button is
+        pressed. It's also recalculated when the browser window is resized.
+      </p>
+      <p>
+        In fact this module should easily scale to 300%, limited only by the
+        display width and word length.
+      </p>
+    </div>
+  </dd>
+</dl>
+
+<div id="injection_point"></div>
+
+<svg style="display:none">
+  <defs>
+    <symbol viewBox="0 0 38 38" id="icon-plus">
+      <path class="icon-plus-v" d="M10.5 19l17 0"></path>
+      <path class="icon-plus-h" d="M19 10.5l0 17"></path>
+    </symbol>
+
+    <symbol viewBox="0 0 38 38" id="icon-minus">
+      <path class="icon-plus-v" d="M10.5 19l17 0"></path>
+    </symbol>
+
+    <!-- vert and hori combined make up the plus icon and allow for animation -->
+    <symbol viewBox="0 0 38 38" id="icon-vert">
+      <path d="M19 10.5l0 17"></path>
+    </symbol>
+    <symbol viewBox="0 0 38 38" id="icon-hori">
+      <path d="M10.5 19l17 0"></path>
+    </symbol>
+  </defs>
+</svg>
+
+      <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.js"></script>
+      <script src="https://hammerjs.github.io/dist/hammer.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js"></script>
+      <script id="script__preview">// https://john-dugan.com/javascript-debounce/
+// https://codepen.io/johndugan/pen/BNwBWL?editors=001
+var debounce = function (func, wait, immediate) {
+  "use strict";
+
+  var timeout;
+  return function () {
+    var context = this;
+    var args = arguments;
+    var later = function () {
+      timeout = null;
+      if (!immediate) {
+        func.apply(context, args);
+      }
+    };
+    var callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait || 200);
+    if (callNow) {
+      func.apply(context, args);
+    }
+  };
+};
+
+// peek-a-boo.7.3.js - Mike Foskett - https://websemantics.uk/articles/peek-a-boo-v7/
+
+// Show - hide a block - adapted for FAQ
+// Requires:
+//    setAttribute / getAttribute (IE9+)
+//    classList (IE10+)  - disabled
+//    addEventListener (IE9+)
+//    requestAnimationFrame (IE10+) - replace with requestAF() for IE9
+//    querySelectorAll
+//    preventDefault
+//    debounce()
+
+// FAQ version:
+// v7.4 Added: open an question from an internal anchor
+// v7.3 Expanded when URI fragment matches the target ID
+// v7.2 HTML button reinstated, js adjusted.
+//			Initial open/close state reworked
+
+var Pab = (function (window, document, debounce) {
+  // Terminology used:
+  // toggle - The dynamically added button used to toggle the hidden content
+  // target - The object which contains the hidden content
+  // toggleParent - The object which will, or does, contain the toggle button
+
+  "use strict";
+
+  var dataAttr = "data-pab";
+  var attrName = dataAttr.replace("data-", "") + "_";
+  var btnClass = dataAttr.replace("data-", "") + "-btn";
+  var dataExpandAttr = dataAttr + "-expand";
+  var internalId = 1;
+
+  function $(selector) {
+    return Array.prototype.slice.call(document.querySelectorAll(selector));
+  }
+
+  function _isExpanded(obj) {
+    // or not aria-hidden
+    return (
+      obj &&
+      (obj.getAttribute("aria-expanded") === "true" ||
+        obj.getAttribute("aria-hidden") === "false")
+    );
+  }
+
+  // This function is globally reusable. Perhaps externalise for reuse?
+  // Get height of an element object
+  // Assumes it is hidden by max-height: 0 in the CSS
+  var _getHiddenObjectHeight = function (obj) {
+    obj.setAttribute("style", "max-height: none");
+    var height = obj.scrollHeight;
+    obj.removeAttribute("style");
+    return height;
+  };
+
+  /* Not enough support to be truly useful.
+   Under most circumstance aria-expanded is sufficient.
+  var _setToggleSvgTitle = function(toggle) {
+    var title = toggle.getElementsByTagName('title');
+    if (title && title[0]) {
+      title[0].innerHTML = _isExpanded(toggle) ? 'Hide' : 'Show';
+    }
+  };
+*/
+
+  var _openCloseToggleTarget = function (toggle, target, isExpanded) {
+    toggle.setAttribute("aria-expanded", !isExpanded);
+    _setToggleMaxHeight(target);
+    window.requestAnimationFrame(function () {
+      target.setAttribute("aria-hidden", isExpanded);
+    });
+    // _setToggleSvgTitle(toggle); - not enough support to be useful
+  };
+
+  /* // deprecated to support IE 9 FAQ
+  var _toggleParentClass = function (event) {
+    var cls = attrName + 'btn_';
+    switch (event.type) {
+      case 'focus' :
+        //event.target.parentNode.classList.add(cls + 'focused');
+        event.target.parentNode.className += ' ' + cls + 'focused';
+        break;
+      case 'blur' :
+        event.target.parentNode.classList.remove(cls + 'focused');
+        break;
+      case 'mouseover' :
+        event.target.parentNode.classList.add(cls + 'hovered');
+        break;
+      case 'mouseout' :
+        event.target.parentNode.classList.remove(cls + 'hovered');
+        break;
+    }
+  };
+*/
+
+  var _setToggleMaxHeight = function (target) {
+    if (_isExpanded(target)) {
+      // max-height overidden by CSS !important
+      // target.style.maxHeight = 0;
+    } else {
+      target.style.maxHeight = _getHiddenObjectHeight(target) + "px";
+    }
+  };
+
+  var _toggleClicked = function (event) {
+    var toggle = event.target;
+    var target;
+    var isExpanded;
+
+    if (toggle) {
+      // To prevent children bubbling up to parent causing more than one click event
+      event.stopPropagation();
+
+      target = document.getElementById(toggle.getAttribute("aria-controls"));
+      if (target) {
+        isExpanded = _isExpanded(toggle);
+        _openCloseToggleTarget(toggle, target, isExpanded);
+      }
+    }
+  };
+
+  var _addToggleListeners = function (toggle) {
+    // Simpler to mangage here rather than in a global handler (consider hover and blur)
+
+    // Parent of toggle and target - Deprecated to support IE 9
+    //toggle.addEventListener('focus', _toggleParentClass, false);
+    //toggle.addEventListener('blur', _toggleParentClass, false);
+    //toggle.addEventListener('mouseout', _toggleParentClass, false);
+    //toggle.addEventListener('mouseover', _toggleParentClass, false);
+
+    toggle.addEventListener("click", _toggleClicked, false);
+  };
+
+  var _setUpToggle = function (toggle) {
+    // Create a html button, add content from parent, replace original parent content.
+    var btn = document.createElement("button");
+
+    btn.className = btnClass;
+    btn.innerHTML = toggle.innerHTML;
+    btn.setAttribute("aria-expanded", false);
+    btn.setAttribute("id", attrName + internalId++);
+    btn.setAttribute("aria-controls", toggle.getAttribute(dataAttr));
+
+    toggle.innerHTML = "";
+    toggle.appendChild(btn);
+
+    return btn;
+  };
+
+  // Prestating the container class in the HTML allows the CSS to render before JS kicks in.
+  // Add container class to parent if not prestated
+  var _setUpToggleParent = function (toggle) {
+    var parent = toggle.parentElement;
+    if (parent && !parent.className.match(attrName + "container")) {
+      //parent.classList.add(attrName + 'container');
+      parent.className += " " + attrName + "container";
+    }
+  };
+
+  var _addToggleSVG = function (toggle) {
+    var clone = toggle.cloneNode(true);
+    if (!clone.innerHTML.match("svg")) {
+      // HTML SVG definition allows more control
+      clone.innerHTML +=
+        "<svg role=presentational focusable=false class=" +
+        dataAttr.replace("data-", "") +
+        '-svg-plus><use class="use-plus" xlink:href="#icon-vert" /><use xlink:href="#icon-hori"/></svg>';
+      //requestAnimationFrame(function () {
+      toggle.parentElement.replaceChild(clone, toggle);
+      //});
+    }
+    return clone;
+  };
+
+  var _setUpTargetAria = function (toggle, target) {
+    target.setAttribute("aria-hidden", !_isExpanded(toggle));
+    target.setAttribute("aria-labelledby", toggle.id);
+  };
+
+  var _resetAllTargetsMaxHeight = function () {
+    var toggles = document.querySelectorAll("[" + dataAttr + "]");
+    var i = toggles.length;
+    var target;
+    while (i--) {
+      target = document.getElementById(toggles[i].getAttribute(dataAttr));
+      if (target) {
+        target.style.maxHeight = _getHiddenObjectHeight(target) + "px";
+      }
+    }
+  };
+
+  var isMustardCut = function () {
+    return document.querySelectorAll && document.addEventListener;
+  };
+
+  var _openIfRequired = function (toggle, target) {
+    var fragmentId = window.location.hash.replace("#", "");
+
+    // Expand by default 'data-pab-expand' small delay applied
+    if (toggle.parentElement.hasAttribute(dataExpandAttr)) {
+      setTimeout(function () {
+        _openCloseToggleTarget(toggle, target, _isExpanded(toggle));
+      }, 500);
+    }
+
+    // Check url fragment and if target ID matches, open it
+    if (target.id === fragmentId) {
+      setTimeout(function () {
+        _openCloseToggleTarget(toggle, target, false);
+        toggle.focus();
+      }, 500);
+    }
+  };
+
+  var addSingleToggleTarget = function (toggleParent) {
+    var targetId = toggleParent.getAttribute(dataAttr);
+    var target = document.getElementById(targetId);
+    var toggle;
+
+    if (target && isMustardCut) {
+      toggle = _setUpToggle(toggleParent);
+      _setUpToggleParent(toggleParent);
+      toggle = _addToggleSVG(toggle);
+      _setUpTargetAria(toggle, target);
+      _addToggleListeners(toggle);
+      _openIfRequired(toggle, target);
+    }
+  };
+
+  var hashChanged = function (e) {
+    var fragmentId = window.location.hash.replace("#", "");
+    var toggle = document.querySelector("#" + fragmentId + " > ." + btnClass);
+    var target = document.getElementById(toggle.getAttribute("aria-controls"));
+    if (!toggle || !target) {
+      return false;
+    }
+
+    toggle.focus();
+    toggle.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+      inline: "nearest",
+    });
+
+    _openCloseToggleTarget(toggle, target, false);
+  };
+
+  var addToggles = function () {
+    // Iterate over all toggles (elements with the 'data-pab' attribute)
+    var togglesMap = $("[" + dataAttr + "]").reduce(function (
+      temp,
+      toggleParent
+    ) {
+      addSingleToggleTarget(toggleParent);
+      return true;
+    },
+    {});
+
+    return true;
+  };
+
+  if (isMustardCut) {
+    window.addEventListener("load", addToggles, false);
+
+    // Recalculate all target max-heights after (debounced) window is resized.
+    window.addEventListener(
+      "resize",
+      debounce(_resetAllTargetsMaxHeight, 500),
+      false
+    );
+
+    // On fragment change
+    window.addEventListener("hashchange", hashChanged, false);
+  }
+
+  return {
+    // Exposes an addition function to the global scope allowing toggle & target to be added dynamically.
+    add: addSingleToggleTarget,
+  };
+})(window, document, debounce);
+
+// To add dynamically created toggles:
+// Pab.add(toggle-object); // Add individual toggle & target
+
+// setTimeout(function(){
+//   document.querySelector('.pab_container').innerHTML += `
+//   <dt data-pab=faq_6><span>Test dynamic insertion</span></dt>
+//   <dd id=faq_6>
+//     <div>
+//       <p>Dynamically added to <code>dl</code>.</p>
+//     </div>
+//   </dd>`;
+//   Pab.add(document.querySelector('[data-pab=faq_6]'));
+// }, 2000);
+
+// setTimeout(function(){
+//   document.getElementById('injection_point').innerHTML += `
+//   <div data-pab=faq_7><span>Test dynamic insertion</span></div>
+//   <div id=faq_7>
+//     <div>
+//       <p>Dynamically added externally to the <code>dl</code>.</p>
+//     </div>
+//   </div>`;
+//   Pab.add(document.querySelector('[data-pab=faq_7]'));
+// }, 2000);
+</script>
+    </body>
+  </html>
+  

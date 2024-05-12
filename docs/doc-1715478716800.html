@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EDITOR</title>
+    <link rel=icon href="assets/images/code.svg" sizes=32x32>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      data-name="vs/editor/editor.main"
+      href="https://unpkg.com/monaco-editor@^0.21.2/min/vs/editor/editor.main.css"
+    />
+    <link rel="stylesheet" href="assets/css/editor.css" />
+  </head>
+  <body>
+    <textarea id="htmlcode-ta" style="display: none">
+&lt;div class=&#34;container&#34;&gt;
+  &lt;h2&gt;Frequently Asked Questions&lt;/h2&gt;
+  &lt;div class=&#34;accordion&#34;&gt;
+    &lt;div class=&#34;accordion-item&#34;&gt;
+      &lt;button id=&#34;accordion-button-1&#34; aria-expanded=&#34;false&#34;&gt;
+        &lt;span class=&#34;accordion-title&#34;
+          &gt;Why is the moon sometimes out during the day?&lt;/span
+        &gt;&lt;span class=&#34;icon&#34; aria-hidden=&#34;true&#34;&gt;&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;div class=&#34;accordion-content&#34;&gt;
+        &lt;p&gt;
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Elementum
+          sagittis vitae et leo duis ut. Ut tortor pretium viverra suspendisse
+          potenti.
+        &lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;accordion-item&#34;&gt;
+      &lt;button id=&#34;accordion-button-2&#34; aria-expanded=&#34;false&#34;&gt;
+        &lt;span class=&#34;accordion-title&#34;&gt;Why is the sky blue?&lt;/span
+        &gt;&lt;span class=&#34;icon&#34; aria-hidden=&#34;true&#34;&gt;&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;div class=&#34;accordion-content&#34;&gt;
+        &lt;p&gt;
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Elementum
+          sagittis vitae et leo duis ut. Ut tortor pretium viverra suspendisse
+          potenti.
+        &lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;accordion-item&#34;&gt;
+      &lt;button id=&#34;accordion-button-3&#34; aria-expanded=&#34;false&#34;&gt;
+        &lt;span class=&#34;accordion-title&#34;&gt;Will we ever discover aliens?&lt;/span
+        &gt;&lt;span class=&#34;icon&#34; aria-hidden=&#34;true&#34;&gt;&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;div class=&#34;accordion-content&#34;&gt;
+        &lt;p&gt;
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Elementum
+          sagittis vitae et leo duis ut. Ut tortor pretium viverra suspendisse
+          potenti.
+        &lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;accordion-item&#34;&gt;
+      &lt;button id=&#34;accordion-button-4&#34; aria-expanded=&#34;false&#34;&gt;
+        &lt;span class=&#34;accordion-title&#34;&gt;How much does the Earth weigh?&lt;/span
+        &gt;&lt;span class=&#34;icon&#34; aria-hidden=&#34;true&#34;&gt;&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;div class=&#34;accordion-content&#34;&gt;
+        &lt;p&gt;
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Elementum
+          sagittis vitae et leo duis ut. Ut tortor pretium viverra suspendisse
+          potenti.
+        &lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;accordion-item&#34;&gt;
+      &lt;button id=&#34;accordion-button-5&#34; aria-expanded=&#34;false&#34;&gt;
+        &lt;span class=&#34;accordion-title&#34;&gt;How do airplanes stay up?&lt;/span
+        &gt;&lt;span class=&#34;icon&#34; aria-hidden=&#34;true&#34;&gt;&lt;/span&gt;
+      &lt;/button&gt;
+      &lt;div class=&#34;accordion-content&#34;&gt;
+        &lt;p&gt;
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Elementum
+          sagittis vitae et leo duis ut. Ut tortor pretium viverra suspendisse
+          potenti.
+        &lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</textarea
+    >
+    <textarea id="csscode-ta" style="display: none">@import url(&#34;https://fonts.googleapis.com/css?family=Hind:300,400&amp;display=swap&#34;);
+
+$bg: #fff;
+$text: #7288a2;
+$gray: #4d5974;
+$lightgray: #e5e5e5;
+$blue: #03b5d2;
+
+* {
+  box-sizing: border-box;
+  &amp;::before,
+  &amp;::after {
+    box-sizing: border-box;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: &#34;Hind&#34;, sans-serif;
+  background: $bg;
+  color: $gray;
+  display: flex;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 4rem;
+  width: 48rem;
+}
+
+.accordion {
+  .accordion-item {
+    border-bottom: 1px solid $lightgray;
+    button[aria-expanded=&#34;true&#34;] {
+      border-bottom: 1px solid $blue;
+    }
+  }
+  button {
+    position: relative;
+    display: block;
+    text-align: left;
+    width: 100%;
+    padding: 1em 0;
+    color: $text;
+    font-size: 1.15rem;
+    font-weight: 400;
+    border: none;
+    background: none;
+    outline: none;
+    &amp;:hover,
+    &amp;:focus {
+      cursor: pointer;
+      color: $blue;
+      &amp;::after {
+        cursor: pointer;
+        color: $blue;
+        border: 1px solid $blue;
+      }
+    }
+    .accordion-title {
+      padding: 1em 1.5em 1em 0;
+    }
+    .icon {
+      display: inline-block;
+      position: absolute;
+      top: 18px;
+      right: 0;
+      width: 22px;
+      height: 22px;
+      border: 1px solid;
+      border-radius: 22px;
+      &amp;::before {
+        display: block;
+        position: absolute;
+        content: &#34;&#34;;
+        top: 9px;
+        left: 5px;
+        width: 10px;
+        height: 2px;
+        background: currentColor;
+      }
+      &amp;::after {
+        display: block;
+        position: absolute;
+        content: &#34;&#34;;
+        top: 5px;
+        left: 9px;
+        width: 2px;
+        height: 10px;
+        background: currentColor;
+      }
+    }
+  }
+  button[aria-expanded=&#34;true&#34;] {
+    color: $blue;
+    .icon {
+      &amp;::after {
+        width: 0;
+      }
+    }
+    + .accordion-content {
+      opacity: 1;
+      max-height: 9em;
+      transition: all 200ms linear;
+      will-change: opacity, max-height;
+    }
+  }
+  .accordion-content {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 200ms linear, max-height 200ms linear;
+    will-change: opacity, max-height;
+    p {
+      font-size: 1rem;
+      font-weight: 300;
+      margin: 2em 0;
+    }
+  }
+}</textarea>
+    <textarea id="jscode-ta" style="display: none">const items = document.querySelectorAll(&#34;.accordion button&#34;);
+
+function toggleAccordion() {
+  const itemToggle = this.getAttribute(&#34;aria-expanded&#34;);
+
+  for (i = 0; i &lt; items.length; i++) {
+    items[i].setAttribute(&#34;aria-expanded&#34;, &#34;false&#34;);
+  }
+
+  if (itemToggle == &#34;false&#34;) {
+    this.setAttribute(&#34;aria-expanded&#34;, &#34;true&#34;);
+  }
+}
+
+items.forEach((item) =&gt; item.addEventListener(&#34;click&#34;, toggleAccordion));</textarea>
+    <div class="editor-home">
+      <!-- <div class="editor-home_iframe"></div> -->
+      <div class="editor-home_code">
+        <div class="editor-home_tabs">
+          <div class="home_tabs__item active">PREVIEW</div>
+          <div class="home_tabs__item">HTML</div>
+          <div class="home_tabs__item">CSS</div>
+          <div class="home_tabs__item">JS</div>
+        </div>
+        <div class="editor-home_contents">
+          <div class="home_content__item active" id="preview">
+            <iframe
+              id="live-preview"
+              src="iframes/doc-1715478716800-iframe.html"
+              width="100%"
+              height="100%"
+              allow="accelerometer *; camera *; encrypted-media *; display-capture *; geolocation *; gyroscope *; microphone *; midi *; clipboard-read *; clipboard-write *; web-share *; serial *; xr-spatial-tracking *"
+              allowfullscreen="true"
+              allowpaymentrequest="true"
+              allowtransparency="true"
+              sandbox="allow-forms allow-modals allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation allow-downloads allow-presentation"
+              class="result-iframe iframe-visual-update"
+              name="codeShow"
+              loading="lazy"
+            ></iframe>
+          </div>
+          <div class="home_content__item" id="htmlcode"></div>
+          <div class="home_content__item" id="csscode"></div>
+          <div class="home_content__item" id="jscode"></div>
+        </div>
+      </div>
+    </div>
+    <script src="assets/js/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/sass.sync.min.js"></script>
+    <script src="https://unpkg.com/monaco-editor@^0.21.2/min/vs/loader.js"></script>
+    <script src="assets/js/editor.js"></script>
+  </body>
+</html>
