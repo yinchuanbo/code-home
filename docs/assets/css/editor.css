@@ -14,7 +14,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f2f2f2;
+  /* background-color: #f2f2f2; */
   box-sizing: content-box;
 }
 
@@ -33,9 +33,9 @@ body {
   position: relative;
 }
 
-#preview {
+/* #preview {
   background-color: #f2f2f2;
-}
+} */
 
 /* .editor-home_iframe,
 .editor-home_code {
