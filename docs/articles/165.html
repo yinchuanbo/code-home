@@ -92,8 +92,8 @@ Cache-Control: max-age=3600
 </li>
 </ul>
 <p>过程：当资源过期时，如果不存在 <code>ETag</code> 而是存在 <code>Last-modified</code>，则再次向服务器发送请求时，在请求头上会带上<code>If-Modified-Since</code> 一同发送给服务器，服务器对比资源最后修改时间和当前客户端发送的 <code>If-Modified-Since</code> 这个时间，判断资源是否被修改，如果修改了则返回最新的资源，如果没有修改则返回 304，使用缓存。</p>
-<p><strong><code>ETag</code>的优先级高于<code>Last-Modified</code>,服务器会优先验证<code>ETag</code></strong></p>
-<p><strong><code>Last-Modified</code>是以秒为单位的，所以在资源频繁更改的情况下，<code>Last-Modified</code>是不安全的，而<code>ETag</code>可以检查文件大小和文件的唯一索引节点，故即使修改频繁的资源依然能检测到更改</strong></p>
+<p><code>ETag</code> 的优先级高于 <code>Last-Modified</code>, 服务器会优先验证 <code>ETag</code></p>
+<p><code>Last-Modified</code> 是以秒为单位的，所以在资源频繁更改的情况下，<code>Last-Modified</code> 是不安全的，而 <code>ETag</code> 可以检查文件大小和文件的唯一索引节点，故即使修改频繁的资源依然能检测到更改</p>
 <h3>缓存策略</h3>
 <p>基于上面介绍的强缓存和协商缓存特点，以下是笔者总结的缓存策略；</p>
 <h3>频繁变动的资源</h3>
@@ -110,11 +110,21 @@ ETag: deadbeef
 </ul>
 <p>过程如下：</p>
 <ol>
-<li>当浏览器查发现<code>cache-control: no-cache</code> 时，会向服务器发起该资源的请求</li>
-<li>但是在请求前，浏览器会先在自己的缓存中查找该资源， 如果发现存在该资源的缓存文件，则将该缓存文件的<code>Etag</code>和<code>Last-Modified</code>字段转换为请求头中的<code>If-None-Match</code>和<code>If-Modified-Since</code>一同发送到服务端</li>
-<li>如果发现不存在该资源，则直接请求</li>
-<li>服务器接收到资源请求，如果不存在<code>If-None-Match</code>和<code>If-Modified-Since</code>请求头，则说明客户端没有缓存，直接返回资源</li>
-<li>如果存在<code>If-None-Match</code>和<code>If-Modified-Since</code>请求头，服务器比对当前的<code>If-None-Match</code>与资源相对应的<code>ETag</code>是否相同，如果相同则说明文件没有更改，返回 304 让浏览器使用缓存，如果不相同，返回新文件。</li>
+<li>
+<p>当浏览器查发现 <code>cache-control: no-cache</code> 时，会向服务器发起该资源的请求</p>
+</li>
+<li>
+<p>但是在请求前，浏览器会先在自己的缓存中查找该资源， 如果发现存在该资源的缓存文件，则将该缓存文件的<code>Etag</code>和<code>Last-Modified</code>字段转换为请求头中的 <code>If-None-Match</code> 和 <code>If-Modified-Since</code> 一同发送到服务端</p>
+</li>
+<li>
+<p>如果发现不存在该资源，则直接请求</p>
+</li>
+<li>
+<p>服务器接收到资源请求，如果不存在 <code>If-None-Match</code> 和 <code>If-Modified-Since</code> 请求头，则说明客户端没有缓存，直接返回资源</p>
+</li>
+<li>
+<p>如果存在 <code>If-None-Match</code> 和 <code>If-Modified-Since</code> 请求头，服务器比对当前的 <code>If-None-Match</code> 与资源相对应的 <code>ETag</code> 是否相同，如果相同则说明文件没有更改，返回 304 让浏览器使用缓存，如果不相同，返回新文件。</p>
+</li>
 </ol>
 <h3>不经常变化的资源</h3>
 <p>对于不经常变化的资源，建议设置强缓存，</p>
@@ -122,7 +132,7 @@ ETag: deadbeef
 </code></pre>
 <p>如上设置会强缓存该资源一年时间，如果我们中间需要修改该资源，可以采用在资源链接末尾添加唯一 hash 或是唯一时间戳来解决。</p>
 <h2>加餐</h2>
-<p>对于需要缓存的文件，建议明确指出<code>cache-control</code>字段，如果没有设置该字段，则浏览器会采用一种叫做启发式缓存的方式缓存文件。</p>
+<p>对于需要缓存的文件，建议明确指出 <code>cache-control</code> 字段，如果没有设置该字段，则浏览器会采用一种叫做启发式缓存的方式缓存文件。</p>
 <pre><code class="language-sh">HTTP/1.1 200 OK
 Content-Type: text/html
 Content-Length: 1024
