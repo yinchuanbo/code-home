@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>动画中三角学</title>
+    <title>HTTP 缓存</title>
     <meta charset="utf-8">
     <meta name="description" content="This is a page">
     <meta name="keywords" content="page, sample">
@@ -22,12 +22,119 @@
   <div class="article__wrapper">
     <div class="article__wrapper__main">
       <div class="article__wrapper_header">
-        <h1>动画中三角学</h1>
-        <span class="articles__home_time">2024/05/09 · YinHao</span>
+        <h1>HTTP 缓存</h1>
+        <span class="articles__home_time">2024/05/12 · YinHao</span>
       </div>
-      <h2>角</h2>
-<p>一个角是由两条相交线形成的形状或两条线之间的空间，空间越大，角的度数也就越高。事实上，两条交叉线可以构成四个角，如图</p>
-<p><img src="../assets/images/articles/165/01.png" alt=""></p>
+      <h2>背景</h2>
+<p>需求开发中不断的往项目中添加图片、字体等这些静态资源使得项目打包体积越来越大。</p>
+<p>打包后这些静态资源占据了包体积的大部分。</p>
+<p>基于此，我们准备将静态资源从项目中移出来放到 oss 云服务上，这样项目的体积会缩小很多，打包速度也会快很多</p>
+<p>但是，想法是好的，但是具体的操作上存在一些问题需要解决：</p>
+<ul>
+<li>静态资源的缓存问题</li>
+<li>目录结构问题</li>
+<li>资源更新问题</li>
+</ul>
+<p>这篇文章我会重点分享静态资源缓存问题的解决方案。</p>
+<h2>HTTP 缓存</h2>
+<p>说到静态资源的缓存问题其实就是 HTTP 缓存的问题，我们既要保证客户端能快速的加载静态资源还需要保证当静态资源变化时，客户端能及时更新。</p>
+<h3>缓存过程</h3>
+<p><img src="../assets/images/articles/165/01.awebp" alt=""></p>
+<p>由上图我们可以发现：</p>
+<ul>
+<li>浏览器在请求资源时，都会去查看当前浏览器缓存中是否存在缓存结果和缓存标识</li>
+<li>当请求结果返回浏览器时，浏览器都会将当前结果和缓存标识存入浏览器缓存中</li>
+</ul>
+<p>以上两点是浏览器缓存机制的关键，它确保了每个请求的缓存存入与读取。</p>
+<p>根据是否需要向服务器重新发起 HTTP 请求将缓存过程分为两个部分，分别是强缓存和协商缓存。</p>
+<h3>强缓存</h3>
+<p>强缓存，顾名思义就是强制缓存，是不需要向原服务器发起请求直接使用浏览器缓存</p>
+<p>强缓存的实现方案主要是有两种：<code>Expires</code> 和 <code>cache-control</code></p>
+<ul>
+<li><code>Expires</code>：过期时间，如果设置了过期时间，则浏览器会在过期时间内使用缓存。Expires 是 HTTP1.0 的产物，受限于本地时间，如果人为修改了本地时间，可能会造成缓存失效。</li>
+<li><code>cache-control</code>：缓存控制，常用有以下几个设置：
+<ul>
+<li><code>max-age</code>：表示缓存可以使用多长时间，是一个相对时间</li>
+<li><code>public</code>：表示响应可以被任何区缓存</li>
+<li><code>private</code>：只针对个人用户，不可被代理服务器缓存</li>
+<li><code>no-cache</code>：可以在本地缓存，可以在代理服务器缓存，但是这个缓存要服务器验证才可以使用，强制客户端总是向服务器发送请求，由服务器判断缓存是否可用，即总是启用协商缓存</li>
+<li><code>no-store</code>：彻底禁用缓存，每次都需要从服务器获取资源，流量消耗增加</li>
+</ul>
+</li>
+</ul>
+<p><code>Expires</code> 和 <code>cache-control</code> 都可以实现强缓存</p>
+<p>资源在 2023 年 2 月 28 号 22:22:22 过期</p>
+<pre><code class="language-sh">Expires: Tue, 28 Feb 2023 22:22:22 GMT
+</code></pre>
+<p>资源在 1 小时内可使用缓存</p>
+<pre><code class="language-sh">Date: Tue, 22 Feb 2022 22:22:22 GMT
+Last-Modified: Tue, 22 Feb 2022 22:00:00 GMT
+Cache-Control: max-age=3600
+</code></pre>
+<p>但是 <code>Expires</code> 是 http1.0 的产物，<code>cache-control</code>是 http1.1 的产物，现阶段，我们会认为<code>cache-control</code>使用更广泛，<code>Expires</code>只是一种降级方案。</p>
+<p>当 <code>Expires</code> 和 <code>cache-control</code> 同时存在时，浏览器会优先使用 <code>cache-control</code>。</p>
+<h3>协商缓存</h3>
+<ul>
+<li><code>Etag/If-None-Match</code>：
+<ul>
+<li><code>Etag</code>：这个字段是由服务器生成返回给浏览器的，它的值是由文件的索引节点（INode）、文件大小（size）、文件最后修改时间（MTime）进行 hash 之后得到的</li>
+<li><code>If-None-Match</code>：再次请求该资源时，带上上一次服务器返回的 <code>ETag</code> 值</li>
+</ul>
+</li>
+</ul>
+<p>过程：当强缓存过期，浏览器会启用协商缓存，首先判断当前是否存在 <code>ETag</code>，如果存在，则再次向服务器发送请求时，在请求头上加上<code>If-None-Match</code> 一同发送到服务器，服务器比对当前的 <code>If-None-Match</code> 与资源相对应的 <code>ETag</code> 是否相同，如果相同则说明缓存可用，则返回 304，否则返回最新的资源。</p>
+<ul>
+<li><code>Last-Modified/If-Modified-Since</code>：
+<ul>
+<li><code>Last-Modified</code>：服务器返回的文件最后修改时间</li>
+<li><code>If-Modified-Since</code>：再次请求资源是，带上上一次服务器返回的 <code>Last-Modified</code> 值</li>
+</ul>
+</li>
+</ul>
+<p>过程：当资源过期时，如果不存在 <code>ETag</code> 而是存在 <code>Last-modified</code>，则再次向服务器发送请求时，在请求头上会带上<code>If-Modified-Since</code> 一同发送给服务器，服务器对比资源最后修改时间和当前客户端发送的 <code>If-Modified-Since</code> 这个时间，判断资源是否被修改，如果修改了则返回最新的资源，如果没有修改则返回 304，使用缓存。</p>
+<p><strong><code>ETag</code>的优先级高于<code>Last-Modified</code>,服务器会优先验证<code>ETag</code></strong></p>
+<p><strong><code>Last-Modified</code>是以秒为单位的，所以在资源频繁更改的情况下，<code>Last-Modified</code>是不安全的，而<code>ETag</code>可以检查文件大小和文件的唯一索引节点，故即使修改频繁的资源依然能检测到更改</strong></p>
+<h3>缓存策略</h3>
+<p>基于上面介绍的强缓存和协商缓存特点，以下是笔者总结的缓存策略；</p>
+<h3>频繁变动的资源</h3>
+<p>对于频繁变动的资源，肯定首先要保证的就是及时性，即服务器文件更新，需要尽快展示在客户端，所以对于此种资源，建议禁用强制缓存，采用协商缓存的策略。</p>
+<pre><code class="language-sh">cache-control: no-cache
+Last-Modified: Tue, 22 Feb 2022 22:00:00 GMT
+ETag: deadbeef
+</code></pre>
+<p>以上标识中</p>
+<ul>
+<li>cache-control: no-cache ，表示每次都从服务器询问资源是否更改</li>
+<li>Last-Modified: Tue, 22 Feb 2022 22:00:00 GMT， 表示资源的最后修改时间</li>
+<li>ETag: deadbeef ，表示资源对应的唯一标识</li>
+</ul>
+<p>过程如下：</p>
+<ol>
+<li>当浏览器查发现<code>cache-control: no-cache</code> 时，会向服务器发起该资源的请求</li>
+<li>但是在请求前，浏览器会先在自己的缓存中查找该资源， 如果发现存在该资源的缓存文件，则将该缓存文件的<code>Etag</code>和<code>Last-Modified</code>字段转换为请求头中的<code>If-None-Match</code>和<code>If-Modified-Since</code>一同发送到服务端</li>
+<li>如果发现不存在该资源，则直接请求</li>
+<li>服务器接收到资源请求，如果不存在<code>If-None-Match</code>和<code>If-Modified-Since</code>请求头，则说明客户端没有缓存，直接返回资源</li>
+<li>如果存在<code>If-None-Match</code>和<code>If-Modified-Since</code>请求头，服务器比对当前的<code>If-None-Match</code>与资源相对应的<code>ETag</code>是否相同，如果相同则说明文件没有更改，返回 304 让浏览器使用缓存，如果不相同，返回新文件。</li>
+</ol>
+<h3>不经常变化的资源</h3>
+<p>对于不经常变化的资源，建议设置强缓存，</p>
+<pre><code class="language-sh">cache-control:max-age=31536000
+</code></pre>
+<p>如上设置会强缓存该资源一年时间，如果我们中间需要修改该资源，可以采用在资源链接末尾添加唯一 hash 或是唯一时间戳来解决。</p>
+<h2>加餐</h2>
+<p>对于需要缓存的文件，建议明确指出<code>cache-control</code>字段，如果没有设置该字段，则浏览器会采用一种叫做启发式缓存的方式缓存文件。</p>
+<pre><code class="language-sh">HTTP/1.1 200 OK
+Content-Type: text/html
+Content-Length: 1024
+Date: Tue, 22 Feb 2022 22:22:22 GMT
+Last-Modified: Tue, 22 Feb 2021 22:22:22 GMT
+</code></pre>
+<p>如果存在以上响应，不存在 <code>cache-control</code> 字段</p>
+<p>试探性地知道，整整一年没有更新的内容在那之后的一段时间内不会更新。</p>
+<p>因此，客户端存储此响应（尽管缺少 <code>max-age</code> ）并重用它一段时间。</p>
+<p>复用多长时间取决于实现，但规范建议存储后大约 10%（在本例中为 0.1 年）的时间。</p>
+<p>由此可见，如果不指明 <code>cache-control</code> 字段会导致不必要的缓存，或是无谓的流量消耗。</p>
+<p>所以，建议所有静态资源都明确指出 <code>cache-control</code> 字段，明确缓存策略。</p>
  
     </div>
   </div>
