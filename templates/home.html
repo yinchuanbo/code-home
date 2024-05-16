@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HOME</title>
     <link rel="stylesheet" href="./assets/css/home.css" />
-    <link rel=icon href="./assets/images/code.svg" sizes=32x32>
+    <link rel="icon" href="./assets/images/code.svg" sizes="32x32" />
   </head>
   <body>
     <div class="home__header">
@@ -76,5 +76,24 @@
       </a>
     </div>
     <%- content%>
+    <script>
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            console.log('123333')
+            // 加载懒加载内容
+            const lazyElement = entry.target;
+            const iframe = lazyElement.querySelector('iframe')
+            iframe.src = iframe.getAttribute("data-src");
+            lazyElement.classList.remove("lazy");
+            observer.unobserve(lazyElement); // 加载后停止观察
+          }
+        });
+      });
+      const lazyElements = document.querySelectorAll(".lazy");
+      lazyElements.forEach((element) => {
+        observer.observe(element);
+      });
+    </script>
   </body>
 </html>
