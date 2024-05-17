@@ -13,7 +13,7 @@ module.exports = {
       pageMeta.keywords || this.defaultMeta.keywords
     }">
     <meta name="author" content="${pageMeta.author || this.defaultMeta.author}">
-    <link rel="icon" sizes="any" mask href="../assets/images/ico4.svg" />
+    <link rel="icon" href="../assets/images/code.svg" sizes="32x32" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
     <link rel="stylesheet" href="../assets/css/articles.css">
 </head>
