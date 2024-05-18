@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>了解透彻浏览器缓存</title>
+    <meta charset="utf-8">
+    <meta name="description" content="This is a page">
+    <meta name="keywords" content="page, sample">
+    <meta name="author" content="None">
+    <link rel="icon" href="../assets/images/code.svg" sizes="32x32" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <link rel="stylesheet" href="../assets/css/articles.css">
+</head>
+<body>
+  <!--<div class="article__wrapper_left">
+    <div class="article__wrapper_left-mulu">目录</div>
+    <ul class="articles__list"></ul>
+  </div>-->
+  <div class="article__wrapper_sidebar">
+    <a href="/articles/"><svg t="1714001835347" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4298" width="48" height="48"><path d="M147.904 304.128l301.866667-179.541333a128 128 0 0 1 131.712 0.512l295.466666 178.88A128 128 0 0 1 938.666667 413.482667V810.666667a128 128 0 0 1-128 128H213.333333a128 128 0 0 1-128-128V414.144a128 128 0 0 1 62.570667-110.016z m43.626667 73.344A42.666667 42.666667 0 0 0 170.666667 414.144V810.666667a42.666667 42.666667 0 0 0 42.666666 42.666666h597.333334a42.666667 42.666667 0 0 0 42.666666-42.666666V413.482667a42.666667 42.666667 0 0 0-20.565333-36.501334l-295.466667-178.88a42.666667 42.666667 0 0 0-43.925333-0.170666l-301.866667 179.541333z" fill="currentColor" p-id="4299"></path><path d="M405.333333 469.333333h213.333334a42.666667 42.666667 0 1 1 0 85.333334H405.333333a42.666667 42.666667 0 1 1 0-85.333334z m0 85.333334a42.666667 42.666667 0 1 0 0-85.333334h213.333334a42.666667 42.666667 0 1 0 0 85.333334H405.333333z" fill="currentColor" p-id="4300"></path></svg></a>
+    <a href="/tools/"><svg t="1714002003458" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6911" width="48" height="48"><path d="M817.87 556.31h-63.58v-66.24A42.27 42.27 0 0 0 712 447.8h-84.81a42.27 42.27 0 0 0-42.27 42.27v66.24H436.57v-66.24a42.27 42.27 0 0 0-42.27-42.27h-84.83a42.27 42.27 0 0 0-42.27 42.27v66.24h-61.83A22.39 22.39 0 0 0 183 578.7a22.39 22.39 0 0 0 22.39 22.39h61.81v65.55a42.27 42.27 0 0 0 42.27 42.27h84.83a42.27 42.27 0 0 0 42.27-42.27v-65.55h148.36v65.55a42.27 42.27 0 0 0 42.27 42.27H712a42.27 42.27 0 0 0 42.27-42.27v-65.55h63.58a22.39 22.39 0 0 0 22.39-22.39 22.39 22.39 0 0 0-22.37-22.39z m-438.64 95.26h-54.69V505.14h54.69z m317.72 0h-54.69V505.14H697z" p-id="6912" fill="currentColor"></path><path d="M823 202.58h-90.81v-63.09a71.88 71.88 0 0 0-71.88-71.88H363.19a71.88 71.88 0 0 0-71.88 71.88v63.08h-90.12A137.17 137.17 0 0 0 64 339.75v479a137.17 137.17 0 0 0 137.19 137.14H823a137.17 137.17 0 0 0 137.19-137.17v-479A137.17 137.17 0 0 0 823 202.58z m-474.36-54.1A23.52 23.52 0 0 1 372.17 125h279.16a23.52 23.52 0 0 1 23.52 23.52v54.1h-326.2z m554.23 673.31a76.76 76.76 0 0 1-76.76 76.76h-628a76.76 76.76 0 0 1-76.76-76.76V336.67a76.76 76.76 0 0 1 76.76-76.76h628a76.76 76.76 0 0 1 76.76 76.76z" p-id="6913" fill="currentColor"></path></svg></a>
+  </div>
+  <div class="article__wrapper">
+    <div class="article__wrapper__main">
+      <div class="article__wrapper_header">
+        <h1>了解透彻浏览器缓存</h1>
+        <span class="articles__home_time">2024/05/18 · YinHao</span>
+      </div>
+      <h2>为什么需要缓存</h2>
+<p>这里说的不仅仅是我们常见的 <strong>强缓存</strong> 和 <strong>协商缓存</strong>，还有浏览器自带的缓存机制，即使我们什么也没有配置也自带的隐式缓存（<strong>启发式缓存</strong>）;</p>
+<ul>
+<li>减少向服务器请求的的次数，也减少了服务器的压力 ⭐⭐⭐</li>
+<li>页面加载速度更快，增加用户体验 ⭐⭐⭐</li>
+</ul>
+<p>如果没有缓存机制，刷新页面的时候，不管是以什么样的形式刷新（<code>前进/后退/普通刷新/强制刷新</code>），那么每次浏览器都会去请求服务器的资源，想想是有多么的可怕，这样会大大的增加服务器的压力和带宽。</p>
+<blockquote>
+<p>所以浏览器为了解决这个问题，当第一个请求资源完成后，根据相应的缓存机制，将一些静态资源存储在本地磁盘当中，这样下次请求资源的时候，浏览器直接从本地缓存中读取文件，不需要再次发送请求。</p>
+</blockquote>
+<h2>浏览器刷新的各种情况分析</h2>
+<p><img src="../assets/images/articles/169/01.awebp" alt=""></p>
+<p>这个如图弹框如何被打开的呢，打开控制台之后再右键刷新按钮即可。</p>
+<h3>正常重新加载</h3>
+<blockquote>
+<p>方法：地址栏回车、页面链接跳转、打开新窗口/标签页、history 前进后退，点击刷新按钮、页面右键重新加载、F5、ctrl+R</p>
+</blockquote>
+<p>执行上面这些刷新操作，如果缓存不过期，会使用缓存。<br>
+这样浏览器可以避免重新下载 JavaScript 文件，图像，文本文件等，直接读取缓存信息。</p>
+<h3>硬性重新加载</h3>
+<blockquote>
+<p>方法：点击硬性重新加载、Ctrl+F5、Ctrl+Shift+R、</p>
+</blockquote>
+<p>执行上面这些刷新操作，清除了关键位置的缓存；所有的资源，都会跳过缓存判断，发起真实的请求，从服务端拿资源。但本地的缓存资源(如 disk 里的缓存)并没有删除。 <strong>这种方式会在 Request Header 里添加 Cache-Control:no-cache 和 Pragma: no-cache</strong>，也是浏览器自己的行为。</p>
+<h3>清空缓存并硬性重新加载</h3>
+<blockquote>
+<p>方法：点击左上角的清空缓存并硬性重新加载</p>
+</blockquote>
+<p>这种方式，相当于先删除缓存（如 <code>disk</code> 磁盘 和 <code>memory</code> 内存 里的缓存），再执行硬性重新加载。</p>
+<h2>缓存的位置</h2>
+<ol>
+<li>启动 Chrome 浏览器，在 Chrome 浏览器的地址栏输入 Chrome:Version 查看 Chrome 浏览器保存文件的位置。</li>
+<li>在 “我的电脑” 中找到此路径: <code>C:\\Users\\Administrator\\AppData\\Local\\Google\\Chrome\\User Data\\Default</code>。</li>
+<li>Chrome 浏览器的两个主要的缓存文件夹是该目录下的 Cache 文件夹和 Media Cache 文件夹。一个保存着浏览器缓存的图片，文档格式等信息，一个保存着浏览器访问视频的记录。</li>
+</ol>
+<p><img src="../assets/images/articles/169/02.awebp" alt=""></p>
+<h2>如何查看请求资源的缓存策略</h2>
+<p>如下图所示：</p>
+<ul>
+<li>Size 栏：<code>disk cache</code> 代表走磁盘缓存，<code>memory cache</code> 走内存缓存；</li>
+<li>Cache-Control 栏：查看缓存策略，可以看到配置文件 setting.js 没有配置任何缓存策略</li>
+</ul>
+<p>此时没有配置任何缓存策略，但还是走了本地缓存，这就是下面要说的浏览器的默认缓存（启发式缓存）。</p>
+<p><img src="../assets/images/articles/169/01.webp" alt=""></p>
+<p>一开始是没有 <code>Cache-Control</code> 这一栏的，需要手动设置一下，在头部右键勾选上 <code>Cache-Control</code> 即可。</p>
+<p><img src="../assets/images/articles/169/02.webp" alt=""></p>
+<blockquote>
+<p>下图的资源则配置了强缓存和协商缓存</p>
+</blockquote>
+<p><img src="../assets/images/articles/169/03.webp" alt=""></p>
+<h2>启发式缓存</h2>
+<p>缓存的默认行为（即对于没有 <code>Cache-Control</code> 的响应）不是简单的“不缓存”，而是根据所谓的“启发式缓存”进行隐式缓存。</p>
+<p>HTTP 旨在尽可能多地缓存，因此即使没有给出 <code>Cache-Control</code>，如果满足某些条件，响应也会被存储和重用。这称为 <strong>启发式缓存</strong>。</p>
+<pre><code class="language-sh">HTTP/1.1 200 OK
+Content-Type: text/html
+Content-Length: 1024
+Date: Tue, 22 Feb 2022 22:22:22 GMT
+Last-Modified: Tue, 22 Feb 2021 22:22:22 GMT
+&lt;!doctype html&gt;
+…
+</code></pre>
+<p><code>22:22:22 GMT</code>：北京时间比浏览器时间晚8小时</p>
+<h3>缓存时间</h3>
+<blockquote>
+<p>公式为：( Date - Last-Modified ) * 0.1</p>
+</blockquote>
+<ul>
+<li>Date：当前请求的时间</li>
+<li>Last-Modified：服务器中资源最后被修改的日期</li>
+</ul>
+<p><code>MDN</code>：试探性地知道，整整一年没有更新的内容在那之后的一段时间内不会更新。因此，客户端存储此响应（尽管缺少 <code>max-age</code>）并重用它一段时间。复用多长时间取决于实现，但规范建议存储后大约 10%（在本例中为 0.1 年）的时间。</p>
+<p>也就是说，如果十天没有更新的资源，会缓存一天的时间，在这段时间内浏览器请求走的都是本地缓存，超出这个时间则向服务器请求资源。</p>
+<blockquote>
+<p>启发式缓存是在 <code>Cache-Control</code> 被广泛采用之前出现的一种解决方法，基本上所有响应都应明确指定 <code>Cache-Control</code> 标头。</p>
+</blockquote>
+<h3>彻底理解</h3>
+<p>这里会比较绕，这个默认缓存的时间到底会缓存多久？是如何进行判断的？</p>
+<h4>相差较长时间</h4>
+<p>我们查看一个配置文件的缓存，是没有配置缓存策略的，则默认启发式缓存；</p>
+<p><img src="../assets/images/articles/169/04.webp" alt=""></p>
+<p>再看下该文件响应头中的 <code>Date</code> 和 <code>Last-Modified</code> 信息，这里的这两个时间是决定下次刷新页面之后，是请求服务器还是走本地缓存的关键因素，注意是 <strong>下一次请求</strong>！</p>
+<p><img src="../assets/images/articles/169/05.webp" alt=""></p>
+<p>此时当前这一次请求的响应头 <code>（Date - Last-Modified） * 0.1</code> 是决定该文件缓存时间的长短，也就是 <code>（2023-04-13 - 2023-03-09）</code> 等于 35 天（具体时间时分秒先不计算），再乘以0.1，则当前文件则会缓存大约 3.5 天的时间，用户下次请求这个文件的时候，在 3.5 天之内请求则直接走本地缓存获取，超过 3.5 天去请求当前文件，则会去请求服务器的资源，不再走缓存！</p>
+<blockquote>
+<p>在 <code>Last-Modified</code> （文件最后修改时间）不变的前提下，随着时间的推移，该资源缓存的时间会越来越长~</p>
+</blockquote>
+<h4>相差较短时间</h4>
+<p>站在开发者的角度来解析这个问题，当我们自己在做测试启发式缓存的时候，容易出现错乱，就是感受不到启发式缓存的效果，不知道你们有没有遇到过。只要掌握上面的计算方法，一步步拆分，就可以轻松的识别和判断启发式缓存。</p>
+<p><img src="../assets/images/articles/169/06.webp" alt=""></p>
+<p>再来看，还是刚才那个文件，在服务器修改了文件的内容，<code>Date</code> 和 <code>Last-Modified</code> 只相差27秒，也就说当前文件只会缓存 <code>2.7秒</code>。因为我们刚刚修改了服务器资源内容，需要 <strong>强制刷新</strong> 获取的最新文件，是发请求到服务器的，没有走本地缓存，所以这次是看不到效果的，正常是不能用强制刷新的；想要看到效果，在做测试的时候肯定会再次去修改服务器中该文件的内容，然后用 <strong>普通刷新</strong> 去看当前文件到底是不是走启发式缓存。</p>
+<p><img src="../assets/images/articles/169/07.webp" alt=""></p>
+<p>当再次修改服务器资源后刷新页面，如上图所示，发现 <code>config.js</code> 还是请求的服务器资源！没有走缓存！如果走缓存的话，Size栏是 <code>disk cache 或者 memory cache</code>，这是为什么呢？因为之前上次请求资源的 <code>Date</code> 和 <code>Last-Modified</code> 决定下次请求是否走缓存，上次请求资源只缓存了<code>2.7s</code>，我们在服务器改了内容再返回页面去刷新查看结果的这个过程超过了 2.7s 就会重新请求服务器资源！</p>
+<blockquote>
+<p>所以说，我们做测试的时候一定注意尽可能的把 <code>Date</code> 和 <code>Last-Modified</code> 时间拉大一点，才能看出效果。</p>
+</blockquote>
+<p>此时，我们把时间拉的稍微大一点，再去修改服务器中的资源，<code>(49 - 33) * 0.1</code> 大约会缓存一分半时间；</p>
+<p><img src="../assets/images/articles/169/08.webp" alt=""></p>
+<p>在这一分半时间内，去服务器修改资源之后再去刷新页面，发现此时此刻 <code>config.js</code> 走的就是缓存了，我们服务器虽然修改了 <code>config.js</code> 里面的内容，但是在这个缓存的时间内仍然获取不到最新的内容！所以说系统的配置文件要配置协商缓存。</p>
+<p><img src="../assets/images/articles/169/09.webp" alt=""></p>
+<h2>Cache-Control</h2>
+<p>在HTTP/1.1中，Cache-Control是最重要的规则，主要用于控制网页缓存，主要取值为：</p>
+<p><img src="../assets/images/articles/169/03.awebp" alt=""></p>
+<p>这里主要解读下 <code>max-age=0</code>，<code>no-cache</code>，<code>max-age=10086</code>，<code>no-store</code> 这几项：</p>
+<h3>协商缓存</h3>
+<pre><code class="language-sh">Cache-Control : no-cache
+</code></pre>
+<p>no-cache：<strong>表示协商缓存</strong>，每次请求还是会和服务器去比对资源有没有修改（也就是拿 <code>ETag</code> 或者 <code>Last-Modified</code> 进行比较），<code>如果资源没改变</code>，则直接返回304状态码（Not Modified），说明无需再次传输请求的内容，也就是说可以使用缓存的内容；<code>如果资源改变</code>，则返回200状态码，并且返回新的资源；</p>
+<pre><code class="language-sh">Cache-Control : max-age=0,must-revalidate
+</code></pre>
+<p><code>max-age=0</code> 和 <code>must-revalidate</code> 的组合与 <code>no-cache</code> 具有相同的含义。但是这是为了兼容处理解决HTTP/1.1 之前的许多实现无法处理 <code>no-cache</code> 的情况，但是现在基本都是HTTP/1.1，所以没有理由再用这种方法了，转而直接用 <code>no-cache</code> 则更好！</p>
+<blockquote>
+<p>为确保默认情况下始终传输最新版本的资源，通常的做法是让默认的 <code>Cache-Control</code> 值包含 <code>no-cache</code></p>
+</blockquote>
+<p>另外，如果服务实现了 cookie 或其他登录方式，并且内容是为每个用户个性化的，那么也必须提供 <code>private</code>，以防止与其他用户共享：</p>
+<pre><code class="language-sh">Cache-Control: no-cache, private
+</code></pre>
+<h3>强缓存</h3>
+<pre><code class="language-sh">Cache-Control : max-age=10086
+</code></pre>
+<p><code>max-age=10086</code>：<strong>表示强缓存</strong>，服务器直接告诉浏览器10086秒不要来烦我，你直接从本地缓存获取资源吧；如果是硬性重新加载，浏览器则表示：我就要向你服务器重新获取资源，你能咋滴吧，不还得乖乖返回给我（狗头）；</p>
+<h3>不缓存</h3>
+<pre><code class="language-sh">Cache-Control : no-store
+</code></pre>
+<p><code>no-store</code>：<strong>表示不缓存</strong>，浏览器自带的启发式缓存都不生效了，慎用！</p>
+<h3>Expires 和 Cache-Control 的差别</h3>
+<p>其实这两者差别不大，区别就在于 Expires 是 http1.0 的产物，Cache-Control 是 http1.1 的产物，两者同时存在的话，Cache-Control 优先级高于 Expires；在某些不支持 HTTP1.1 的环境下，Expires 就会发挥用处。所以 Expires 其实是过时的产物，现阶段它的存在只是一种兼容性的写法。</p>
+<h2>启发式缓存和强缓存的区别</h2>
+<ul>
+<li>启发式缓存的缓存时间不是可控的，是根据用户请求的 <code>Date</code> 和 <code>Last-Modified</code>决定缓存的时间；</li>
+<li>强缓存是只要在设置的时间范围内，缓存一直都生效，除非资源变动。</li>
+</ul>
+<h2>no-stroe 丢失了什么</h2>
+<p>你可能认为添加 <code>no-store</code> 只是不进行强缓存和协商缓存了。</p>
+<p>但是，连浏览器自带的 <code>启发式缓存策略</code> 都没了，所以不建议随意授予 <code>no-store</code>，因为你失去了 HTTP 和浏览器所拥有的许多优势，包括浏览器的后退/前进缓存。</p>
+<p>因此，要获得 Web 平台的全部功能集的优势，最好不要轻易设置 <code>no-store</code>。</p>
+<h2>避免重新验证immutable</h2>
+<p>永远不会改变的内容应该被赋予一个较长的 <code>max-age</code>；</p>
+<p>但是，当用户重新加载时，即使服务器知道内容是不可变的，也会发送重新验证请求。</p>
+<p>为了防止这种情况，<code>immutable</code> 指令可用于明确指示不需要重新验证，因为内容永远不会改变。</p>
+<pre><code class="language-sh">Cache-Control: max-age=10086, immutable
+</code></pre>
+<h2>缓存破坏</h2>
+<blockquote>
+<p><strong>缓存破坏</strong>是一种通过在内容更改时更改 URL 来使响应在很长一段时间内可缓存的技术。该技术可以应用于所有子资源，例如图像。 简单来说就是 <code>index.html</code> 里的所有子资源如 <code>js、css、图片</code> 等，在部署时，通过url的变化，使重新获取新的资源。</p>
+</blockquote>
+<p>当向服务器部署一个前端资源包，虽然把包放到了服务器中，浏览器是如何立马就能知道这是新的资源，从而去获取这些新的资源，而不是去获取浏览器缓存的资源呢？</p>
+<p>如何破坏缓存:</p>
+<ul>
+<li>部署时在文件名中带入Hash值👍</li>
+</ul>
+<p>这里重点说一下Hash值类型，Vue的生产环境打包采用的也是这种方式；在静态资源文件末尾加上Hash值，保证当前打的包和服务器之前部署的文件区分开来，避免文件名一致，而导致虽然部署成功了，浏览器请求的还是缓存的资源！</p>
+<p><img src="../assets/images/articles/169/10.webp" alt=""></p>
+<blockquote>
+<p>缓存是根据它们的 <code>URL</code> 来区分资源，因此如果在更新资源时 <code>URL</code> 发生变化，缓存将不会再次被重用。</p>
+</blockquote>
+<p>这些打包好的 <code>js、css、img</code> 等静态资源最终会在 <code>index.html</code> 中引用，在访问一个网站的时候，首先会请求 <code>index.html</code>，再去请求 <code>index.html</code> 里面的引用，此时html中引用的 js 等文件，和服务器中 html 引用的 js 等文件已经不是同一个文件了，因为文件名变了（加了Hash值），所以不会走本地缓存。</p>
+<h2>站在用户角度</h2>
+<p>如果部署了资源，但是刷新页面没有获取到最新的版本内容，我们第一反应是清空浏览器缓存，但是我们不是用户，也不能要求用户每次去清空缓存，户刷新页面大部分是 <code>正常重新加载</code> 里面的一些方式方法，所以遇到这种问题我们的解决方法如下：</p>
+<ul>
+<li><strong>对于不能加Hash值的资源：比如index.html、setting.js配置文件</strong></li>
+</ul>
+<p>使用 <code>Cache-Control: no-cache</code> 协商缓存，使浏览器每次都请求服务器，然后配合 ETag 或者 Last-Modified 来验证资源是否有效，来保证获取的是最新的文件；</p>
+<p>拿setting.js举例：此时浏览器获取的内容为</p>
+<p><img src="../assets/images/articles/169/11.webp" alt=""></p>
+<p>此时正好赶上一个需求，需要把页面所有内容设置为灰色，因为事先在配置文件里面配置了，所以此时只需要在 <code>setting.js</code> 中把 <code>gray</code> 改为 <code>true</code> 即可，如下图所示，这个文件是没有设置缓存策略的，走的默认缓存，获取的是内存中【memory cache】的缓存；</p>
+<p><img src="../assets/images/articles/169/12.webp" alt=""></p>
+<p>现在修改一下数据库的该文件信息，进行保存</p>
+<p><img src="../assets/images/articles/169/13.webp" alt=""></p>
+<p>再回到浏览器执行用户常用的 <code>正常重新加载式</code> 刷新页面，发现页面并没有任何变化，查看该文件信息，发现还是获取的之前信息，并没有重新获取服务器修改过的资源信息！因为没有配置相应的缓存策略，用户使用起来就会有问题了，获取不到最新的内容。</p>
+<p><img src="../assets/images/articles/169/14.webp" alt=""></p>
+<p>这里也涉及到启发式缓存时间的问题，如果在服务器多次改变该文件内容，并且页面刷新频繁（自己测试的时候会频繁刷新，注意 <code>Response Header</code> 中的 <code>Date</code> 和 <code>Last-Modified</code> 时间的间隔，如果间隔时间很短，短到只有几秒钟，那么你修改配置文件之后，此时再刷新页面就会去请求服务器资源，而不是走缓存了；但是真实用户的 <code>Date</code> 和 <code>Last-Modified</code> 时间间隔不会这么短，默认缓存时间较长），缓存时间就会缩的非常短，让你产生没有配置协商缓存的话，页面也会同步更新，但是这样是有问题的！</p>
+<blockquote>
+<p>所以对于这些文件要配置协商缓存，保证每次获取的都是最新的文件！</p>
+</blockquote>
+<ul>
+<li><strong>对于有Hash值的资源：静态文件js、css</strong></li>
+</ul>
+<p>使用 Cache-Control 配置一个很大的 <code>max-age=31536000</code> (一年)；</p>
+<p>当重新打的包是带有Hash值的，所以不怕这个强缓存，管它之前缓存的是一年、两年还是十年，当重新部署到服务器的时候，浏览器就得加载最新部署的资源。</p>
+<h2>最佳实践</h2>
+<blockquote>
+<p>使用Nginx设置缓存策略</p>
+</blockquote>
+<p>为什么说 <code>index.html</code> 和 <code>setting.js</code> 要设置协商缓存呢？因为他们的文件名是不可能带hash的，所以要设置协商缓存每次去验证资源是否有效。</p>
+<p>在 <code>nginx.conf</code> 中配置以下内容：</p>
+<pre><code class="language-sh">server {
+ # html设置成协商缓存或者不缓存
+ location ~* \.(html)$ {
+ # 关闭访问日志
+ access_log off;
+ # 进行协商缓存 保证每次调取最新的数据
+ add_header  Cache-Control  no-cache;
+ }
+ 
+ # 特定文件设置强缓存
+ location ~* \.(css|js|png|jpg|jpeg|gif|gz|svg|mp4|ogg|ogv|webm|htc|xml|woff)$ {
+ add_header  Cache-Control  max-age=360000; # 默认4天
+ #add_header Cache-Control no-store; # 不缓存 但是不推荐 浏览器自带的优化功能用不了了
+ #add_header Cache-Control no-cache; # 协商缓存 保证每次调取最新的数据
+ # 系统配置文件setting.js，进行协商缓存 保证每次调取最新的数据
+ if ($request_filename ~* \.*setting.(js)$) {
+ add_header Cache-Control no-cache;
+ }
+ } 
+}
+</code></pre>
+<p>设置好后，重启nginx服务，强制刷新再普通刷新页面，会发现资源已经根据 <code>nginx</code> 配置了对应的缓存策略，Size栏也能看到是获取的内存中的缓存。</p>
+<p><img src="../assets/images/articles/169/15.webp" alt=""></p>
+ 
+    </div>
+  </div>
+  <div class="article__wrapper_footer">
+    <a class="article__wrapper_footer-left " href="/articles/168.html"><svg t="1713708729970" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8437" width="48" height="48"><path d="M409.272947 512.57741l403.237243 403.237243a63.349415 63.349415 0 1 1-89.622481 89.622482L274.839224 557.324726a63.349415 63.349415 0 0 1 0-89.494632L722.951633 19.717685a63.349415 63.349415 0 1 1 89.494633 89.622482L409.336872 512.57741z" p-id="8438" fill="currentColor"></path></svg></a>
+    <a class="article__wrapper_footer-right disabled" href="/articles/00.html"><svg t="1713708697355" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8093" width="48" height="48"><path d="M855.123 517.004c0 8.245-3.167 15.51-9.503 21.823L402.999 981.47c-6.336 6.336-13.625 9.477-21.869 9.477s-15.51-3.142-21.845-9.477L311.8 933.96c-6.336-6.336-9.502-13.6-9.502-21.845 0-8.222 3.167-15.51 9.502-21.845l373.29-373.29-373.293-373.267c-6.336-6.336-9.502-13.6-9.502-21.845s3.167-15.533 9.503-21.869l47.484-47.484c6.336-6.336 13.6-9.502 21.845-9.502s15.533 3.167 21.869 9.503l442.621 442.622c6.334 6.334 9.503 13.625 9.503 21.869z" fill="currentColor" p-id="8094"></path></svg></a>
+  </div>
+  <a class="article__wrapper_index" href="/articles/"><svg t="1713708857338" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9656" width="48" height="48"><path d="M549.61981 133.022476l319.683047 203.605334A70.851048 70.851048 0 0 1 902.095238 396.361143v434.883047A70.89981 70.89981 0 0 1 831.146667 902.095238h-282.819048l0.024381-218.112h-71.826286v218.087619L192.853333 902.095238A70.89981 70.89981 0 0 1 121.904762 831.24419V390.241524c0-24.527238 12.678095-47.299048 33.54819-60.220953l318.659048-197.485714a70.972952 70.972952 0 0 1 75.50781 0.487619zM828.952381 828.952381V397.214476L511.488 195.047619 195.047619 391.119238V828.952381h211.309714v-216.551619h212.187429v216.527238L828.952381 828.952381z" p-id="9657" fill="#707070"></path></svg></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+  <script src="../assets/js/articles-detail.js"></script>
+  <script>
+    hljs.highlightAll();
+  </script>
+</body>
+</html>
+    

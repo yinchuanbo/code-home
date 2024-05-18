@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>跨域问题多种解决方案的精华总结</title>
+    <meta charset="utf-8">
+    <meta name="description" content="This is a page">
+    <meta name="keywords" content="page, sample">
+    <meta name="author" content="None">
+    <link rel="icon" href="../assets/images/code.svg" sizes="32x32" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <link rel="stylesheet" href="../assets/css/articles.css">
+</head>
+<body>
+  <!--<div class="article__wrapper_left">
+    <div class="article__wrapper_left-mulu">目录</div>
+    <ul class="articles__list"><li class="">
+          <a href="/articles/168.html">
+            ES7、ES8、ES9、ES10、ES11、ES12都增加了哪些新特性？
+          </a>
+        </li><li class="">
+          <a href="/articles/169.html">
+            了解透彻浏览器缓存
+          </a>
+        </li></ul>
+  </div>-->
+  <div class="article__wrapper_sidebar">
+    <a href="/articles/"><svg t="1714001835347" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4298" width="48" height="48"><path d="M147.904 304.128l301.866667-179.541333a128 128 0 0 1 131.712 0.512l295.466666 178.88A128 128 0 0 1 938.666667 413.482667V810.666667a128 128 0 0 1-128 128H213.333333a128 128 0 0 1-128-128V414.144a128 128 0 0 1 62.570667-110.016z m43.626667 73.344A42.666667 42.666667 0 0 0 170.666667 414.144V810.666667a42.666667 42.666667 0 0 0 42.666666 42.666666h597.333334a42.666667 42.666667 0 0 0 42.666666-42.666666V413.482667a42.666667 42.666667 0 0 0-20.565333-36.501334l-295.466667-178.88a42.666667 42.666667 0 0 0-43.925333-0.170666l-301.866667 179.541333z" fill="currentColor" p-id="4299"></path><path d="M405.333333 469.333333h213.333334a42.666667 42.666667 0 1 1 0 85.333334H405.333333a42.666667 42.666667 0 1 1 0-85.333334z m0 85.333334a42.666667 42.666667 0 1 0 0-85.333334h213.333334a42.666667 42.666667 0 1 0 0 85.333334H405.333333z" fill="currentColor" p-id="4300"></path></svg></a>
+    <a href="/tools/"><svg t="1714002003458" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6911" width="48" height="48"><path d="M817.87 556.31h-63.58v-66.24A42.27 42.27 0 0 0 712 447.8h-84.81a42.27 42.27 0 0 0-42.27 42.27v66.24H436.57v-66.24a42.27 42.27 0 0 0-42.27-42.27h-84.83a42.27 42.27 0 0 0-42.27 42.27v66.24h-61.83A22.39 22.39 0 0 0 183 578.7a22.39 22.39 0 0 0 22.39 22.39h61.81v65.55a42.27 42.27 0 0 0 42.27 42.27h84.83a42.27 42.27 0 0 0 42.27-42.27v-65.55h148.36v65.55a42.27 42.27 0 0 0 42.27 42.27H712a42.27 42.27 0 0 0 42.27-42.27v-65.55h63.58a22.39 22.39 0 0 0 22.39-22.39 22.39 22.39 0 0 0-22.37-22.39z m-438.64 95.26h-54.69V505.14h54.69z m317.72 0h-54.69V505.14H697z" p-id="6912" fill="currentColor"></path><path d="M823 202.58h-90.81v-63.09a71.88 71.88 0 0 0-71.88-71.88H363.19a71.88 71.88 0 0 0-71.88 71.88v63.08h-90.12A137.17 137.17 0 0 0 64 339.75v479a137.17 137.17 0 0 0 137.19 137.14H823a137.17 137.17 0 0 0 137.19-137.17v-479A137.17 137.17 0 0 0 823 202.58z m-474.36-54.1A23.52 23.52 0 0 1 372.17 125h279.16a23.52 23.52 0 0 1 23.52 23.52v54.1h-326.2z m554.23 673.31a76.76 76.76 0 0 1-76.76 76.76h-628a76.76 76.76 0 0 1-76.76-76.76V336.67a76.76 76.76 0 0 1 76.76-76.76h628a76.76 76.76 0 0 1 76.76 76.76z" p-id="6913" fill="currentColor"></path></svg></a>
+  </div>
+  <div class="article__wrapper">
+    <div class="article__wrapper__main">
+      <div class="article__wrapper_header">
+        <h1>跨域问题多种解决方案的精华总结</h1>
+        <span class="articles__home_time">2024/05/18 · YinHao</span>
+      </div>
+      <h2>前言</h2>
+<p>跨域问题是 Web 开发中常见的挑战，源于浏览器的安全策略，限制了页面对不同域名、协议或端口的网络请求。这导致了一系列跨域访问限制，尤其在网页使用 Ajax、WebSocket 等方式与不同域的服务器进行交互时，浏览器会阻止这类请求，以防范潜在的安全风险，如跨站请求伪造（CSRF）攻击。</p>
+<p>报错提示如下：</p>
+<p><img src="../assets/images/articles/167/01.awebp" alt=""></p>
+<p>为了克服跨域问题，开发者可以采用各种技术手段，包括 JSONP、CORS（跨域资源共享），以及前端主动设置 document.domain 等方法。尽管这些解决方案在一定程度上解除了跨域限制，确保了不同域之间的数据交互和通信，但它们也引入了一定的开发成本，增加了项目的复杂度。</p>
+<p>在开发过程中，有时我们只是为了临时调试功能，不希望部署复杂的跨域解决方案到<strong>开发环境</strong>。当我们迫切需要一种简单而傻瓜式的跨域解决方案时，能够通过简单配置快速解决问题变得至关重要。</p>
+<p>本文将总结一些<strong>非常简便</strong>的跨域解决方案，让你在开发中轻松应对跨域问题的困扰。</p>
+<h2><strong>1、绕过浏览器同源策略</strong></h2>
+<p>在启动 Chrome 浏览器时，添加 <code>--disable-web-security</code> 参数可用来禁用同源策略。但请注意，这种方式只是在开发和调试时使用，不要在生产环境中禁用同源策略来验收项目。具体操作如下：</p>
+<p><strong>Mac 电脑</strong>，直接在终端命令行中输入如下指令（<code>&lt;自定义目录&gt;</code> 例如：<code>/Users/xxx/MyChromeData</code>） ：</p>
+<pre><code class="language-bash">$ open -n /Applications/Google\ Chrome.app/ --args --disable-web-security --user-data-dir=&lt;自定义目录&gt;
+</code></pre>
+<p><img src="../assets/images/articles/167/02.awebp" alt=""></p>
+<p><strong>Windows 电脑</strong>，右键点击 Chrome 浏览器 -&gt; 属性 -&gt; 目标 -&gt; 在 <code>chrome.exe</code> 路径后面添加代码 <code>--disable-web-security --user-data-dir=&quot;&lt;自定义目录&gt;&quot;</code>。(<code>&lt;自定义目录&gt;</code> 例如：<code>D:\MyChromeData</code>)</p>
+<p>后续打开该 Chrome 浏览器应用，都是以禁用浏览器同源策略的方式打开。如果设置成功了，打开 Chrome 浏览器会有如下提示：</p>
+<p><img src="../assets/images/articles/167/03.awebp" alt=""></p>
+<h2><strong>2、借助浏览器插件的妙用</strong></h2>
+<p>有一些浏览器插件允许在浏览器中启用 CORS 配置，以便在开发过程中更轻松地处理跨域请求，也有一些插件可以帮助临时禁用或修改浏览器的安全设置，以允许跨域请求。以下是一些常见的浏览器插件：</p>
+<ol>
+<li><strong><code>CORS Unblock:</code></strong> 解除跨域限制。</li>
+<li><strong><code>Allow-Control-Allow-Origin:</code></strong> 允许跨域资源共享（CORS）。</li>
+<li><strong><code>ModHeader:</code></strong> 允许用户修改请求头，可以用于测试不同的 CORS 配置。</li>
+<li><strong><code>Postman Interceptor:</code></strong> 结合 Postman 工具使用，拦截请求和响应，方便测试和调试。</li>
+</ol>
+<p>请注意，使用这些插件时应谨慎，仅在开发和调试环境中使用，切勿在生产环境中禁用浏览器的安全设置。</p>
+<p><strong>下面将简单介绍一下 Chrome 插件 CORS Unblock 的使用。</strong></p>
+<p><strong>步骤一</strong>：在 <a href="https://chromewebstore.google.com/">chrome 应用商店</a> 搜索 CORS Unblock 插件，并点击安装。</p>
+<p><img src="../assets/images/articles/167/04.awebp" alt=""></p>
+<p><strong>步骤二</strong>：固定插件到导航栏，并点击启用 CORS Unblock 插件。</p>
+<p><img src="../assets/images/articles/167/05.awebp" alt=""></p>
+<p><strong>步骤三</strong>：刷新网页，会发现原本存在跨域限制的接口都可以正常访问了。</p>
+<p><strong>启动插件前</strong>：跨域请求失败</p>
+<p><img src="../assets/images/articles/167/06.awebp" alt=""></p>
+<p><strong>启动插件后</strong>：跨域请求被自动添加了 CORS 配置，请求成功</p>
+<p><img src="../assets/images/articles/167/07.awebp" alt=""></p>
+<h2>3、巧用抓包工具代理请求</h2>
+<p>抓包工具是一类用于捕获、分析和修改计算机网络通信流量的软件工具。这些工具允许开发人员和网络管理员监控应用程序的网络交互，查看请求和响应的详细信息，进行性能评估，以及在开发和测试阶段修改数据流以进行调试。抓包工具对于诊断网络问题、优化性能和确保安全性都具有重要作用。常用的抓包工具有 <strong>Fiddler</strong>、<strong>Charles</strong>、<strong>Wireshark</strong> 等。</p>
+<p>使用抓包工具代理请求的方式来处理跨域问题，通常涉及将 Web 网络请求通过工具进行中间代理，实现对请求和响应的监控、分析和修改。通过抓包工具的 rewrite 能力重写网络响应，给存在跨域的接口都添加上 CORS 相关配置，来解决跨域问题。</p>
+<p>下面将简单介绍 Charles 工具的操作步骤：</p>
+<p><strong>步骤一</strong>：打开 Charles 工具栏 <code>Tools --&gt; Rewrite</code></p>
+<p><img src="../assets/images/articles/167/08.awebp" alt=""></p>
+<p><strong>步骤二</strong>：添加 Rewrite 配置</p>
+<p><img src="../assets/images/articles/167/09.awebp" alt=""></p>
+<p><strong>步骤三</strong>：Add 时添加 CORS 配置响应头</p>
+<p><img src="../assets/images/articles/167/10.awebp" alt=""></p>
+<p>通过完成上述的三个步骤，我们现在就可以直接访问跨域接口了，可以看到所有的接口响应上都已经被添加了 <code>Access-Control-Allow-Origin:*</code> CORS 属性。</p>
+<p><img src="../assets/images/articles/167/11.awebp" alt=""></p>
+<h2>4、运用 devServer.proxy 进行请求代理</h2>
+<p><code>devServer.proxy</code> 是 webpack 开发服务器的一个配置选项，通过该选项配置可以在开发环境中实现跨域请求的代理。它解决跨域问题的原理是将前端的请求转发到后端，然后由后端再代理发送请求到目标服务器，最终将响应返回给前端。</p>
+<p>所以，如果我们的项目是通过 webpack 启动服务的或者框架底层正好使用了 <code>http-proxy-middleware</code> 服务的，都可以通过配置 <code>devServer.proxy</code> 直接解决跨域问题。</p>
+<p><strong>核心流程如下</strong>：</p>
+<ol>
+<li><strong>配置 devServer.proxy</strong></li>
+</ol>
+<p>​ 在 webpack 配置文件中的 <code>devServer</code> 部分，通过设置 <code>proxy</code> 选项配置代理。例如：</p>
+<pre><code class="language-js">module.exports = {
+  // ...
+  devServer: {
+    proxy: {
+      &quot;/api&quot;: {
+        target: &quot;http://localhost:3000&quot;, // 如果本地使用的后端服务在 localhost:3000 上，可以使用它来启用代理
+        changeOrigin: true,
+        pathRewrite: { &quot;^/api&quot;: &quot;&quot; },
+      },
+    },
+  },
+};
+</code></pre>
+<p>上述配置表示将以 <code>/api</code> 开头的请求代理到 <code>http://localhost:3000</code>。</p>
+<ol start="2">
+<li>
+<p><strong>启动 webpack 开发服务器</strong></p>
+<p>当开发者启动 webpack 开发服务器时，它会监听前端的请求，并根据 <code>devServer.proxy</code> 的配置将符合条件的请求代理到指定的后端服务器。</p>
+</li>
+<li>
+<p><strong>代理转发</strong></p>
+<p>当前端发起以 <code>/api</code> 开头的请求时，webpack 开发服务器将请求转发到指定的后端服务器（例如<code>http://localhost:3000</code>）。</p>
+</li>
+<li>
+<p><strong>后端处理请求</strong></p>
+<p>后端服务器接收到代理过来的请求后，按照正常的处理流程处理请求，并将响应返回。</p>
+</li>
+<li>
+<p><strong>前端接收响应</strong></p>
+<p>最终，webpack 开发服务器将后端服务器的响应返回给前端，完成整个代理过程。</p>
+</li>
+</ol>
+<p>通过使用 <code>devServer.proxy</code> 配置，前端在开发环境中能够绕过同源策略的限制，实现与后端不同域的服务器进行交互，从而解决跨域问题。这样开发者可以在本地开发环境中方便地与后端服务进行协作和调试。</p>
+<p><strong>http-proxy-middleware 介绍：</strong></p>
+<p>上文所述的 <code>devServer.proxy</code> 代理功能，其底层依赖于 <code>http-proxy-middleware</code> 软件包。所以如果需要设置更多的代理服务配置，可以借鉴参考 <a href="https://github.com/chimurai/http-proxy-middleware#options">http-proxy-middleware 配置文档说明</a>。</p>
+<p><code>http-proxy-middleware</code> 本质上是一个 Node.js 的中间件库，用于在 Express、Koa 或任何基于 Node.js 的 HTTP 服务器上代理 HTTP 请求。</p>
+<p>它的工作原理如下：</p>
+<ol>
+<li>当客户端发起 HTTP 请求时，请求首先被发送到代理服务器。</li>
+<li>代理服务器收到请求后，根据配置的规则（如目标地址、路径重写等）修改请求的参数。</li>
+<li>修改后的请求被转发到目标服务器。</li>
+<li>目标服务器接收到请求后，处理请求并返回响应。</li>
+<li>代理服务器接收到响应后，根据配置的规则（如路径重写、请求头修改等）修改响应的参数。</li>
+<li>修改后的响应被返回给客户端。</li>
+</ol>
+<p><code>http-proxy-middleware</code> 可以方便地配置代理规则，支持按路径、按域名、按请求头等进行匹配和过滤，也可以对请求和响应进行修改。通过这种方式，它可以实现反向代理、请求转发、API 接口代理等功能。</p>
+<h2>5、操作 Nginx 实现反向代理</h2>
+<p><img src="../assets/images/articles/167/12.awebp" alt=""></p>
+<p>Nginx 配置解决浏览器跨域问题的原理是通过反向代理，将<strong>前端应用</strong>和<strong>后端服务</strong>整合在同一域名和端口下。通过在 Nginx 配置文件中设置不同路径的 <code>location</code> 块，将前端请求和后端请求分别代理到对应的服务地址，确保它们具有相同的域名和端口。这样一来，前端页面和后端服务在同一源上，遵循浏览器的同源策略，解决了跨域问题。</p>
+<p>在代理过程中，Nginx 还可以添加自定义的请求头信息，确保正确的信息传递和安全性。通过这种方式，Nginx 提供了一种简便有效的解决跨域问题的方法，同时提高了应用的灵活性和安全性。</p>
+<p>例如：当前端应用页面部署于 <code>http://10.188.27.166:9897</code>，后端服务接口部署于 <code>http://10.188.27.166:9898</code>，因为两者的端口不一致，所以就会导致跨域请求限制。我们可以通过 <code>nginx.conf</code> 配置，让两者处于同一个域名和端口下，配置如下：</p>
+<pre><code class="language-bash">server {
+        listen       8080; # 端口
+        server_name  localhost; # 域名
+
+				# 代理所有前端页面
+        location / {
+            proxy_pass http://10.188.27.166:9897;
+        }
+
+				# 代理后端接口
+        location /cors-api {
+            proxy_pass http://10.188.27.166:9898;
+
+						# 添加了部分自定义属性
+            add_header Access-Control-Allow-Origin * always;
+            add_header Access-Control-Allow-Headers *;
+            add_header Access-Control-Allow-Methods &quot;GET, POST, PUT, OPTIONS&quot;;
+            if ($request_method = 'OPTIONS') {
+                return 200;
+            }
+        }
+}
+</code></pre>
+<p>执行 <code>nginx -s reload</code> 命令重新启动 nginx 服务后，我们在浏览器访问 <code>http://localhost:8080/</code> 地址，跨域限制问题就已经被成功解决了，如下：</p>
+<p><img src="../assets/images/articles/167/13.awebp" alt=""></p>
+ 
+    </div>
+  </div>
+  <div class="article__wrapper_footer">
+    <a class="article__wrapper_footer-left " href="/articles/166.html"><svg t="1713708729970" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8437" width="48" height="48"><path d="M409.272947 512.57741l403.237243 403.237243a63.349415 63.349415 0 1 1-89.622481 89.622482L274.839224 557.324726a63.349415 63.349415 0 0 1 0-89.494632L722.951633 19.717685a63.349415 63.349415 0 1 1 89.494633 89.622482L409.336872 512.57741z" p-id="8438" fill="currentColor"></path></svg></a>
+    <a class="article__wrapper_footer-right " href="/articles/168.html"><svg t="1713708697355" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8093" width="48" height="48"><path d="M855.123 517.004c0 8.245-3.167 15.51-9.503 21.823L402.999 981.47c-6.336 6.336-13.625 9.477-21.869 9.477s-15.51-3.142-21.845-9.477L311.8 933.96c-6.336-6.336-9.502-13.6-9.502-21.845 0-8.222 3.167-15.51 9.502-21.845l373.29-373.29-373.293-373.267c-6.336-6.336-9.502-13.6-9.502-21.845s3.167-15.533 9.503-21.869l47.484-47.484c6.336-6.336 13.6-9.502 21.845-9.502s15.533 3.167 21.869 9.503l442.621 442.622c6.334 6.334 9.503 13.625 9.503 21.869z" fill="currentColor" p-id="8094"></path></svg></a>
+  </div>
+  <a class="article__wrapper_index" href="/articles/"><svg t="1713708857338" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9656" width="48" height="48"><path d="M549.61981 133.022476l319.683047 203.605334A70.851048 70.851048 0 0 1 902.095238 396.361143v434.883047A70.89981 70.89981 0 0 1 831.146667 902.095238h-282.819048l0.024381-218.112h-71.826286v218.087619L192.853333 902.095238A70.89981 70.89981 0 0 1 121.904762 831.24419V390.241524c0-24.527238 12.678095-47.299048 33.54819-60.220953l318.659048-197.485714a70.972952 70.972952 0 0 1 75.50781 0.487619zM828.952381 828.952381V397.214476L511.488 195.047619 195.047619 391.119238V828.952381h211.309714v-216.551619h212.187429v216.527238L828.952381 828.952381z" p-id="9657" fill="#707070"></path></svg></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+  <script src="../assets/js/articles-detail.js"></script>
+  <script>
+    hljs.highlightAll();
+  </script>
+</body>
+</html>
+    
