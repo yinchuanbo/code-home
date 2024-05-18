@@ -16,20 +16,17 @@ body {
 .articles-home {
   height: auto;
   width: 100%;
-  padding: 30px 0;
+  /* padding: 30px 0; */
   box-sizing: border-box;
-  /* background-color: #212121; */
-  /* background-color: #f2f2f2; */
-  /* background-color: #1d2023; */
-  background-color: #f2f2f2;
+  background-color: #131313;
 }
 
 .articles-home-main {
   width: 100%;
   height: fit-content;
   display: grid;
-  grid-template-columns: repeat(4, 400px);
-  grid-gap: 30px 20px;
+  grid-template-columns: repeat(2, 600px);
+  /* grid-gap: 0 50px; */
   place-content: center;
 }
 
@@ -39,42 +36,30 @@ body {
   display: flex;
   align-items: center;
   box-sizing: border-box;
-  /* padding: 40px; */
-  /* background-color: #f2f2f2; */
-  /* box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); */
   transition: transform 0.3s, box-shadow 0.3s;
-  /* border: 5px solid #fff; */
-  /* background-color: #292c31; */
-  /* border: 1px solid #ffffff0f; */
-  height: 70px;
-  padding: 0 20px;
-  /* border-radius: 100px; */
+  height: 100px;
   display: flex;
   justify-content: center;
-  /* background-color: #292c31;
-  border: 1px solid #ffffff0f; */
-  /* box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px; */
-  background-color: #fff;
-  border: 1px solid #ececec;
+  border-top: 1px solid #313131;
+  /* font-weight: 600; */
 }
 
-/* .card:nth-child(2n + 1) {
-  border-top-left-radius: 50px;
-  border-bottom-left-radius: 50px;
+.card:nth-child(1),
+.card:nth-child(2) {
+  border-top: 0;
 }
 
 .card:nth-child(2n) {
-  border-top-right-radius: 50px;
-  border-bottom-right-radius: 50px;
-} */
+  border-left: 1px solid #313131;
+}
 
 .card:hover {
-  transform: rotate(-10deg);
-  /* background-color: rgba(0, 0, 0, 0.2); */
+  /* transform: rotate(-10deg); */
+  background-color: #181818;
 }
 
 /* .card:hover .card__content {
-  color: #1d2023;
+  text-decoration:line-through
 } */
 
 .card:active {
@@ -82,23 +67,11 @@ body {
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
-/* .card:hover {
-  transition: all 0.5s;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
-}
-
-.card:hover .card__content {
-  color: #ff0000;
-  transition: 0.5s;
-} */
-
 .card__content {
   font-size: 16px;
   transition: 0.5s;
-  color: #333;
-  /* font-family: myfont; */
+  color: #fff;
   text-align: center;
-  line-height: 1.5;
 }
 
 .card__desc {

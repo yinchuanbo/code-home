@@ -32,11 +32,11 @@ li {
 
 .home__list {
   display: grid;
-  grid-template-columns: repeat(1, calc(100% - 200px));
+  grid-template-columns: repeat(1, calc(100% - 60px));
   place-content: center;
   grid-gap: 30px;
-  padding-top: 100px;
-  padding-bottom: 100px;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 .home__list li {
@@ -50,7 +50,7 @@ li {
 
 .li__mask {
   width: 100%;
-  height: calc(100vh - 200px);
+  height: calc(100vh - 60px);
   position: relative;
 }
 
@@ -108,7 +108,7 @@ iframe {
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
-  top: 25px;
+  top: 30px;
   display: flex;
   z-index: 99;
   height: 50px;
