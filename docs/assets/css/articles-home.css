@@ -25,7 +25,7 @@ body {
   width: 100%;
   height: fit-content;
   display: grid;
-  grid-template-columns: repeat(2, 600px);
+  grid-template-columns: repeat(4, 25%);
   /* grid-gap: 0 50px; */
   place-content: center;
 }
@@ -37,32 +37,42 @@ body {
   align-items: center;
   box-sizing: border-box;
   transition: transform 0.3s, box-shadow 0.3s;
-  height: 60px;
+  height: 80px;
   display: flex;
   justify-content: center;
-  border-top: 1px solid #313131;
+  border-bottom: 1px solid #313131;
   /* font-weight: 600; */
 }
 
-.card:nth-child(1),
-.card:nth-child(2) {
-  border-top: 0;
-}
-
-.card:nth-child(2n) {
-  border-left: 1px solid #313131;
+/* .card:nth-child(2n) {
   justify-content: flex-start;
-  padding-left: 20px;
+  padding-left: 30px;
+} */
+
+.card:nth-child(4n),
+.card:nth-child(4n - 2) {
+  background-color: #181818;
 }
 
-.card:nth-child(2n + 1) {
-  justify-content: flex-end;
-  padding-right: 20px;
+.card:nth-child(4n + 3) {
+  border-right: 1px solid #313131;
+}
+
+/* .card:nth-child(4n) {
+  border-left: 1px solid #313131;
+} */
+
+.card:nth-child(4n - 2) {
+  /* justify-content: flex-end;
+  padding-right: 30px; */
+  /* border-right: 1px solid #313131; */
+  border-left: 1px solid #313131;
+  border-right: 1px solid #313131;
 }
 
 .card:hover {
   /* transform: rotate(-10deg); */
-  background-color: #181818;
+  background-color: #222;
 }
 
 /* .card:hover .card__content {
@@ -79,6 +89,8 @@ body {
   transition: 0.5s;
   color: #fff;
   text-align: center;
+  padding: 0 10px;
+  font-family: "Fira Code";
 }
 
 .card__desc {

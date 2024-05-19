@@ -46,6 +46,8 @@ allPages.sort((a, b) => {
   return numA - numB;
 });
 
+allPages = allPages.reverse()
+
 function getHTML(name = "") {
   let curI = 0;
   let listHTML = `<ul class="articles__list">`;

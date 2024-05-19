@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
       imgClose.onclick = () => {
         imgPreview = document.querySelector(".img__preview");
         imgPreview.remove();
-      }
+      };
     };
   });
 });
