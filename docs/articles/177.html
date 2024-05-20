@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>写一个简版前端监控 SDK</title>
+    <meta charset="utf-8">
+    <meta name="description" content="This is a page">
+    <meta name="keywords" content="page, sample">
+    <meta name="author" content="None">
+    <link rel="icon" href="../assets/images/code.svg" sizes="32x32" />
+    <link rel="stylesheet" href="../assets/css/prism-okaidia.min.css">
+    <link rel="stylesheet" href="../assets/css/articles.css">
+</head>
+<body>
+  <!--<div class="article__wrapper_left">
+    <div class="article__wrapper_left-mulu">目录</div>
+    <ul class="articles__list"><li class="">
+          <a href="/articles/176.html">
+            VUE3 中利用 canvg 轻松将 SVG 转换成图片并下载
+          </a>
+        </li><li class="">
+          <a href="/articles/175.html">
+            JS中数据类型转换、各种运算符规则
+          </a>
+        </li><li class="">
+          <a href="/articles/174.html">
+            通过JS获取你当前的网络状况
+          </a>
+        </li><li class="">
+          <a href="/articles/173.html">
+            写 H5 页面真的要了解 meta 标签
+          </a>
+        </li><li class="">
+          <a href="/articles/172.html">
+            HTML，无限可能
+          </a>
+        </li><li class="">
+          <a href="/articles/171.html">
+            如何 “中止” 一个 Promise ?
+          </a>
+        </li><li class="">
+          <a href="/articles/170.html">
+            当网页资源加载失败时，怎么处理？
+          </a>
+        </li><li class="">
+          <a href="/articles/169.html">
+            了解透彻浏览器缓存
+          </a>
+        </li><li class="">
+          <a href="/articles/168.html">
+            ES7、ES8、ES9、ES10、ES11、ES12都增加了哪些新特性？
+          </a>
+        </li><li class="">
+          <a href="/articles/167.html">
+            跨域问题多种解决方案的精华总结
+          </a>
+        </li></ul>
+  </div>-->
+  <div class="article__wrapper_sidebar">
+    <a href="/articles/"><svg t="1714001835347" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4298" width="48" height="48"><path d="M147.904 304.128l301.866667-179.541333a128 128 0 0 1 131.712 0.512l295.466666 178.88A128 128 0 0 1 938.666667 413.482667V810.666667a128 128 0 0 1-128 128H213.333333a128 128 0 0 1-128-128V414.144a128 128 0 0 1 62.570667-110.016z m43.626667 73.344A42.666667 42.666667 0 0 0 170.666667 414.144V810.666667a42.666667 42.666667 0 0 0 42.666666 42.666666h597.333334a42.666667 42.666667 0 0 0 42.666666-42.666666V413.482667a42.666667 42.666667 0 0 0-20.565333-36.501334l-295.466667-178.88a42.666667 42.666667 0 0 0-43.925333-0.170666l-301.866667 179.541333z" fill="currentColor" p-id="4299"></path><path d="M405.333333 469.333333h213.333334a42.666667 42.666667 0 1 1 0 85.333334H405.333333a42.666667 42.666667 0 1 1 0-85.333334z m0 85.333334a42.666667 42.666667 0 1 0 0-85.333334h213.333334a42.666667 42.666667 0 1 0 0 85.333334H405.333333z" fill="currentColor" p-id="4300"></path></svg></a>
+    <a href="/tools/"><svg t="1714002003458" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6911" width="48" height="48"><path d="M817.87 556.31h-63.58v-66.24A42.27 42.27 0 0 0 712 447.8h-84.81a42.27 42.27 0 0 0-42.27 42.27v66.24H436.57v-66.24a42.27 42.27 0 0 0-42.27-42.27h-84.83a42.27 42.27 0 0 0-42.27 42.27v66.24h-61.83A22.39 22.39 0 0 0 183 578.7a22.39 22.39 0 0 0 22.39 22.39h61.81v65.55a42.27 42.27 0 0 0 42.27 42.27h84.83a42.27 42.27 0 0 0 42.27-42.27v-65.55h148.36v65.55a42.27 42.27 0 0 0 42.27 42.27H712a42.27 42.27 0 0 0 42.27-42.27v-65.55h63.58a22.39 22.39 0 0 0 22.39-22.39 22.39 22.39 0 0 0-22.37-22.39z m-438.64 95.26h-54.69V505.14h54.69z m317.72 0h-54.69V505.14H697z" p-id="6912" fill="currentColor"></path><path d="M823 202.58h-90.81v-63.09a71.88 71.88 0 0 0-71.88-71.88H363.19a71.88 71.88 0 0 0-71.88 71.88v63.08h-90.12A137.17 137.17 0 0 0 64 339.75v479a137.17 137.17 0 0 0 137.19 137.14H823a137.17 137.17 0 0 0 137.19-137.17v-479A137.17 137.17 0 0 0 823 202.58z m-474.36-54.1A23.52 23.52 0 0 1 372.17 125h279.16a23.52 23.52 0 0 1 23.52 23.52v54.1h-326.2z m554.23 673.31a76.76 76.76 0 0 1-76.76 76.76h-628a76.76 76.76 0 0 1-76.76-76.76V336.67a76.76 76.76 0 0 1 76.76-76.76h628a76.76 76.76 0 0 1 76.76 76.76z" p-id="6913" fill="currentColor"></path></svg></a>
+  </div>
+  <div class="article__wrapper">
+    <div class="article__wrapper__main">
+      <div class="article__wrapper_header">
+        <h1>写一个简版前端监控 SDK</h1>
+        <span class="articles__home_time">2024/05/20 · YinHao</span>
+      </div>
+      <p>一个完整的前端监控平台包括三个部分：数据采集与上报、数据整理和存储、数据展示；本文只写数据采集与上报部分。</p>
+<p><img src="../assets/images/articles/177/01.awebp" alt=""></p>
+<p><img src="../assets/images/articles/177/02.awebp" alt=""></p>
+<h2>从 0 开始</h2>
+<p>名字很重要，一个好的名字会让使用者很容易记住，会让使用者莫名产生一种自豪感，会更容易传播；如果名字能够切合某种大道，更能带来顺理成章的效果。本文的监控 SDK 就叫四维吧，寓意上帝视角。全写 <code>four-dimension</code>，简写为 FD。</p>
+<pre><code class="language-js">class FourDimension {
+  constructor() {
+    this.init();
+  }
+  // 初始化
+  init() {}
+}
+</code></pre>
+<p>定义一个 FourDimension 类，目前有构造函数，构造函数无参数。只有 init 方法，用以初始化类。init 方法用以性能、错误、行为数据收集。</p>
+<h3>上报数据方法</h3>
+<p>业界比较成熟的方案：使用 1x1 像素的 gif 图片上报，本文也是。同时也可以使<code>navigator.sendBeacon</code>，<code>navigator.sendBeacon</code> 是一个用于发送少量数据到服务器的浏览器 API。它有以下几个优点</p>
+<ol>
+<li><strong>异步和非阻塞</strong>：<code>navigator.sendBeacon</code> 是异步的，它不会阻塞浏览器的其他操作。这对于性能监控来说非常重要，因为都不希望监控的过程影响到页面的性能。</li>
+<li><strong>在页面卸载时仍然可以发送数据</strong>：当用户离开页面（例如关闭页面或者导航到其他页面）时，<code>navigator.sendBeacon</code> 仍然可以发送数据。这对于捕获和上报页面卸载前的最后一些性能数据来说非常有用。</li>
+<li><strong>低优先级</strong>：<code>navigator.sendBeacon</code> 发送的请求是低优先级的，它不会影响到页面的其他网络请求。</li>
+<li><strong>简单易用</strong>：<code>navigator.sendBeacon</code> 的 API 非常简单，只需要提供上报的 URL 和数据，就可以发送请求。</li>
+</ol>
+<p>与此同时，<code>navigator.sendBeacon</code> 也有一些限制。例如，它只能发送 POST 请求，不能发送 GET 请求。而且，它发送的请求没有返回值，不能接收服务器的响应。</p>
+<p>最后，一些旧的浏览器可能不支持 <code>navigator.sendBeacon</code>。因此，在使用 <code>navigator.sendBeacon</code> 时，需要根据实际情况进行兼容性处理。</p>
+<p>本文的方案是，优先<code>navigator.sendBeacon</code>，降级使用 1x1 像素 gif 图片，根据实际情况需要采用 xhr。</p>
+<p>创建 report.js 增加上传方法</p>
+<pre><code class="language-js">import { isSupportSendBeacon } from &quot;./util&quot;;
+
+// 如果浏览器不支持 sendBeacon，就使用图片打点
+const sendBeacon = (function () {
+  if (isSupportSendBeacon()) {
+    return window.navigator.sendBeacon.bind(window.navigator);
+  }
+  const reportImageBeacon = function (url, data) {
+    reportImage(url, data);
+  };
+  return reportImageBeacon;
+})();
+
+export function reportImage(url, data) {
+  const img = new Image();
+  img.src = url + &quot;?reportData=&quot; + encodeURIComponent(JSON.stringify(data));
+}
+</code></pre>
+<h2>上报时机</h2>
+<p>参考其它文章，上报时机选择对当前页面影响最小的方案</p>
+<ol>
+<li>上报时机有三种：</li>
+<li>采用 <code>requestIdleCallback/setTimeout</code> 延时上报。</li>
+<li>在 beforeunload 回调函数里上报。</li>
+<li>缓存上报数据，达到一定数量后再上报。</li>
+</ol>
+<p>将三种方式结合一起上报：</p>
+<p>先缓存上报数据，缓存到一定数量后，利用 <code>requestIdleCallback/setTimeout</code> 延时上报。 在页面离开时统一将未上报的数据进行上报。</p>
+<p>创建缓存文件 cache.js</p>
+<pre><code class="language-js">import { deepCopy } from &quot;./util&quot;;
+
+const cache = [];
+
+export function getCache() {
+  return deepCopy(cache);
+}
+
+export function addCache(data) {
+  cache.push(data);
+}
+
+export function clearCache() {
+  cache.length = 0;
+}
+</code></pre>
+<p>其中 deepCopy</p>
+<pre><code class="language-js">export function deepCopy(target) {
+  if (typeof target === &quot;object&quot;) {
+    const result = Array.isArray(target) ? [] : {};
+    for (const key in target) {
+      if (typeof target[key] == &quot;object&quot;) {
+        result[key] = deepCopy(target[key]);
+      } else {
+        result[key] = target[key];
+      }
+    }
+    return result;
+  }
+  return target;
+}
+</code></pre>
+<p>修改上传文件 report.js</p>
+<pre><code class="language-js">import { addCache, getCache, clearCache } from &quot;./cache&quot;;
+import config from &quot;../config&quot;;
+import { isSupportSendBeacon, generateUniqueID } from &quot;./util&quot;;
+
+const sendBeacon = (function () {
+  if (isSupportSendBeacon()) {
+    return window.navigator.sendBeacon.bind(window.navigator);
+  }
+  const reportImageBeacon = function (url, data) {
+    reportImage(url, data);
+  };
+  return reportImageBeacon;
+})();
+
+const sessionID = generateUniqueID();
+export function report(data, isImmediate = false) {
+  if (!config.reportUrl) {
+    console.error(&quot;请设置上传 url 地址&quot;);
+  }
+
+  const reportData = JSON.stringify({
+    id: sessionID,
+    appID: config.appID,
+    userID: config.userID,
+    data,
+  });
+
+  if (isImmediate) {
+    sendBeacon(config.reportUrl, reportData);
+    return;
+  }
+
+  if (window.requestIdleCallback) {
+    window.requestIdleCallback(
+      () =&gt; {
+        sendBeacon(config.reportUrl, reportData);
+      },
+      { timeout: 3000 }
+    );
+  } else {
+    setTimeout(() =&gt; {
+      sendBeacon(config.reportUrl, reportData);
+    });
+  }
+}
+
+let timer = null;
+export function lazyReportCache(data, timeout = 3000) {
+  addCache(data);
+
+  clearTimeout(timer);
+  timer = setTimeout(() =&gt; {
+    const data = getCache();
+    if (data.length) {
+      report(data);
+      clearCache();
+    }
+  }, timeout);
+}
+
+export function reportWithXHR(data) {
+  // 1. 创建 xhr 对象
+  let xhr = new XMLHttpRequest();
+  // 2. 调用 open 函数
+  xhr.open(&quot;POST&quot;, config.reportUrl);
+  // 3. 调用 send 函数
+  xhr.send(JSON.stringify(data));
+}
+
+export function reportImage(url, data) {
+  const img = new Image();
+  img.src = url + &quot;?reportData=&quot; + encodeURIComponent(JSON.stringify(data));
+}
+</code></pre>
+<p>其中 config.js 文件</p>
+<pre><code class="language-js">const config = {
+  reportUrl: &quot;http://localhost:8000/reportData&quot;,
+  projectName: &quot;fd-example&quot;,
+};
+
+export function setConfig(options) {
+  for (const key in config) {
+    if (options[key]) {
+      config[key] = options[key];
+    }
+  }
+}
+export default config;
+</code></pre>
+<h2>性能数据收集上报</h2>
+<p>根据最初的规划，性能监控需要收集的数据指标需要有 FP、FCP、LCP、DOMContentLoaded、onload、资源加载时间、接口请求时间。</p>
+<p>收集 FP、FCP、LCP、资源加载时间具体是利用浏览器 Performance API。关于 Performance API 可以参考：<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Performance">Performance</a></p>
+<h3>收集上报 FP</h3>
+<p>FP（First Paint）首次绘制，即浏览器开始绘制页面的时间点。这包括了任何用户自定义的绘制，它是渲染任何文本、图像、SVG 等的开始时间</p>
+<pre><code class="language-js">import { getPageURL, isSupportPerformanceObserver } from &quot;../utils/util&quot;;
+import { lazyReportCache } from &quot;../utils/report&quot;;
+
+export default function observePaint() {
+  if (!isSupportPerformanceObserver()) return;
+
+  const entryHandler = (list) =&gt; {
+    for (const entry of list.getEntries()) {
+      if (entry.name === &quot;first-paint&quot;) {
+        observer.disconnect();
+      }
+
+      const json = entry.toJSON();
+      delete json.duration;
+
+      const reportData = {
+        ...json,
+        subType: entry.name,
+        type: &quot;performance&quot;,
+        pageURL: getPageURL(),
+      };
+
+      lazyReportCache(reportData);
+    }
+  };
+
+  const observer = new PerformanceObserver(entryHandler);
+  // buffered 属性表示是否观察缓存数据，也就是说观察代码添加时机比事情触发时机晚也没关系。
+  observer.observe({ type: &quot;paint&quot;, buffered: true });
+}
+</code></pre>
+<p>代码中<code>observer.disconnect()</code>是 PerformanceObserver 对象的一个方法，用于停止观察性能指标并断开与回调函数的连接。</p>
+<p>事实上</p>
+<pre><code class="language-js">observer.observe({ type: &quot;paint&quot;, buffered: true });
+</code></pre>
+<p>包含两种性能指标：first-contentful-paint 和 first-paint。</p>
+<p>当调用<code>observer.disconnect()</code>方法时，PerformanceObserver 对象将停止观察性能指标，并且不再接收任何性能指标的更新。与此同时，与回调函数的连接也会被断开，即使有新的性能指标数据产生，也不会再触发回调函数。</p>
+<p>这个方法通常在不再需要观察性能指标时调用，以避免不必要的资源消耗。</p>
+<h3>收集上报 FCP</h3>
+<p>FCP（First Contentful Paint）：首次内容绘制，即浏览器首次绘制 DOM 内容的时间点，如文本、图像、SVG 等。</p>
+<p>看起来 FCP 和 FP 一致，其实还是有区别的</p>
+<ul>
+<li>FCP（First Contentful Paint）：FCP 是指页面上首次渲染任何文本、图像、非空白的 canvas 或 SVG 的时间点。它表示了用户首次看到页面有实际内容的时间，即页面开始呈现有意义的内容的时间点。</li>
+<li>FP（First Paint）：FP 是指页面上首次渲染任何内容的时间点，包括背景颜色、图片、文本等。它表示了页面开始呈现任何可视化内容的时间，但不一定是有意义的内容。</li>
+</ul>
+<p>简而言之，FCP 关注的是页面上首次呈现有意义内容的时间点，而 FP 关注的是页面上首次呈现任何可视化内容的时间点。FCP 更关注用户感知的页面加载时间，因为它表示用户可以开始阅读或与页面进行交互的时间点。而 FP 则更关注页面开始渲染的时间点，无论内容是否有意义</p>
+<pre><code class="language-js">import { getPageURL, isSupportPerformanceObserver } from &quot;../utils/util&quot;;
+import { lazyReportCache } from &quot;../utils/report&quot;;
+
+export default function observePaint() {
+  if (!isSupportPerformanceObserver()) return;
+
+  const entryHandler = (list) =&gt; {
+    for (const entry of list.getEntries()) {
+      if (entry.name === &quot;first-contentful-paint&quot;) {
+        observer.disconnect();
+      }
+
+      const json = entry.toJSON();
+      delete json.duration;
+
+      const reportData = {
+        ...json,
+        subType: entry.name,
+        type: &quot;performance&quot;,
+        pageURL: getPageURL(),
+      };
+
+      lazyReportCache(reportData);
+    }
+  };
+
+  const observer = new PerformanceObserver(entryHandler);
+  // buffered 属性表示是否观察缓存数据，也就是说观察代码添加时机比事情触发时机晚也没关系。
+
+  observer.observe({ type: &quot;paint&quot;, buffered: true });
+}
+</code></pre>
+<h3>收集上报 LCP</h3>
+<p>LCP（Largest Contentful Paint）：最大内容绘制，即视口中最大的图像或文本块的渲染完成的时间点</p>
+<pre><code class="language-js">import { getPageURL, isSupportPerformanceObserver } from &quot;../utils/util&quot;;
+import { lazyReportCache } from &quot;../utils/report&quot;;
+
+export default function observeLCP() {
+  if (!isSupportPerformanceObserver()) {
+    return;
+  }
+
+  const entryHandler = (list) =&gt; {
+    if (observer) {
+      observer.disconnect();
+    }
+
+    for (const entry of list.getEntries()) {
+      const json = entry.toJSON();
+      delete json.duration;
+
+      const reportData = {
+        ...json,
+        target: entry.element?.tagName,
+        name: entry.entryType,
+        subType: entry.entryType,
+        type: &quot;performance&quot;,
+        pageURL: getPageURL(),
+      };
+
+      lazyReportCache(reportData);
+    }
+  };
+
+  const observer = new PerformanceObserver(entryHandler);
+  observer.observe({ type: &quot;largest-contentful-paint&quot;, buffered: true });
+}
+</code></pre>
+<h3>收集上报 DOMContentLoaded</h3>
+<p>DOMContentLoaded：当 HTML 文档被完全加载和解析完成后，<code>DOMContentLoaded</code>事件被触发，无需等待样式表、图像和子框架的完成加载</p>
+<pre><code class="language-js">import { lazyReportCache } from &quot;../utils/report&quot;;
+
+export default function observerLoad() {
+  [&quot;DOMContentLoaded&quot;].forEach((type) =&gt; onEvent(type));
+}
+
+function onEvent(type) {
+  function callback() {
+    lazyReportCache({
+      type: &quot;performance&quot;,
+      subType: type.toLocaleLowerCase(),
+      startTime: performance.now(),
+    });
+
+    window.removeEventListener(type, callback, true);
+  }
+
+  window.addEventListener(type, callback, true);
+}
+</code></pre>
+<h3>收集上报 onload 数据</h3>
+<p>onload：当所有需要立即加载的资源（如图片和样式表）已加载完成时的时间点</p>
+<pre><code class="language-js">import { lazyReportCache } from &quot;../utils/report&quot;;
+
+export default function observerLoad() {
+  [&quot;load&quot;].forEach((type) =&gt; onEvent(type));
+}
+
+function onEvent(type) {
+  function callback() {
+    lazyReportCache({
+      type: &quot;performance&quot;,
+      subType: type.toLocaleLowerCase(),
+      startTime: performance.now(),
+    });
+
+    window.removeEventListener(type, callback, true);
+  }
+
+  window.addEventListener(type, callback, true);
+}
+</code></pre>
+<h3>收集上报资源加载时间</h3>
+<p>收集资源加载时间</p>
+<pre><code class="language-js">observer.observe({ type: &quot;resource&quot;, buffered: true });
+</code></pre>
+<p>我在想什么是资源加载时间？应该就是下面的<code>entry.duration</code>的。我觉得写监控 SDK 很有意义，可以更加深入的学习浏览器模型。了解浏览器是怎么看待各种 html 文件资源的</p>
+<pre><code class="language-js">import { executeAfterLoad, isSupportPerformanceObserver } from &quot;../utils/util&quot;;
+import { lazyReportCache } from &quot;../utils/report&quot;;
+
+export default function observeEntries() {
+  executeAfterLoad(() =&gt; {
+    observeEvent(&quot;resource&quot;);
+  });
+}
+
+export function observeEvent(entryType) {
+  function entryHandler(list) {
+    const data = list.getEntries();
+    for (const entry of data) {
+      if (observer) {
+        observer.disconnect();
+      }
+
+      lazyReportCache({
+        name: entry.name, // 资源名称
+        subType: entryType,
+        type: &quot;performance&quot;,
+        sourceType: entry.initiatorType, // 资源类型
+        duration: entry.duration, // 资源加载耗时
+        dns: entry.domainLookupEnd - entry.domainLookupStart, // DNS 耗时
+        tcp: entry.connectEnd - entry.connectStart, // 建立 tcp 连接耗时
+        redirect: entry.redirectEnd - entry.redirectStart, // 重定向耗时
+        ttfb: entry.responseStart, // 首字节时间
+        protocol: entry.nextHopProtocol, // 请求协议
+        responseBodySize: entry.encodedBodySize, // 响应内容大小
+        responseHeaderSize: entry.transferSize - entry.encodedBodySize, // 响应头部大小
+        resourceSize: entry.decodedBodySize, // 资源解压后的大小
+        startTime: performance.now(),
+      });
+    }
+  }
+
+  let observer;
+  if (isSupportPerformanceObserver()) {
+    observer = new PerformanceObserver(entryHandler);
+    observer.observe({ type: entryType, buffered: true });
+  }
+}
+</code></pre>
+<h3>收集上报接口请求时间</h3>
+<p>这里通过覆写原生 xhr 对象方法，对方法做拦截实现接口时间收集以及上报</p>
+<pre><code class="language-js">import { originalOpen, originalSend, originalProto } from &quot;../utils/xhr&quot;;
+import { lazyReportCache } from &quot;../utils/report&quot;;
+
+function overwriteOpenAndSend() {
+  originalProto.open = function newOpen(...args) {
+    this.url = args[1];
+    this.method = args[0];
+    originalOpen.apply(this, args);
+  };
+
+  originalProto.send = function newSend(...args) {
+    this.startTime = Date.now();
+
+    const onLoadend = () =&gt; {
+      this.endTime = Date.now();
+      this.duration = this.endTime - this.startTime;
+
+      const { status, duration, startTime, endTime, url, method } = this;
+      const reportData = {
+        status,
+        duration,
+        startTime,
+        endTime,
+        url,
+        method: (method || &quot;GET&quot;).toUpperCase(),
+        success: status &gt;= 200 &amp;&amp; status &lt; 300,
+        subType: &quot;xhr&quot;,
+        type: &quot;performance&quot;,
+      };
+
+      lazyReportCache(reportData);
+
+      this.removeEventListener(&quot;loadend&quot;, onLoadend, true);
+    };
+
+    this.addEventListener(&quot;loadend&quot;, onLoadend, true);
+    originalSend.apply(this, args);
+  };
+}
+
+export default function xhr() {
+  overwriteOpenAndSend();
+}
+</code></pre>
+<h2>错误数据收集上报</h2>
+<p>根据最初的规划需要收集资源加载错误、js 错误和 promise 错误。</p>
+<h3>收集上报资源加载错误</h3>
+<p>收集 JavaScript、CSS 和图片的加载错误，使用<code>window.addEventListener</code>监听错误</p>
+<pre><code class="language-js">import { lazyReportCache } from &quot;../utils/report&quot;;
+import { getPageURL } from &quot;../utils/util&quot;;
+
+export default function error() {
+  // 捕获资源加载失败错误 js css img...
+  window.addEventListener(
+    &quot;error&quot;,
+    (e) =&gt; {
+      const target = e.target;
+      if (!target) return;
+
+      if (target.src || target.href) {
+        const url = target.src || target.href;
+        lazyReportCache({
+          url,
+          type: &quot;error&quot;,
+          subType: &quot;resource&quot;,
+          startTime: e.timeStamp,
+          html: target.outerHTML,
+          resourceType: target.tagName,
+          paths: e.path.map((item) =&gt; item.tagName).filter(Boolean),
+          pageURL: getPageURL(),
+        });
+      }
+    },
+    true
+  );
+}
+</code></pre>
+<h3>收集上报 js 错误</h3>
+<p>收集 JavaScript 错误，可以使用 <code>window.onerror</code> 或者 <code>window.addEventListener('error', callback)</code></p>
+<pre><code class="language-js">import { lazyReportCache } from &quot;../utils/report&quot;;
+import { getPageURL } from &quot;../utils/util&quot;;
+
+export default function error() {
+  // 监听 js 错误
+  window.onerror = (msg, url, line, column, error) =&gt; {
+    lazyReportCache({
+      msg,
+      line,
+      column,
+      error: error.stack,
+      subType: &quot;js&quot;,
+      pageURL: url,
+      type: &quot;error&quot;,
+      startTime: performance.now(),
+    });
+  };
+}
+</code></pre>
+<p>说明一下<code>window.onerror</code>无法捕获资源加载错误，所以这里可以单独拿来监听 js 错误。</p>
+<h3>收集上报 promise 错误</h3>
+<p>收集 Promise 错误，可以使用 <code>window.addEventListener('unhandledrejection', callback)</code></p>
+<pre><code class="language-js">import { lazyReportCache } from &quot;../utils/report&quot;;
+import { getPageURL } from &quot;../utils/util&quot;;
+
+export default function error() {
+  // 监听 promise 错误 缺点是获取不到列数据
+  window.addEventListener(&quot;unhandledrejection&quot;, (e) =&gt; {
+    lazyReportCache({
+      reason: e.reason?.stack,
+      subType: &quot;promise&quot;,
+      type: &quot;error&quot;,
+      startTime: e.timeStamp,
+      pageURL: getPageURL(),
+    });
+  });
+}
+</code></pre>
+<p>为了减少对 html 文件代码的干扰，错误收集可以添加一个缓存代理，具体参考<a href="https://juejin.cn/post/7195496297150709821#heading-17">字节前端监控实践</a>。</p>
+<h2>行为数据收集上报</h2>
+<p>根据最初的规划，行为数据收集 pv、uv，页面停留时长，用户点击。</p>
+<h3>收集上报 pv、uv</h3>
+<p>收集 pv（Page View，页面浏览量）和 uv（Unique Visitor，独立访客）数据，需要在每次页面加载时发送一个请求到服务器，然后在服务器端进行统计</p>
+<pre><code class="language-js">import { lazyReportCache } from &quot;../utils/report&quot;;
+import getUUID from &quot;./getUUID&quot;;
+import { getPageURL } from &quot;../utils/util&quot;;
+
+export default function pv() {
+  lazyReportCache({
+    type: &quot;behavior&quot;,
+    subType: &quot;pv&quot;,
+    startTime: performance.now(),
+    pageURL: getPageURL(),
+    referrer: document.referrer,
+    uuid: getUUID(),
+  });
+}
+</code></pre>
+<p>这里只能收集了 pv 数据，uv 数据统计需要在服务端进行。</p>
+<h3>页面上报停留时长</h3>
+<p>收集页面停留时长，可以在页面加载时记录一个开始时间，然后在页面卸载时记录一个结束时间，两者的差就是页面的停留时长。这个计算逻辑可以放在  <code>beforeunload</code>  事件里做</p>
+<pre><code class="language-js">import { report } from &quot;../utils/report&quot;;
+import { onBeforeunload, getPageURL } from &quot;../utils/util&quot;;
+import getUUID from &quot;./getUUID&quot;;
+
+export default function pageAccessDuration() {
+  onBeforeunload(() =&gt; {
+    report(
+      {
+        type: &quot;behavior&quot;,
+        subType: &quot;page-access-duration&quot;,
+        startTime: performance.now(),
+        pageURL: getPageURL(),
+        uuid: getUUID(),
+      },
+      true
+    );
+  });
+}
+</code></pre>
+<h3>用户点击上报</h3>
+<p>收集用户点击事件，可以使用 <code>addEventListener</code> 来监听 <code>click</code> 事件，这里借助了冒泡</p>
+<pre><code class="language-js">import { lazyReportCache } from &quot;../utils/report&quot;;
+import { getPageURL } from &quot;../utils/util&quot;;
+import getUUID from &quot;./getUUID&quot;;
+
+export default function onClick() {
+  [&quot;mousedown&quot;, &quot;touchstart&quot;].forEach((eventType) =&gt; {
+    let timer;
+    window.addEventListener(eventType, (event) =&gt; {
+      clearTimeout(timer);
+      timer = setTimeout(() =&gt; {
+        const target = event.target;
+        const { top, left } = target.getBoundingClientRect();
+
+        lazyReportCache({
+          top,
+          left,
+          eventType,
+          pageHeight:
+            document.documentElement.scrollHeight || document.body.scrollHeight,
+          scrollTop:
+            document.documentElement.scrollTop || document.body.scrollTop,
+          type: &quot;behavior&quot;,
+          subType: &quot;click&quot;,
+          target: target.tagName,
+          paths: event.path?.map((item) =&gt; item.tagName).filter(Boolean),
+          startTime: event.timeStamp,
+          pageURL: getPageURL(),
+          outerHTML: target.outerHTML,
+          innerHTML: target.innerHTML,
+          width: target.offsetWidth,
+          height: target.offsetHeight,
+          viewport: {
+            width: window.innerWidth,
+            height: window.innerHeight,
+          },
+          uuid: getUUID(),
+        });
+      }, 500);
+    });
+  });
+}
+</code></pre>
+<h2>改造完善四维监控类</h2>
+<p>将性能数据、错误数据、行为数据入口文件的收集方法在监控类四维<code>init</code>方法内初始化</p>
+<pre><code class="language-js">import performance from &quot;./performance/index&quot;;
+import behavior from &quot;./behavior/index&quot;;
+import error from &quot;./error/index&quot;;
+
+class FourDimension {
+  constructor() {
+    this.init();
+  }
+  // 初始化
+  init() {
+    performance();
+    error();
+    behavior();
+  }
+}
+
+new FourDimension().init();
+</code></pre>
+<p>在具体使用过程中，采用异步加载的方式引入。</p>
+<h3>总结</h3>
+<p>如果没有具体数据能够证明这个策略是优的，那么就从理论上选优的。这也是我写这篇文章的理论支撑之一。因为毕竟没有真实数据做验证。</p>
+<p>还有一个支撑是先模仿，理解别人的再理出自己的思路；而且写文章也是督促自己学习的一种方式。本文大量参考了<a href="https://juejin.cn/post/7017974567943536671">前端监控 SDK 的一些技术要点原理分析</a> 这篇文章。写着写着发现关键是数据收集和上报方式，具体上报数据模型以及上报方式需要在真实场景中研究迭代。😭</p>
+<p>当然另一个意义也说了，任何事没有反馈则没有进步。监控就是反馈。</p>
+<p>另外，我想如果这种监控如果可视化，就如同对人的监控一样，就算是没有警报事件，也能记录被监控对象的各种行为数据。一定会很有有意思。即使没有错误也能有一种可视化画面。</p>
+<p>代码地址：<a href="https://github.com/zhensg123/rareRecord/tree/main/fourDemension">github.com/zhensg123/r…</a></p>
+ 
+    </div>
+  </div>
+  <div class="article__wrapper_footer">
+    <a class="article__wrapper_footer-left " href="/articles/176.html"><svg t="1713708729970" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8437" width="48" height="48"><path d="M409.272947 512.57741l403.237243 403.237243a63.349415 63.349415 0 1 1-89.622481 89.622482L274.839224 557.324726a63.349415 63.349415 0 0 1 0-89.494632L722.951633 19.717685a63.349415 63.349415 0 1 1 89.494633 89.622482L409.336872 512.57741z" p-id="8438" fill="currentColor"></path></svg></a>
+    <a class="article__wrapper_footer-right disabled" href="/articles/00.html"><svg t="1713708697355" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8093" width="48" height="48"><path d="M855.123 517.004c0 8.245-3.167 15.51-9.503 21.823L402.999 981.47c-6.336 6.336-13.625 9.477-21.869 9.477s-15.51-3.142-21.845-9.477L311.8 933.96c-6.336-6.336-9.502-13.6-9.502-21.845 0-8.222 3.167-15.51 9.502-21.845l373.29-373.29-373.293-373.267c-6.336-6.336-9.502-13.6-9.502-21.845s3.167-15.533 9.503-21.869l47.484-47.484c6.336-6.336 13.6-9.502 21.845-9.502s15.533 3.167 21.869 9.503l442.621 442.622c6.334 6.334 9.503 13.625 9.503 21.869z" fill="currentColor" p-id="8094"></path></svg></a>
+  </div>
+  <a class="article__wrapper_index" href="/articles/"><svg t="1713708857338" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9656" width="48" height="48"><path d="M549.61981 133.022476l319.683047 203.605334A70.851048 70.851048 0 0 1 902.095238 396.361143v434.883047A70.89981 70.89981 0 0 1 831.146667 902.095238h-282.819048l0.024381-218.112h-71.826286v218.087619L192.853333 902.095238A70.89981 70.89981 0 0 1 121.904762 831.24419V390.241524c0-24.527238 12.678095-47.299048 33.54819-60.220953l318.659048-197.485714a70.972952 70.972952 0 0 1 75.50781 0.487619zM828.952381 828.952381V397.214476L511.488 195.047619 195.047619 391.119238V828.952381h211.309714v-216.551619h212.187429v216.527238L828.952381 828.952381z" p-id="9657" fill="#707070"></path></svg></div>
+  <script src="../assets/js/prism.min.js"></script>
+  <script src="../assets/js/prism-javascript.min.js"></script>
+  <script src="../assets/js/articles-detail.js"></script>
+</body>
+</html>
+    
