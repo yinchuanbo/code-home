@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>IFRAME</title>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+      />
+      <script src="https://unpkg.com/pagedjs/dist/paged.legacy.polyfill.js"></script>
+      <style>
+        * {
+          padding: 0;
+          margin: 0;
+          font-family: Montserrat;
+        }
+        html,
+        body {
+          height: 100%;
+        }
+        body {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        ::-webkit-scrollbar {
+          width: 8px;
+          height: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+          border-radius: 0;
+          background: rgba(255, 255, 255, 0.4);
+        }
+        ::-webkit-scrollbar-track {
+          box-shadow: none;
+          border-radius: 0;
+          background: transparent;
+        }
+        #carousel-wrapper, .waving, .folder, .glass-container, .g-flex, .theme-app, .faqs__translator {
+          transform: scale(null)
+        }
+      </style>
+      <style id="live-preview-style">ul {
+  list-style: none; }
+
+.trapezoid li {
+  position: relative;
+  display: inline-block;
+  width: 100px;
+  height: 50px;
+  line-height: 65px;
+  color: #fff;
+  text-align: center;
+  cursor: pointer; }
+
+.zIndex {
+  z-index: 1; }
+
+.trapezoid li::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -15px;
+  right: -15px;
+  z-index: -1;
+  border-radius: 10px 10px 0 0;
+  border: 1px solid #fff;
+  background: #2175bc;
+  -moz-transform: perspective(0.5em) rotateX(5deg);
+  -ms-transform: perspective(0.5em) rotateX(5deg);
+  -webkit-transform: perspective(0.5em) rotateX(5deg);
+  transform: perspective(0.5em) rotateX(5deg);
+  -moz-transform-origin: bottom;
+  -webkit-transform-origin: bottom;
+  transform-origin: bottom; }
+
+.trapezoid li:hover::after {
+  background: #3b9be5; }
+</style>
+    </head>
+    <body>
+      <div class="trapezoid" id="trapezoid">
+  <ul>
+    <li class="zIndex">Home</li>
+    <li>Blog</li>
+    <li>Source</li>
+    <li>Bookmark</li>
+    <li>About</li>
+  </ul>
+</div>
+
+      <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.js"></script>
+      <script src="https://hammerjs.github.io/dist/hammer.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js"></script>
+      <script id="script__preview"></script>
+    </body>
+  </html>
+  
