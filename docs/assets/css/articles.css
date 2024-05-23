@@ -69,12 +69,13 @@ body {
 .article__wrapper_sidebar a {
   width: 100%;
   height: 50px;
-  background-color: #222;
+  /* background-color: #222; */
   border-radius: 100%;
   display: block;
   /* box-shadow: 0 2px 4px 0 rgba(50, 50, 50, 0.04); */
   text-align: center;
   transition: 0.5s;
+  border: 1px solid #313131;
 }
 
 .article__wrapper_sidebar a svg path {
@@ -254,14 +255,14 @@ body {
   cursor: pointer;
   user-select: none;
   /* border: 1px solid #ddd; */
-  background-color: #222222;
+  /* background-color: #222222; */
   display: flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
   transition: all 0.5s;
   border-radius: 100%;
-  box-sizing: 0 2px 4px 0 rgba(50, 50, 50, 0.04);
+  border: 1px solid #313131;
   /* display: none; */
 }
 
@@ -601,6 +602,7 @@ table tbody tr:last-child td {
 .disabled {
   opacity: 0.7;
   pointer-events: none;
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 /* .hljs {
