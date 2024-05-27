@@ -111,7 +111,7 @@ iframe {
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
-  top: 30px;
+  top: 50px;
   display: flex;
   z-index: 99;
   height: 50px;
