@@ -43,7 +43,7 @@ li {
   transition: 0.5s;
   box-sizing: content-box;
   overflow: hidden;
-  background-color: #fff;
+  background-color: #333;
   /* box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset; */
   /* border: 1px solid #313131; */
   /* border-radius: 10px; */
