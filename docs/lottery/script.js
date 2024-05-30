@@ -1,16 +1,24 @@
 const random = document.querySelector("#random");
 const exclude = document.querySelector("#exclude");
 const random10 = document.querySelector("#random10");
+const output = document.querySelector("#output");
+const numDom = document.querySelector("#num");
+
+let lock = false,
+  num = 0;
 
 let lotteryArrs = [];
 
 random.onclick = () => {
+  lock = true;
   const tickets = generateLottoNumbers(100);
   random10.value = tickets;
 };
 
 exclude.onclick = () => {
-  excludeNumbers();
+  if (lock) {
+    excludeNumbers();
+  }
 };
 
 function generateLottoNumbers(numberOfTickets) {
@@ -52,7 +60,12 @@ function excludeNumbers() {
         blueBalls = blueBalls.filter((num) => num != blues);
       }
     }
-    console.log("最终号码：", redBalls + " - " + blueBalls);
+    const code = redBalls + " - " + blueBalls;
+    console.log("output.value", output.value);
+    output.value = (output.value + "\n" + code).trim();
+    lock = false;
+    num++;
+    numDom.textContent = num;
   }
 }
 
