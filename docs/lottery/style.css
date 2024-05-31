@@ -71,7 +71,7 @@ body {
 }
 
 .container-right button:active {
-  opacity: 0.8;
+  opacity: 0.5;
 }
 
 .container-left textarea {
@@ -90,7 +90,7 @@ body {
   font-family: hack;
 }
 
-#exclude {
+#exclude, #create {
   margin-top: 20px;
 }
 
