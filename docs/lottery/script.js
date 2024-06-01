@@ -39,24 +39,27 @@ create.onclick = () => {
 
 const createCanvas = (arr) => {
   var canvas = document.createElement("canvas");
-  canvas.width = 410;
-  canvas.height = 290;
+  canvas.width = 360;
+  canvas.height = 260;
   var ctx = canvas.getContext("2d");
   var values = arr;
   var rows = values.length;
   var cols = values[0].length;
-  var cellWidth = 50;
-  var cellHeight = 50;
+  var cellWidth = 40;
+  var cellHeight = 40;
   var rowSpacing = 10; // 每一行之间的间距
   var redBallSpacing = 10; // 红球之间的间距
-  var blueBallSpacing = 20; // 最后一个蓝球离红球的间距
+  var blueBallSpacing = 10; // 最后一个蓝球离红球的间距
+
+  var initialY = 10; // Initial spacing from the top
+  var initialX = 10; // Initial spacing from the left
 
   for (var i = 0; i < rows; i++) {
     var xOffset = 0; // 每行的起始偏移量
     for (var j = 0; j < cols; j++) {
       var value = values[i][j];
-      var x = j * (cellWidth + redBallSpacing) + xOffset;
-      var y = i * (cellHeight + rowSpacing); // 根据间距调整y坐标
+      var x = initialX + j * (cellWidth + redBallSpacing) + xOffset;
+      var y = initialY + i * (cellHeight + rowSpacing); // 根据间距调整y坐标
       ctx.beginPath();
       ctx.arc(
         x + cellWidth / 2,
