@@ -25,38 +25,61 @@ exclude.onclick = () => {
 create.onclick = () => {
   const outputVal = output.value;
   console.log("outputVal", outputVal);
-  const outputValArr = outputVal.split("\n");
+  let outputValArr = outputVal.split("\n");
+
+  outputValArr = outputValArr.map((item) => {
+    const s1 = item.split("-");
+    const s2 = s1[0].split(",");
+    s2.push(s1[1]);
+    return s2;
+  });
   console.log("outputValArr", outputValArr);
   createCanvas(outputValArr);
 };
 
 const createCanvas = (arr) => {
   var canvas = document.createElement("canvas");
-  canvas.width = 400;
-  canvas.height = 200;
-  // document.body.appendChild(canvas);
+  canvas.width = 410;
+  canvas.height = 290;
   var ctx = canvas.getContext("2d");
   var values = arr;
   var rows = values.length;
   var cols = values[0].length;
-  var cellWidth = canvas.width / cols;
-  var cellHeight = canvas.height / rows;
+  var cellWidth = 50;
+  var cellHeight = 50;
+  var rowSpacing = 10; // 每一行之间的间距
+  var redBallSpacing = 10; // 红球之间的间距
+  var blueBallSpacing = 20; // 最后一个蓝球离红球的间距
+
   for (var i = 0; i < rows; i++) {
+    var xOffset = 0; // 每行的起始偏移量
     for (var j = 0; j < cols; j++) {
       var value = values[i][j];
-      var x = j * cellWidth;
-      var y = i * cellHeight;
+      var x = j * (cellWidth + redBallSpacing) + xOffset;
+      var y = i * (cellHeight + rowSpacing); // 根据间距调整y坐标
+      ctx.beginPath();
+      ctx.arc(
+        x + cellWidth / 2,
+        y + cellHeight / 2,
+        Math.min(cellWidth, cellHeight) / 2,
+        0,
+        2 * Math.PI
+      );
       if (j === cols - 1) {
-        ctx.fillStyle = "#4477CE";
+        ctx.fillStyle = "rgb(71, 136, 244)"; // 蓝色球
+        xOffset += blueBallSpacing; // 更新偏移量以留出蓝色球的间距
       } else {
-        ctx.fillStyle = "#DB6B97";
+        ctx.fillStyle = "rgb(250, 78, 78)"; // 红色球
+        xOffset = 0; // 重置偏移量
       }
-      ctx.fillRect(x, y, cellWidth, cellHeight);
+      ctx.fill();
       ctx.fillStyle = "#ffffff";
       ctx.font = "18px hack";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-      ctx.fillText(value.toString(), x + cellWidth / 2, y + cellHeight / 2);
+      value = value.trim();
+      value = value < 10 ? "0" + value : value;
+      ctx.fillText(value.toString(), x + cellWidth / 2, y + cellHeight / 2 + 2);
     }
   }
   var dataURL = canvas.toDataURL("image/png");
