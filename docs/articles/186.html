@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>7 种常用的 JS 代码片段</title>
+    <title>开 1000 个 Web Worker！我的页面能起飞吗？</title>
     <meta charset="utf-8">
     <meta name="description" content="This is a page">
     <meta name="keywords" content="page, sample">
@@ -14,6 +14,10 @@
   <!--<div class="article__wrapper_left">
     <div class="article__wrapper_left-mulu">目录</div>
     <ul class="articles__list"><li class="">
+          <a href="/articles/185.html">
+            7 种常用的 JS 代码片段
+          </a>
+        </li><li class="">
           <a href="/articles/184.html">
             花式 log
           </a>
@@ -49,10 +53,6 @@
           <a href="/articles/176.html">
             VUE3 中利用 canvg 轻松将 SVG 转换成图片并下载
           </a>
-        </li><li class="">
-          <a href="/articles/175.html">
-            JS中数据类型转换、各种运算符规则
-          </a>
         </li></ul>
   </div>-->
   <div class="article__wrapper_sidebar">
@@ -62,131 +62,55 @@
   <div class="article__wrapper">
     <div class="article__wrapper__main">
       <div class="article__wrapper_header">
-        <h1>7 种常用的 JS 代码片段</h1>
-        <span class="articles__home_time">2024/05/25 · YinHao</span>
+        <h1>开 1000 个 Web Worker！我的页面能起飞吗？</h1>
+        <span class="articles__home_time">2024/06/01 · YinHao</span>
       </div>
-      <ol>
-<li>将内容复制到剪贴板</li>
-</ol>
-<pre><code class="language-js">const copyToClipboard = (content) =&gt; {
-  const textarea = document.createElement(&quot;textarea&quot;);
-  textarea.value = content;
-  document.body.appendChild(textarea);
-  textarea.select();
-  document.execCommand(&quot;Copy&quot;);
-  textarea.remove();
-};
-</code></pre>
-<ol start="2">
-<li>使用 URLSearchParams 获取 URL 的搜索参数</li>
-</ol>
-<pre><code class="language-js">const getQueryByName = (name) =&gt; {
-  const query = new URLSearchParams(location.search);
-  return decodeURIComponent(query.get(name));
-};
-// url: https://sunday.com/?name=fatfish&amp;age=100
-const name = getQueryByName(&quot;name&quot;); // fatfish
-const age = getQueryByName(&quot;age&quot;); // 100
-const gender = getQueryByName(&quot;gender&quot;); // null
-</code></pre>
-<ol start="3">
-<li>平滑滚动至页面顶部</li>
-</ol>
-<pre><code class="language-js">const scrollToTop = () =&gt; {
-  const c = document.documentElement.scrollTop || document.body.scrollTop;
-  if (c &gt; 0) {
-    window.requestAnimationFrame(scrollToTop);
-    window.scrollTo(0, c - c / 8);
-  }
-};
-</code></pre>
-<ol start="4">
-<li>获取当前页面滚动距离</li>
-</ol>
-<pre><code class="language-js">const getScrollPosition = (el = window) =&gt; ({
-  x: el.pageXOffset !== undefined ? el.pageXOffset : el.scrollLeft,
-  y: el.pageYOffset !== undefined ? el.pageYOffset : el.scrollTop,
-});
-
-getScrollPosition(); // { x: 0, y: 215 }
-</code></pre>
-<ol start="5">
-<li>判断当前设备是 Andoird 还是 iOS</li>
-</ol>
-<pre><code class="language-js">function getOSType() {
-  let u = navigator.userAgent,
-    app = navigator.appVersion;
-  let isAndroid = u.indexOf(&quot;Android&quot;) &gt; -1 || u.indexOf(&quot;Linux&quot;) &gt; -1;
-  let isIOS = !!u.match(/\(i[^]+( U)? CPU.+Mac OS X/);
-
-  if (isIOS) {
-    return 0;
-  } else if (isAndroid) {
-    return 1;
-  } else {
-    return 2;
-  }
+      <h3>背景</h3>
+<p>最近看到一个很有趣的问题：页面中 Web Worker 数量是不是越多越好？如果设置 1000 个，那岂不是无敌了？</p>
+<p>为此我们先准备一段代码，这段代码是计算一下从 0 累计到 1 亿，需要花费多少时间</p>
+<pre><code class="language-js">const num = 10000000000;
+let sum = 0;
+console.time(&quot;计算时间&quot;);
+for (let i = 1; i &lt; num; i++) {
+  sum += i;
 }
-
-getOSType(); // 0
+console.timeEnd(&quot;计算时间&quot;);
 </code></pre>
-<ol start="6">
-<li>格式化货币</li>
-</ol>
-<pre><code class="language-js">const formatMoney = (money) =&gt; {
-  return money.toLocaleString();
+<p><img src="../assets/images/articles/186/01.png" alt=""></p>
+<p>可以发现需要耗费很久的时间，总共 43s，并且在这段时间内，主线程会被堵塞，后续的代码都执行不了，所以一般这种耗时的操作可以放在 WebWorker 中去分担主线程的工作</p>
+<h3>使用 WebWorker</h3>
+<p>刚刚我们直接在主线程中去做累加的操作，是非常费时的，我们试试在 WebWorker 中去做，我们先准备一个 worker.js</p>
+<pre><code class="language-js">self.onmessage = function (event) {
+  const { start, end } = event.data;
+  let sum = 0;
+  for (let i = start; i &lt;= end; i++) {
+    sum += i;
+  }
+  self.postMessage(sum);
 };
-
-formatMoney(123456789); // '123,456,789'
-formatMoney(123456789.123); // '123,456,789.123'
-formatMoney(123); // '123'
 </code></pre>
-<ol start="7">
-<li>进入和退出全屏</li>
-</ol>
-<pre><code class="language-js">// 进入全屏
-function fullScreen() {
-  let el = document.documentElement;
-  let rfs =
-    el.requestFullScreen ||
-    el.webkitRequestFullScreen ||
-    el.mozRequestFullScreen ||
-    el.msRequestFullScreen;
-  //typeof rfs != &quot;undefined&quot; &amp;&amp; rfs
-  if (rfs) {
-    rfs.call(el);
-  } else if (typeof window.ActiveXObject !== &quot;undefined&quot;) {
-    let wscript = new ActiveXObject(&quot;WScript.Shell&quot;);
-    if (wscript != null) {
-      wscript.SendKeys(&quot;{F11}&quot;);
-    }
-  }
-}
-// 退出全屏
-function exitScreen() {
-  let el = document;
-  let cfs =
-    el.cancelFullScreen ||
-    el.webkitCancelFullScreen ||
-    el.mozCancelFullScreen ||
-    el.exitFullScreen;
-  //typeof cfs != &quot;undefined&quot; &amp;&amp; cfs
-  if (cfs) {
-    cfs.call(el);
-  } else if (typeof window.ActiveXObject !== &quot;undefined&quot;) {
-    let wscript = new ActiveXObject(&quot;WScript.Shell&quot;);
-    if (wscript != null) {
-      wscript.SendKeys(&quot;{F11}&quot;);
-    }
-  }
-}
+<p>并且在 index.js 中去引入并创建 WebWorker 实例，我们先来试试一个实例，耗时多少</p>
+<p><img src="../assets/images/articles/186/02.png" alt=""></p>
+<p>可以发现时间大大缩短！！！只需要 4.9s！！！</p>
+<p>那既然这样的话！！！是不是我们使用更多的 WebWorker 实例去分担工作，耗时就越短呢？</p>
+<p>于是我开始增加 WebWorker 实例的数量</p>
+<pre><code class="language-js">// worker 数量
+const workerCount = 16;
 </code></pre>
+<p>从 1 开始加，发现总耗时确实越来越低了，但是当实例数量超过 16 个后，发现总耗时就没有下降过了！！！</p>
+<p><img src="../assets/images/articles/186/03.png" alt=""></p>
+<p>原因其实很简单，因为线程的并行需要依赖于 CPU 的核数。我查看了一下我电脑的核心数，我的电脑是 16 核的~</p>
+<p><img src="../assets/images/articles/186/04.png" alt=""></p>
+<h3>总结</h3>
+<p>所以总结就是：WebWorker 是越多越好，但是也有上限，上限取决于你 CPU 的 核心数~</p>
+<p>所以你如果想尽量多地使用 WebWorker 来分担工作，可以将数量设置为你的电脑的 CPU 核心数</p>
+<p><img src="../assets/images/articles/186/05.png" alt=""></p>
  
     </div>
   </div>
   <div class="article__wrapper_footer">
-    <a class="article__wrapper_footer-left " href="/articles/184.html"><svg t="1713708729970" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8437" width="48" height="48"><path d="M409.272947 512.57741l403.237243 403.237243a63.349415 63.349415 0 1 1-89.622481 89.622482L274.839224 557.324726a63.349415 63.349415 0 0 1 0-89.494632L722.951633 19.717685a63.349415 63.349415 0 1 1 89.494633 89.622482L409.336872 512.57741z" p-id="8438" fill="currentColor"></path></svg></a>
-    <a class="article__wrapper_footer-right " href="/articles/186.html"><svg t="1713708697355" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8093" width="48" height="48"><path d="M855.123 517.004c0 8.245-3.167 15.51-9.503 21.823L402.999 981.47c-6.336 6.336-13.625 9.477-21.869 9.477s-15.51-3.142-21.845-9.477L311.8 933.96c-6.336-6.336-9.502-13.6-9.502-21.845 0-8.222 3.167-15.51 9.502-21.845l373.29-373.29-373.293-373.267c-6.336-6.336-9.502-13.6-9.502-21.845s3.167-15.533 9.503-21.869l47.484-47.484c6.336-6.336 13.6-9.502 21.845-9.502s15.533 3.167 21.869 9.503l442.621 442.622c6.334 6.334 9.503 13.625 9.503 21.869z" fill="currentColor" p-id="8094"></path></svg></a>
+    <a class="article__wrapper_footer-left " href="/articles/185.html"><svg t="1713708729970" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8437" width="48" height="48"><path d="M409.272947 512.57741l403.237243 403.237243a63.349415 63.349415 0 1 1-89.622481 89.622482L274.839224 557.324726a63.349415 63.349415 0 0 1 0-89.494632L722.951633 19.717685a63.349415 63.349415 0 1 1 89.494633 89.622482L409.336872 512.57741z" p-id="8438" fill="currentColor"></path></svg></a>
+    <a class="article__wrapper_footer-right " href="/articles/187.html"><svg t="1713708697355" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8093" width="48" height="48"><path d="M855.123 517.004c0 8.245-3.167 15.51-9.503 21.823L402.999 981.47c-6.336 6.336-13.625 9.477-21.869 9.477s-15.51-3.142-21.845-9.477L311.8 933.96c-6.336-6.336-9.502-13.6-9.502-21.845 0-8.222 3.167-15.51 9.502-21.845l373.29-373.29-373.293-373.267c-6.336-6.336-9.502-13.6-9.502-21.845s3.167-15.533 9.503-21.869l47.484-47.484c6.336-6.336 13.6-9.502 21.845-9.502s15.533 3.167 21.869 9.503l442.621 442.622c6.334 6.334 9.503 13.625 9.503 21.869z" fill="currentColor" p-id="8094"></path></svg></a>
   </div>
   <a class="article__wrapper_index" href="/articles/"><svg t="1713708857338" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9656" width="48" height="48"><path d="M549.61981 133.022476l319.683047 203.605334A70.851048 70.851048 0 0 1 902.095238 396.361143v434.883047A70.89981 70.89981 0 0 1 831.146667 902.095238h-282.819048l0.024381-218.112h-71.826286v218.087619L192.853333 902.095238A70.89981 70.89981 0 0 1 121.904762 831.24419V390.241524c0-24.527238 12.678095-47.299048 33.54819-60.220953l318.659048-197.485714a70.972952 70.972952 0 0 1 75.50781 0.487619zM828.952381 828.952381V397.214476L511.488 195.047619 195.047619 391.119238V828.952381h211.309714v-216.551619h212.187429v216.527238L828.952381 828.952381z" p-id="9657" fill="#707070"></path></svg></div>
   <script src="../assets/js/prism.min.js"></script>

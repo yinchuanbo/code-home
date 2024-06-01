@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>分享 10 个功能强大的单行 CSS 布局技巧</title>
+    <meta charset="utf-8">
+    <meta name="description" content="This is a page">
+    <meta name="keywords" content="page, sample">
+    <meta name="author" content="None">
+    <link rel="icon" href="../assets/images/code.svg" sizes="32x32" />
+    <link rel="stylesheet" href="../assets/css/prism-okaidia.min.css">
+    <link rel="stylesheet" href="../assets/css/articles.css">
+</head>
+<body>
+  <!--<div class="article__wrapper_left">
+    <div class="article__wrapper_left-mulu">目录</div>
+    <ul class="articles__list"><li class="">
+          <a href="/articles/186.html">
+            开 1000 个 Web Worker！我的页面能起飞吗？
+          </a>
+        </li><li class="">
+          <a href="/articles/185.html">
+            7 种常用的 JS 代码片段
+          </a>
+        </li><li class="">
+          <a href="/articles/184.html">
+            花式 log
+          </a>
+        </li><li class="">
+          <a href="/articles/183.html">
+            VSCode 深度配置 - settings.json
+          </a>
+        </li><li class="">
+          <a href="/articles/182.html">
+            八个前端装饰器函数~
+          </a>
+        </li><li class="">
+          <a href="/articles/181.html">
+            N 个值得一看的前端代码片段
+          </a>
+        </li><li class="">
+          <a href="/articles/180.html">
+            AI+前端-实现图片识别功能
+          </a>
+        </li><li class="">
+          <a href="/articles/179.html">
+            CSS outline 实现图片内描边
+          </a>
+        </li><li class="">
+          <a href="/articles/178.html">
+            将二进制图片格式数据展示在页面中
+          </a>
+        </li><li class="">
+          <a href="/articles/177.html">
+            写一个简版前端监控 SDK
+          </a>
+        </li></ul>
+  </div>-->
+  <div class="article__wrapper_sidebar">
+    <a href="/articles/"><svg t="1714001835347" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4298" width="48" height="48"><path d="M147.904 304.128l301.866667-179.541333a128 128 0 0 1 131.712 0.512l295.466666 178.88A128 128 0 0 1 938.666667 413.482667V810.666667a128 128 0 0 1-128 128H213.333333a128 128 0 0 1-128-128V414.144a128 128 0 0 1 62.570667-110.016z m43.626667 73.344A42.666667 42.666667 0 0 0 170.666667 414.144V810.666667a42.666667 42.666667 0 0 0 42.666666 42.666666h597.333334a42.666667 42.666667 0 0 0 42.666666-42.666666V413.482667a42.666667 42.666667 0 0 0-20.565333-36.501334l-295.466667-178.88a42.666667 42.666667 0 0 0-43.925333-0.170666l-301.866667 179.541333z" fill="currentColor" p-id="4299"></path><path d="M405.333333 469.333333h213.333334a42.666667 42.666667 0 1 1 0 85.333334H405.333333a42.666667 42.666667 0 1 1 0-85.333334z m0 85.333334a42.666667 42.666667 0 1 0 0-85.333334h213.333334a42.666667 42.666667 0 1 0 0 85.333334H405.333333z" fill="currentColor" p-id="4300"></path></svg></a>
+    <a href="/tools/"><svg t="1714002003458" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6911" width="48" height="48"><path d="M817.87 556.31h-63.58v-66.24A42.27 42.27 0 0 0 712 447.8h-84.81a42.27 42.27 0 0 0-42.27 42.27v66.24H436.57v-66.24a42.27 42.27 0 0 0-42.27-42.27h-84.83a42.27 42.27 0 0 0-42.27 42.27v66.24h-61.83A22.39 22.39 0 0 0 183 578.7a22.39 22.39 0 0 0 22.39 22.39h61.81v65.55a42.27 42.27 0 0 0 42.27 42.27h84.83a42.27 42.27 0 0 0 42.27-42.27v-65.55h148.36v65.55a42.27 42.27 0 0 0 42.27 42.27H712a42.27 42.27 0 0 0 42.27-42.27v-65.55h63.58a22.39 22.39 0 0 0 22.39-22.39 22.39 22.39 0 0 0-22.37-22.39z m-438.64 95.26h-54.69V505.14h54.69z m317.72 0h-54.69V505.14H697z" p-id="6912" fill="currentColor"></path><path d="M823 202.58h-90.81v-63.09a71.88 71.88 0 0 0-71.88-71.88H363.19a71.88 71.88 0 0 0-71.88 71.88v63.08h-90.12A137.17 137.17 0 0 0 64 339.75v479a137.17 137.17 0 0 0 137.19 137.14H823a137.17 137.17 0 0 0 137.19-137.17v-479A137.17 137.17 0 0 0 823 202.58z m-474.36-54.1A23.52 23.52 0 0 1 372.17 125h279.16a23.52 23.52 0 0 1 23.52 23.52v54.1h-326.2z m554.23 673.31a76.76 76.76 0 0 1-76.76 76.76h-628a76.76 76.76 0 0 1-76.76-76.76V336.67a76.76 76.76 0 0 1 76.76-76.76h628a76.76 76.76 0 0 1 76.76 76.76z" p-id="6913" fill="currentColor"></path></svg></a>
+  </div>
+  <div class="article__wrapper">
+    <div class="article__wrapper__main">
+      <div class="article__wrapper_header">
+        <h1>分享 10 个功能强大的单行 CSS 布局技巧</h1>
+        <span class="articles__home_time">2024/06/01 · YinHao</span>
+      </div>
+      <h2>01. Super center: place-items: center</h2>
+<p><img src="../assets/images/articles/187/01.gif" alt=""></p>
+<p>对于我们的第一个“单行”布局，让我们解决 CSS 中最大的谜团：居中。我想让你知道，使用 <code>place-items: center</code> 比你想象的更容易。</p>
+<p>首先，指定 grid 作为显示方式，然后，在同一个元素上写上 <code>place-items: center</code> 。<code>place-items</code> 是同时设置 <code>align-items</code> 和 <code>justify-items</code> 的快速方法。通过将其设置为居中，<code>align-items</code> 和 <code>justify-items</code> 都将设置为居中。</p>
+<pre><code class="language-css">.parent {
+  display: grid;
+  place-items: center;
+}
+</code></pre>
+<p>这使得内容可以在父级中完美居中，无论内部大小如何。</p>
+<h2>02.解构布局：<code>flex: &lt;grow&gt; &lt;shrink&gt; &lt;baseWidth&gt;</code></h2>
+<p><img src="../assets/images/articles/187/02.gif" alt=""></p>
+<p>这是营销网站的常见布局，例如，可能有一行 3 个项目，通常带有图像、标题，然后是一些描述产品某些功能的文本。在移动设备上，我们希望它们能够很好地堆叠并随着屏幕尺寸的增加而缩放。</p>
+<p>通过使用 Flexbox 来实现这种效果，当屏幕尺寸变化时，你不需要使用媒体查询来调整这些元素的位置。</p>
+<p>flex 的缩写：<code>flex: &lt;flex-grow&gt; &lt;flex-shrink&gt; &lt;flex-basis&gt;</code> 。</p>
+<p>因此，如果您希望框填充到其 <code>&lt;flex-basis&gt;</code> 大小，缩小到较小的尺寸，但不拉伸以填充任何额外空间，请编写：<code>flex: 0 1 &lt;flex-basis&gt;</code> 。在这种情况下，你的 <code>&lt;flex-basis&gt;</code> 是 150px，所以它应该看起来像这样：</p>
+<pre><code class="language-css">.parent {
+  display: flex;
+}
+.child {
+  flex: 0 1 150px;
+}
+</code></pre>
+<p>如果您确实希望框在换行到下一行时拉伸并填充空间，请将 <code>&lt;flex-grow&gt;</code> 设置为 1，因此，它应该如下所示：</p>
+<pre><code class="language-css">.parent {
+  display: flex;
+}
+.child {
+  flex: 1 1 150px;
+}
+</code></pre>
+<p><img src="../assets/images/articles/187/03.gif" alt=""></p>
+<p>现在，当您增大或减小屏幕尺寸时，这些弹性项目会缩小和增大。</p>
+<h2>03. 侧边栏布局：<code>grid-template-columns: minmax( &lt;min&gt;, &lt;max&gt;) …)</code></h2>
+<p><img src="../assets/images/articles/187/04.gif" alt=""></p>
+<p>该演示利用 minmax 函数进行网格布局。我们在这里所做的是将最小侧边栏尺寸设置为 150px，但在较大的屏幕上，让它拉伸 25%。侧边栏将始终占据其父级水平空间的 25%，直到 25% 变得小于 150px。</p>
+<p>添加以下值作为 <code>grid-template-columns</code> 的值：<code>minmax(150px, 25%) 1fr</code> 。第一列中的项目（在本例中为侧边栏）的 minmax 为 150px（占 25%），第二列中的项目（此处为主要部分）作为单个 1fr 轨道占据剩余空间。</p>
+<pre><code class="language-css">.parent {
+  display: grid;
+  grid-template-columns: minmax(150px, 25%) 1fr;
+}
+</code></pre>
+<h2>04.煎饼堆栈布局：<code>grid-template-rows: auto 1fr auto</code></h2>
+<p><img src="../assets/images/articles/187/05.gif" alt=""></p>
+<p>与 Deconstructed Pancake 不同，此示例在屏幕尺寸更改时不包含其子元素。</p>
+<p>这种布局通常称为粘性页脚，通常用于网站和应用程序、跨多个移动应用程序（页脚通常是工具栏）和网站（单页应用程序通常使用这种全局布局）。</p>
+<p>将 <code>display: grid</code> 添加到组件将为您提供单列网格，但主要区域的高度仅与页脚下方的内容一样高。</p>
+<p>要使页脚粘在底部，请添加：</p>
+<pre><code class="language-css">.parent {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+</code></pre>
+<p>1fr 页眉和页脚内容设置为自动采用其子级的大小并将剩余空间（1fr）应用于主区域，而自动调整大小的行将采用其子级最小内容的大小，以便内容大小增加，行自身会调整。</p>
+<h2>05.经典的圣杯布局：<code>grid-template: auto 1fr auto / auto 1fr auto</code></h2>
+<p><img src="../assets/images/articles/187/06.gif" alt=""></p>
+<p>对于经典的圣杯布局，有页眉、页脚、左侧边栏、右侧边栏和主要内容。与之前的布局类似，但现在带有侧边栏！</p>
+<p>要在一行代码中编写整个网格，请使用 grid-template 属性。这允许您同时设置行和列。</p>
+<p>属性和值对是：<code>grid-template: auto 1fr auto / auto 1fr auto</code> 。第一个和第二个空格分隔列表之间的斜杠是行和列之间的分隔符。</p>
+<pre><code class="language-css">.parent {
+  display: grid;
+  grid-template: auto 1fr auto / auto 1fr auto;
+}
+</code></pre>
+<p>与前面的示例一样，页眉和页脚具有自动调整大小的内容，这里左侧边栏和右侧边栏根据其子项的固有大小自动调整大小。但是，这次尺寸是水平（宽度）而不是垂直（高度）。</p>
+<h2>06. 12 跨网格：<code>grid-template-columns：repeat(12, 1fr)</code></h2>
+<p><img src="../assets/images/articles/187/07.gif" alt=""></p>
+<p>接下来我们有另一个经典的布局：12 跨网格。您可以使用 <code>repeat()</code> 函数在 CSS 中快速编写网格。使用重复 <code>(12, 1fr)</code> 在网格模板列上，每个 1fr 将为您提供 12 列。</p>
+<pre><code class="language-css">.parent {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+}
+.child-span-12 {
+  grid-column: 1 / 13;
+}
+</code></pre>
+<p>现在您已经有了 12 列的轨道网格，我们可以将子项放置在网格上。一种方法是使用网格线来放置它们。例如，<code>grid-column: 1 / 13</code> 将从第一行到最后一行（第 13 行）跨越 12 列。网格列：<code>1 / 5</code> 将跨越前四列。</p>
+<p><img src="../assets/images/articles/187/08.gif" alt=""></p>
+<p>另一种方法是使用 span 关键字。使用跨度，您可以设置一条起始线，然后，设置从该起始点跨越的列数。</p>
+<p>在这种情况下， <code>grid-column: 1 / span 12</code> 将相当于 <code>grid-column: 1 / 13</code> ，而 <code>grid-column: 2 / span 6</code> 将相当于 <code>grid-column: 2 / 8</code> 。</p>
+<pre><code class="language-css">.child-span-12 {
+  grid-column: 1 / span 12;
+}
+</code></pre>
+<h2>07. RAM (Repeat, Auto, MinMax): <code>grid-template-columns(auto-fit, minmax( &lt;base&gt;, 1fr))</code></h2>
+<p><img src="../assets/images/articles/187/09.gif" alt=""></p>
+<p>对于第七个示例，结合您已经知道的一些概念来创建具有自动放置和灵活子项的响应式布局。漂亮又整洁。</p>
+<p>这里要记住的关键点是 repeat、<code>auto-(fit|fill)</code> 和 <code>minmax()</code>，记住它们的缩写 RAM。</p>
+<p>简而言之，应该是这样的：</p>
+<pre><code class="language-css">.parent {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+</code></pre>
+<p>您再次使用重复，但这次使用 <code>auto-fit</code> 关键字而不是显式数值。这会自动放置这些子元素。</p>
+<p>这些子元素的基本最小尺寸是 150px，最大尺寸是 1fr，这意味着在较小的屏幕上它们将占据整个 1fr 宽度，当它们达到 150px 宽度时，它们将开始流到同一行。</p>
+<p>使用自动调整功能，当水平尺寸超过 150 像素时，框将拉伸以填充整个剩余空间。但是，如果将其更改为自动填充，则当超过 minmax 函数中的基本尺寸时，它们将不会拉伸：</p>
+<p><img src="../assets/images/articles/187/10.gif" alt=""></p>
+<pre><code class="language-css">.parent {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+}
+</code></pre>
+<h2>08. 排列和布局：<code>justify-content: space- Between</code></h2>
+<p><img src="../assets/images/articles/187/11.gif" alt=""></p>
+<p>对于下一个布局，这里主要要注意的是 <code>justify-content: space- Between</code> ，它将第一个和最后一个子元素放置在其边界框的边缘，剩余空间均匀分布在元素之间。</p>
+<p>对于这些卡片，它们被放置在 Flexbox 显示模式下，使用 <code>flex-direction:column</code> 将方向设置为 column。</p>
+<p>这会将标题、描述和图像块放置在父卡内的垂直列中。然后，应用 <code>justify-content: space- Between</code> 将第一个（标题）和最后一个（图像块）元素锚定到弹性盒的边缘，它们之间的描述性文本与每个端点之间的间距相等。</p>
+<pre><code class="language-css">.parent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+</code></pre>
+<h2>09. Keep my style:<code> clamp( &lt;min&gt;, &lt;actual&gt;, &lt;max&gt;)</code></h2>
+<p><img src="../assets/images/articles/187/12.gif" alt=""></p>
+<p>在这里，我们介绍一些仅被少数浏览器支持，但对布局和响应式 UI 设计具有非常令人兴奋的效果的技术。在本演示中，您将使用钳制工具来设置宽度，如下所示：<code>width:clamp(&lt;min&gt;,&lt;actual&gt;,&lt;max&gt;)</code>。</p>
+<p>这将设置绝对最小和最大尺寸以及实际尺寸。有了这些值，它应该看起来像这样：</p>
+<pre><code class="language-css">.parent {
+  width: clamp(23ch, 60%, 46ch);
+}
+</code></pre>
+<p>这里的最小大小是 23ch 或 23 个字符单元，最大大小是 46ch 或 46 个字符。字符宽度单位基于元素的字体大小（特别是 0 字形的宽度）。“实际”大小是 50%，表示该元素父元素宽度的 50%。</p>
+<p>在这里，clamp() 函数的作用是保持元素 50% 宽，直到 50% 大于 46ch（在较宽的视口上）或小于 23ch（在较小的视口上）。</p>
+<p>您可以看到，当我拉伸和收缩父尺寸时，该卡的宽度增加到其最大限制点并减少到其最小限制点。</p>
+<p>然后它会保持在父级的中心，因为我们应用了其他属性来使其居中。这样可以实现更清晰的布局，因为文本不会太宽（超过 46ch）或太窄（小于 23ch）。</p>
+<p>这也是实现响应式排版的好方法。例如，您可以编写：<code>font-size: Clip(1.5rem, 20vw, 3rem)</code> 。在这种情况下，标题的字体大小将始终保持在 1.5rem 和 3rem 之间，但会根据实际的 20vw 值增大和缩小以适应视口的宽度。</p>
+<p>这是一种很好的技术，可以确保最小和最大尺寸值的可读性，但请记住，并非所有现代浏览器都支持它，因此请确保您有后备措施并进行测试。</p>
+<h2>10. 保持宽高比：<code>aspect-ratio: &lt;width&gt; / &lt;height&gt;</code></h2>
+<p><img src="../assets/images/articles/187/13.gif" alt=""></p>
+<p>最后一个布局工具是最具实验性的。它最近在 Chromium 84 中被引入到 Chrome Canary 中，Firefox 正在积极努力实现这一目标，但目前还没有任何稳定版本的浏览器。</p>
+<p>不过，我确实想提一下这一点，因为这是一个经常出现的问题。这只是保持图像的纵横比。</p>
+<p>使用纵横比属性，当我调整卡片大小时，绿色视觉块保持 16 x 9 纵横比。我们通过纵横比维持这个纵横比：<code>16 / 9</code>。</p>
+<pre><code class="language-css">.video {
+  aspect-ratio: 16 / 9;
+}
+</code></pre>
+<p>要在没有此属性的情况下保持 <code>16 x 9</code> 的宽高比，您需要使用 padding-top hack 并为其指定 56.25% 的填充来设置顶部与宽度的比率。</p>
+<p>我们很快就会拥有避免黑客攻击和计算百分比的需要的属性。</p>
+<p>您可以使用 <code>1 / 1</code> 的比例来制作正方形，使用 <code>2 / 1</code> 的比例来制作 <code>2:1</code> 的比例。可以设置任意图像缩放比例。</p>
+<pre><code class="language-css">.square {
+  aspect-ratio: 1 / 1;
+}
+</code></pre>
+<p>虽然此功能仍在开发中，但值得了解，因为它解决了许多开发人员面临的冲突，而且我自己也遇到过很多次，特别是在视频和 iframe 方面。</p>
+ 
+    </div>
+  </div>
+  <div class="article__wrapper_footer">
+    <a class="article__wrapper_footer-left " href="/articles/186.html"><svg t="1713708729970" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8437" width="48" height="48"><path d="M409.272947 512.57741l403.237243 403.237243a63.349415 63.349415 0 1 1-89.622481 89.622482L274.839224 557.324726a63.349415 63.349415 0 0 1 0-89.494632L722.951633 19.717685a63.349415 63.349415 0 1 1 89.494633 89.622482L409.336872 512.57741z" p-id="8438" fill="currentColor"></path></svg></a>
+    <a class="article__wrapper_footer-right " href="/articles/188.html"><svg t="1713708697355" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="8093" width="48" height="48"><path d="M855.123 517.004c0 8.245-3.167 15.51-9.503 21.823L402.999 981.47c-6.336 6.336-13.625 9.477-21.869 9.477s-15.51-3.142-21.845-9.477L311.8 933.96c-6.336-6.336-9.502-13.6-9.502-21.845 0-8.222 3.167-15.51 9.502-21.845l373.29-373.29-373.293-373.267c-6.336-6.336-9.502-13.6-9.502-21.845s3.167-15.533 9.503-21.869l47.484-47.484c6.336-6.336 13.6-9.502 21.845-9.502s15.533 3.167 21.869 9.503l442.621 442.622c6.334 6.334 9.503 13.625 9.503 21.869z" fill="currentColor" p-id="8094"></path></svg></a>
+  </div>
+  <a class="article__wrapper_index" href="/articles/"><svg t="1713708857338" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="9656" width="48" height="48"><path d="M549.61981 133.022476l319.683047 203.605334A70.851048 70.851048 0 0 1 902.095238 396.361143v434.883047A70.89981 70.89981 0 0 1 831.146667 902.095238h-282.819048l0.024381-218.112h-71.826286v218.087619L192.853333 902.095238A70.89981 70.89981 0 0 1 121.904762 831.24419V390.241524c0-24.527238 12.678095-47.299048 33.54819-60.220953l318.659048-197.485714a70.972952 70.972952 0 0 1 75.50781 0.487619zM828.952381 828.952381V397.214476L511.488 195.047619 195.047619 391.119238V828.952381h211.309714v-216.551619h212.187429v216.527238L828.952381 828.952381z" p-id="9657" fill="#707070"></path></svg></div>
+  <script src="../assets/js/prism.min.js"></script>
+  <script src="../assets/js/prism-javascript.min.js"></script>
+  <script src="../assets/js/articles-detail.js"></script>
+</body>
+</html>
+    
